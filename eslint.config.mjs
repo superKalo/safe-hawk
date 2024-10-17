@@ -40,7 +40,6 @@ export default [
                     max: 1
                 }
             ],
-            'no-unused-vars': 'on',
         }
     }
 ]
