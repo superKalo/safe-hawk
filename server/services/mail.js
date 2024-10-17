@@ -18,19 +18,18 @@ const getProtectedData = async (address) => {
     return result.find(({ name }) => name === 'email')?.address || null
 }
 
-const sendMail = async (address) => {
+const sendMail = async (address, { subject, content }) => {
+    if (!subject || !content) throw new Error('missing email subject or content')
     const protectedDataAddress = await getProtectedData(address)
 
     if (!protectedDataAddress) throw new Error('no-email')
 
     return await web3mail.sendEmail({
         protectedData: protectedDataAddress,
-        emailSubject: 'Test email',
-        emailContent: 'My email content',
-        senderName: 'Wackamole',
-        workerpoolAddressOrEns: 'prod-v8-learn.main.pools.iexec.eth',
-        workerpoolMaxPrice: 10,
-        dataMaxPrice: 10
+        emailSubject: subject,
+        emailContent: content,
+        senderName: 'SafeHawk',
+        workerpoolAddressOrEns: 'prod-v8-learn.main.pools.iexec.eth'
     })
 }
 
