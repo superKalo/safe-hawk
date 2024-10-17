@@ -11,62 +11,66 @@ $font-size-small-subtitle: 0.775rem;
 $font-size-normal: 1rem;
 $font-size-small: 0.625rem;
 
+$primary-color: #363942;
+$secondary-color: #b0b0b0;
+$background-color: #ffffff;
+$section-background-color: #fbfbff;
+$item-color: #f8f6ff;
+$overlay-color: rgba(0, 0, 0, 0.05);
+$active-background-color: rgba(255, 255, 255, 0.5);
+$primary-accent-color: #645af1;
+$secondary-accent-color: #1155d9;
+$background-gradient: linear-gradient(
+  318.22deg,
+  #1155d9 11.14%,
+  #1c55dc 16.92%,
+  #5058eb 43.34%,
+  #655af1 55.72%,
+  #7b5bf5 73.88%
+);
+$danger-color: #d52349;
+$confirm-color: rgb(14, 202, 130);
+$global-spacing: 1.313rem;
+$scroll-bar-size: 6px;
+$route-box-shadow: -6px 0px 10px -9px rgba(0, 0, 0, 1);
+
 :root {
-    --border-radius: #{$border-radius};
-    --font-weight-bold: #{$font-weight-bold};
-    --font-weight-mid: #{$font-weight-mid};
-    --font-weight-semi-mid: #{$font-weight-semi-mid};
-    --font-weight-normal: #{$font-weight-normal};
-    --font-size-title: #{$font-size-title};
-    --font-size-subtitle: #{$font-size-subtitle};
-    --font-size-small-subtitle: #{$font-size-small-subtitle};
-    --font-size-normal: #{$font-size-normal};
-    --font-size-small: #{$font-size-small};
-    --primary-color: #363942;
-    --secondary-color: #b0b0b0;
-    --background-color: #ffffff;
-    --section-background-color: #fbfbff;
-    --item-color: #f8f6ff;
-    --overlay-color: rgba(0, 0, 0, 0.05);
-    --active-background-color: rgba(255, 255, 255, 0.5);
-    --primary-accent-color: #645af1;
-    --secondary-accent-color: #1155d9;
-    --background-gradient: linear-gradient(
-        318.22deg,
-        #1155d9 11.14%,
-        #1c55dc 16.92%,
-        #5058eb 43.34%,
-        #655af1 55.72%,
-        #7b5bf5 73.88%
-    );
-    --danger-color: #d52349;
-    --confirm-color: rgb(14, 202, 130);
-    --global-spacing: 1.313rem;
-    --label-upcoming-color: rgba(141, 176, 255, 1);
-    --label-upcoming-background: rgba(117, 160, 255, 0.3);
-    --label-active-color: rgba(105, 208, 171, 1);
-    --label-active-background: rgba(89, 228, 162, 0.3);
-    --label-disabled-color: rgba(224, 154, 133, 1);
-    --label-disabled-background: rgba(255, 184, 163, 0.3);
-    --navbar-width: 7rem;
-    --navbar-height: 4.375rem;
-    --user-panel-width: 25rem;
-    --sm-container-width: 420px;
-    --scroll-bar-size: 6px;
-    --route-box-shadow: -6px 0px 10px -9px rgba(0, 0, 0, 1);
+    --border-radius: $border-radius;
+    --font-weight-bold: $font-weight-bold;
+    --font-weight-mid: $font-weight-mid;
+    --font-weight-semi-mid: $font-weight-semi-mid;
+    --font-weight-normal: $font-weight-normal;
+    --font-size-title: $font-size-title;
+    --font-size-subtitle: $font-size-subtitle;
+    --font-size-small-subtitle: $font-size-small-subtitle;
+    --font-size-normal: $font-size-normal;
+    --font-size-small: $font-size-small;
+    --primary-color: $primary-color;
+    --secondary-color: $secondary-color;
+    --background-color: $background-color;
+    --section-background-color: $section-background-color;
+    --item-color: $item-color;
+    --overlay-color: $overlay-color;
+    --active-background-color: $active-background-color;
+    --primary-accent-color: $primary-accent-color;
+    --secondary-accent-color: $secondary-accent-color;
+    --background-gradient: $background-gradient;
+    --danger-color: $danger-color;
+    --confirm-color: $confirm-color;
+    --global-spacing: $global-spacing;
+    --scroll-bar-size: $scroll-bar-size;
+    --route-box-shadow: $route-box-shadow;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --primary-color: #e6e6e6;
-        --secondary-color: #b0b0b0;
+        --secondary-color: $secondary-color;
         --background-color: #141414;
         --section-background-color: #171717;
         --item-color: #1a1a1a;
         --overlay-color: rgba(255, 255, 255, 0.05);
         --active-background-color: rgba(255, 255, 255, 0.01);
-        --label-background-color: #fef6d81a;
-        --route-box-shadow: -6px 0px 10px -9px rgba(255, 255, 255, 1);
     }
 }
 
