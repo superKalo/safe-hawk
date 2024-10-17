@@ -1,0 +1,8 @@
+.wrapper {
+    background-color: $tertiaryBackground;
+    padding: 3rem 1rem;
+
+    .container {
+        @include container;
+    }
+}

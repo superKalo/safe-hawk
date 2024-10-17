@@ -10,69 +10,19 @@ $font-size-subtitle: 1.25rem;
 $font-size-small-subtitle: 0.775rem;
 $font-size-normal: 1rem;
 $font-size-small: 0.625rem;
-
-$primary-color: #363942;
-$secondary-color: #b0b0b0;
-$background-color: #ffffff;
-$section-background-color: #fbfbff;
-$item-color: #f8f6ff;
-$overlay-color: rgba(0, 0, 0, 0.05);
-$active-background-color: rgba(255, 255, 255, 0.5);
-$primary-accent-color: #645af1;
-$secondary-accent-color: #1155d9;
-$background-gradient: linear-gradient(
-  318.22deg,
-  #1155d9 11.14%,
-  #1c55dc 16.92%,
-  #5058eb 43.34%,
-  #655af1 55.72%,
-  #7b5bf5 73.88%
-);
-$danger-color: #d52349;
-$confirm-color: rgb(14, 202, 130);
 $global-spacing: 1.313rem;
-$scroll-bar-size: 6px;
-$route-box-shadow: -6px 0px 10px -9px rgba(0, 0, 0, 1);
+$scroll-bar-size: 0.375rem;
+$route-box-shadow: -0.375rem 0rem 0.625rem -0.5625rem rgba(0, 0, 0, 1);
 
-:root {
-    --border-radius: $border-radius;
-    --font-weight-bold: $font-weight-bold;
-    --font-weight-mid: $font-weight-mid;
-    --font-weight-semi-mid: $font-weight-semi-mid;
-    --font-weight-normal: $font-weight-normal;
-    --font-size-title: $font-size-title;
-    --font-size-subtitle: $font-size-subtitle;
-    --font-size-small-subtitle: $font-size-small-subtitle;
-    --font-size-normal: $font-size-normal;
-    --font-size-small: $font-size-small;
-    --primary-color: $primary-color;
-    --secondary-color: $secondary-color;
-    --background-color: $background-color;
-    --section-background-color: $section-background-color;
-    --item-color: $item-color;
-    --overlay-color: $overlay-color;
-    --active-background-color: $active-background-color;
-    --primary-accent-color: $primary-accent-color;
-    --secondary-accent-color: $secondary-accent-color;
-    --background-gradient: $background-gradient;
-    --danger-color: $danger-color;
-    --confirm-color: $confirm-color;
-    --global-spacing: $global-spacing;
-    --scroll-bar-size: $scroll-bar-size;
-    --route-box-shadow: $route-box-shadow;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-color: #e6e6e6;
-        --secondary-color: $secondary-color;
-        --background-color: #141414;
-        --section-background-color: #171717;
-        --item-color: #1a1a1a;
-        --overlay-color: rgba(255, 255, 255, 0.05);
-        --active-background-color: rgba(255, 255, 255, 0.01);
-    }
-}
+// Colors
+$primaryBackground: #faf8fc;
+$secondaryBackground: #f5f0fa;
+$tertiaryBackground: #1f102f;
+$primaryBorder: #7a6095;
+$secondaryBorder: #ebe2f5;
+$primaryText: #20102f;
+$secondaryText: #523e65;
+$primary: #9639f3;
 
 * {
     margin: 0;
@@ -81,4 +31,10 @@ $route-box-shadow: -6px 0px 10px -9px rgba(0, 0, 0, 1);
     -webkit-tap-highlight-color: transparent;
     scrollbar-width: thin;
     scrollbar-color: var(--overlay-color) transparent;
+}
+
+@mixin container {
+    max-width: 75rem;
+    width: 100%;
+    margin: 0 auto;
 }
