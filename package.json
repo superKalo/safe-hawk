@@ -2,30 +2,45 @@
     "name": "eth-sofia",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
     "dependencies": {
+        "@iexec/dataprotector": "^2.0.0-beta.10",
+        "@iexec/web3mail": "^1.0.4",
         "@radix-ui/themes": "^3.1.4",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^13.0.0",
         "@testing-library/user-event": "^13.2.1",
         "@types/jest": "^27.0.1",
         "@types/node": "^16.7.13",
-        "@types/react": "^18.3.11",
-        "@types/react-dom": "^18.3.1",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
         "ethers": "^6.13.4",
+        "express": "^4.21.1",
+        "graphql": "^16.9.0",
+        "node-cron": "^3.0.3",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-router": "^6.27.0",
         "react-router-dom": "^6.27.0",
         "react-scripts": "5.0.1",
         "sass": "^1.80.1",
-        "typescript": "^4.4.2",
+        "typescript": "^5.6.3",
+        "undici": "^6.20.1",
         "web-vitals": "^2.1.0"
     },
     "scripts": {
         "start": "craco start",
         "build": "craco build",
         "test": "craco test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "start-server:dev": "nodemon server/index.js"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest",
+            "prettier"
+        ]
     },
     "browserslist": {
         "production": [
@@ -40,6 +55,8 @@
         ]
     },
     "devDependencies": {
+        "eslint-config-prettier": "^9.1.0",
+        "nodemon": "^3.1.7",
         "@craco/craco": "^7.1.0",
         "@eslint/js": "^9.12.0",
         "eslint": "^9.12.0",
