@@ -62,41 +62,41 @@ thead,
 tr,
 th,
 td {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-	color: inherit;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    color: inherit;
 }
 
 /* Remove default list styles */
 ol,
 ul {
-	list-style: none;
+    list-style: none;
 }
 
 /* Remove default blockquote styles */
 blockquote,
 q {
-	quotes: none;
+    quotes: none;
 }
 
 /* Remove default table spacing */
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 button {
-	background-color: transparent;
-	border: none;
-	outline: none;
-	padding: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
 }
 
 a,
 button {
-	cursor: pointer;
+    cursor: pointer;
 }
