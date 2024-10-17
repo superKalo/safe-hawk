@@ -2,8 +2,8 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import { Theme } from '@radix-ui/themes'
-import './styles/global.scss'
 import '@radix-ui/themes/styles.css'
+import '@/styles/global.scss'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 

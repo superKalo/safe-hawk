@@ -40,7 +40,7 @@ export default [
                     max: 1
                 }
             ],
-            '@typescript-eslint/no-unused-expressions': 'off'
+            'no-unused-vars': 'on',
         }
     }
 ]
