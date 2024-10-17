@@ -21,8 +21,8 @@ const getAAVEUserContractDataFormatted = async (address, provider) => {
             parseFloat(formatUnits(accountData.availableBorrowsETH, 8)),
             'price'
         ),
-        currentLiquidationThreshold: `%${Number(accountData.currentLiquidationThreshold) / 100}`,
-        ltv: `%${Number(accountData.ltv) / 100}`,
+        currentLiquidationThreshold: `${Number(accountData.currentLiquidationThreshold) / 100}%`,
+        ltv: `${Number(accountData.ltv) / 100}%`,
         healthFactor: formatDecimals(parseFloat(formatUnits(accountData.healthFactor, 18)))
     }
 }

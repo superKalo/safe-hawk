@@ -10,7 +10,6 @@ const Home = () => {
     })
     useEffect(() => {
         ;(async () => {
-            console.log(account, aaveData)
             if (account && !aaveData.data && !aaveData.error) {
                 const userData = await getAAVEUserContractDataFormatted(account, provider)
                 setAaveData({ data: userData, error: null })
