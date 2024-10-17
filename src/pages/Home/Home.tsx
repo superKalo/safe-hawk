@@ -1,4 +1,4 @@
-import { getAAVEUserContractData } from '@/libs/getAAVEContractData'
+import { getAAVEUserContractDataFormatted } from '@/libs/getAAVEContractDataFormatted'
 import { useCallback, useEffect, useState } from 'react'
 import { BrowserProvider } from 'ethers'
 const Home = () => {
@@ -12,8 +12,8 @@ const Home = () => {
         ;(async () => {
             console.log(account, aaveData)
             if (account && !aaveData.data && !aaveData.error) {
-                const data = await getAAVEUserContractData(account, provider)
-                setAaveData({ data, error: null })
+                const userData = await getAAVEUserContractDataFormatted(account, provider)
+                setAaveData({ data: userData, error: null })
             }
         })()
     }, [account, aaveData])
