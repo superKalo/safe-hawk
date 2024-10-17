@@ -1,36 +1,36 @@
-// @import './base.scss';
-// @import './normalize.scss';
-// @import './reset.scss';
+@import './base.scss';
+@import './normalize.scss';
+@import './reset.scss';
 // @import './typography.scss';
 
-// // Scale down rems
-// html {
-//   font-size: 13px;
+// Scale down rems
+html {
+    font-size: 13px;
 
-//   @include breakpoint-from(tablet) {
-//     font-size: 13.5px;
-//   }
-//   @include breakpoint-from(large-tablet) {
-//     font-size: 14px;
-//   }
-//   @include breakpoint-from(small-desktop) {
-//     font-size: 14.5px;
-//   }
-//   @include breakpoint-from(medium-desktop) {
-//     font-size: 15px;
-//   }
-//   @include breakpoint-from(large-desktop) {
-//     font-size: 16px;
-//   }
-// }
+    @include breakpoint-from(tablet) {
+        font-size: 13.5px;
+    }
+    @include breakpoint-from(large-tablet) {
+        font-size: 14px;
+    }
+    @include breakpoint-from(small-desktop) {
+        font-size: 14.5px;
+    }
+    @include breakpoint-from(medium-desktop) {
+        font-size: 15px;
+    }
+    @include breakpoint-from(large-desktop) {
+        font-size: 16px;
+    }
+}
 
-// button,
-// a {
-//   transition: 0.2s opacity ease-in-out;
-// }
+button,
+a {
+    transition: 0.2s opacity ease-in-out;
+}
 
-// a:hover,
-// button:hover,
-// button:disabled {
-//   opacity: 0.6;
-// }
+a:hover,
+button:hover,
+button:disabled {
+    opacity: 0.6;
+}
