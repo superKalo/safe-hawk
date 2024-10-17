@@ -12,11 +12,14 @@ const PORT = 5000
 scheduleHealthScoreCron()
 
 app.post('/send-mail', async (req, res) => {
-    const { address } = req.body || {}
+    const { address, subject, content } = req.body || {}
 
-    if (!address) return res.status(400).send('Invalid request')
+    if (!address || !subject || !content) return res.status(400).send('Invalid request')
     try {
-        await sendMail(address)
+        await sendMail(address, {
+            subject,
+            content
+        })
 
         return res.send('success')
     } catch (e) {
