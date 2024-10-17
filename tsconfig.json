@@ -1,12 +1,18 @@
 {
     "compilerOptions": {
-        "jsx": "react-jsx",
-        "target": "ESNext",
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "node",
-        "baseUrl": "./",
-        "paths": {
-            "@/*": ["src/*"]
-        }
-    }
-}
+      "jsx": "react-jsx",
+      "target": "ESNext",
+      "allowSyntheticDefaultImports": true,
+      "moduleResolution": "node",
+      "baseUrl": "./",
+      "paths": {
+        "@/*": ["src/*"]
+      },
+      "allowJs": true,       // Allow JavaScript files
+      "checkJs": false,      // Disable type-checking for JavaScript files
+      "noEmit": true
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],  // Include both JS and TS files
+    "exclude": ["node_modules"]
+  }
+  
