@@ -1,0 +1,35 @@
+.input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+
+    label {
+        font-size: 1rem;
+        color: var(--primary-color);
+        opacity: 0.5;
+    }
+
+    input {
+        height: 3.5rem;
+        width: 100%;
+        padding: 0 1rem;
+        font-size: 1rem;
+        outline: none;
+        border: none;
+        border-radius: var(--border-radius);
+        color: var(--primary-color);
+        background: var(--item-color);
+
+        &:disabled {
+            opacity: 0.5;
+        }
+    }
+
+    &.small {
+        input {
+            height: 2.5rem;
+        }
+    }
+}

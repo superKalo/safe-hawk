@@ -1,3 +1,3 @@
-const HIDE_COMPONENTS = [];
+const HIDE_COMPONENTS = []
 
-export { HIDE_COMPONENTS };
+export { HIDE_COMPONENTS }
