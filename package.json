@@ -35,13 +35,6 @@
         "eject": "react-scripts eject",
         "start-server:dev": "nodemon server/index.js"
     },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest",
-            "prettier"
-        ]
-    },
     "browserslist": {
         "production": [
             ">0.2%",
