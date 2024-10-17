@@ -39,7 +39,7 @@ export default [
                 {
                     max: 1
                 }
-            ],
+            ]
         }
     }
 ]
