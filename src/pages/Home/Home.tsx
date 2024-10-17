@@ -20,7 +20,7 @@ const Home = () => {
     const { data, error, isLoading } = useReadContract({
         address: aaveLendingPoolAddress,
         abi: parseAbi(aaveLendingPoolABI),
-        functionName: isConnected && address ? 'getUserdata' : undefined,
+        functionName: isConnected && address ? 'getUserAccountData' : undefined,
         args: isConnected && address ? [address] : undefined,
     })
 
