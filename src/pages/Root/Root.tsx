@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
 import { HIDE_COMPONENTS } from '@/common/constants';
 
 const Root = () => {
@@ -14,7 +13,6 @@ const Root = () => {
 
 	return (
 		<>
-			<Toaster position={'top-center'} reverseOrder={false} />
 			<ScrollRestoration />
 			<Outlet />
 		</>
