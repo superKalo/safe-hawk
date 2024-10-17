@@ -6,7 +6,6 @@ const Root = () => {
     const location = useLocation()
 
     // for later use if needed
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const showComponenents = useMemo(() => {
         return !HIDE_COMPONENTS.includes(location.pathname)
     }, [location.pathname])
