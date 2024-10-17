@@ -1,0 +1,24 @@
+{
+    "canisters": {
+        "www": {
+            "type": "assets",
+            "source": ["build/"],
+            "frontend": {
+                "entrypoint": "index.html"
+            }
+        }
+    },
+    "defaults": {
+        "build": {
+            "args": "",
+            "packtool": ""
+        }
+    },
+    "networks": {
+        "local": {
+            "bind": "127.0.0.1:8000",
+            "type": "ephemeral"
+        }
+    },
+    "version": 1
+}
