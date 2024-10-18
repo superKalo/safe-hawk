@@ -1,11 +1,8 @@
-import { createContext, useState, ReactNode, useContext } from 'react'
-import { useAccount, useReadContract } from 'wagmi'
-import { parseAbi, formatUnits } from 'viem'
-import formatDecimals from '@/helpers/formatDecimals'
+import { createContext, useState, ReactNode, useContext, useEffect } from 'react'
+import { useAccount } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
-const aaveLendingPoolABI = [
-    'function getUserAccountData(address) view returns (uint256 totalCollateralETH, uint256 totalDebtETH, uint256 availableBorrowsETH, uint256 currentLiquidationThreshold, uint256 ltv, uint256 healthFactor)'
-]
+import { getAAVEUserContractDataFormatted } from '@/libs/getAAVEContractDataFormatted'
+import { JsonRpcProvider } from 'ethers'
 
 type AaveData = {
     totalCollateralETH: string
@@ -25,6 +22,7 @@ type AaveDataContextProps = {
     inputAddress: string
     setInputAddress: (address: string) => void
     aaveData: AaveData | null
+    chainIdWithFallback: number
     error: Error | null
     isLoading: boolean
 }
@@ -32,46 +30,43 @@ type AaveDataContextProps = {
 export const AaveDataContext = createContext<AaveDataContextProps | undefined>(undefined)
 
 export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
-    const { address, isConnected, isConnecting, isReconnecting, chainId, isDisconnected } =
-        useAccount()
+    const {
+        address,
+        isConnected,
+        connector,
+        isConnecting,
+        isReconnecting,
+        chainId,
+        isDisconnected
+    } = useAccount()
 
     const [inputAddress, setInputAddress] = useState('')
 
     const accountAddress = isConnected && address ? address : inputAddress
-    const network = NETWORKS.find((network) => network.chainId === chainId)
-    const aaveLendingPoolAddress = network?.aaveLendingPoolAddress as `0x${string}`
-    const { data, error, isLoading } = useReadContract({
-        address: aaveLendingPoolAddress,
-        abi: parseAbi(aaveLendingPoolABI),
-        functionName: accountAddress ? 'getUserAccountData' : undefined,
-        args: accountAddress ? [accountAddress] : undefined
+    const chainIdWithFallback = chainId in NETWORKS ? chainId : 1
+    const network = NETWORKS.find((network) => {
+        return network.chainId === chainIdWithFallback
     })
+    const [aaveData, setAaveData] = useState<AaveData | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<Error | null>(null)
 
-    const [
-        totalCollateralETH,
-        totalDebtETH,
-        availableBorrowsETH,
-        currentLiquidationThreshold,
-        ltv,
-        healthFactor
-    ] = (data as [bigint, bigint, bigint, bigint, bigint, bigint]) || []
+    useEffect(() => {
+        const provider = new JsonRpcProvider(network?.url)
 
-    const aaveData = data
-        ? {
-              totalCollateralETH: formatDecimals(
-                  parseFloat(formatUnits(totalCollateralETH, 18)),
-                  'price'
-              ),
-              totalDebtETH: formatDecimals(parseFloat(formatUnits(totalDebtETH, 18)), 'price'),
-              availableBorrowsETH: formatDecimals(
-                  parseFloat(formatUnits(availableBorrowsETH, 18)),
-                  'price'
-              ),
-              currentLiquidationThreshold: `${Number(currentLiquidationThreshold) / 100}%`,
-              ltv: `${Number(ltv) / 100}%`,
-              healthFactor: formatDecimals(parseFloat(formatUnits(healthFactor, 18)))
-          }
-        : null
+        getAAVEUserContractDataFormatted(accountAddress, provider)
+            .then((data) => {
+                setAaveData(data)
+                setError(null)
+            })
+            .catch((error) => {
+                setError(error)
+                setAaveData(null)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }, [accountAddress, network, connector])
 
     return (
         <AaveDataContext.Provider
@@ -85,6 +80,7 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
                 setInputAddress,
                 aaveData,
                 error,
+                chainIdWithFallback,
                 isLoading
             }}
         >
