@@ -1,0 +1,8 @@
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+
+.Page {
+    display: flex;
+	flex-direction: column;
+	padding: $global-spacing;
+}

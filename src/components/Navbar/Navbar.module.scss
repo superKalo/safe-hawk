@@ -1,0 +1,24 @@
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+
+.navbar {
+    background-color: $primaryBackground;
+    @include container;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9;
+    padding: $global-spacing;
+
+    .logo {
+        height: 3rem;
+    }
+
+    @include lg {
+
+        .logo {
+            height: 4rem;
+        }
+    }
+
+}
