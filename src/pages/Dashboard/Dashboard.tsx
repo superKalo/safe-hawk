@@ -1,6 +1,6 @@
 import { useAAVEDataProvider } from '@/context'
 import styles from './Dashboard.module.scss'
-import LiquidationChart from './Chart/Chart'
+import { HealthFactor } from './HealthFactor'
 import { Page } from '@/components'
 import { useAccount } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
@@ -42,7 +42,7 @@ const Dashboard = () => {
                         <p>{`healthFactor: ${aaveData.healthFactor}`}</p>
                     </>
                 ) : null}
-                <LiquidationChart liquidationValue={0.81} value={1.5} />
+                <HealthFactor />
             </div>
         </Page>
     )

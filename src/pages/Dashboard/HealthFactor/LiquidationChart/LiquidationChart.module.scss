@@ -1,0 +1,21 @@
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+
+.chart {
+    margin: 0.625rem 0;
+}
+
+.valueMarker {
+    stroke-width: 2px;
+}
+
+.liquidationMarker {
+    stroke-width: 2px;
+    stroke-dasharray: 4, 4;
+}
+
+.liquidationText {
+    font-size: $font-size-small;
+    fill: red;
+    text-anchor: middle;
+}
