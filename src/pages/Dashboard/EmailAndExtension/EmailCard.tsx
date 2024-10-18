@@ -146,6 +146,7 @@ const EmailCard = () => {
 
     if (isLoading) return <div>Loading...</div>
 
+    // TODO: Should never happen?
     if (!signer) return <div>Please connect a signer</div>
 
     if (isAccessGivenToEmail) {
