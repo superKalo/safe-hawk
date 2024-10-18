@@ -34,7 +34,7 @@ export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
     return useMemo(() => (client ? clientToSigner(client) : undefined), [client])
 }
 
-const Email = () => {
+const EmailCard = () => {
     const { address, chainId } = useAccount()
     const { switchChain } = useSwitchChain({ config })
     const signer = useEthersSigner({ chainId })
@@ -46,7 +46,8 @@ const Email = () => {
 
     const switchToIExecChain = () => {
         try {
-            return switchChain({ chainId: 134 })
+            console.log('switch chain')
+            // return switchChain({ chainId: 134 })
         } catch (e) {
             console.error(e)
             toast.error('Failed to switch chain')
@@ -173,4 +174,4 @@ const Email = () => {
     )
 }
 
-export default Email
+export default EmailCard
