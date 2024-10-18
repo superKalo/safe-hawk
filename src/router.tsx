@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Root, Home, Dashboard } from '@/pages'
 import ErrorPage from '@/ErrorPage'
+import { isExtension } from './helpers/browserApi'
 
 const router = createBrowserRouter([
     {
@@ -8,7 +9,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {
-                path: '/',
+                path: isExtension ? '/popup.html' : '/',
                 element: <Home />,
                 errorElement: <ErrorPage />
             },

@@ -25,10 +25,12 @@
         "@visx/shape": "^3.5.0",
         "classnames": "^2.5.1",
         "connectkit": "^1.8.2",
+        "copy-webpack-plugin": "^12.0.2",
         "ethers": "^6.13.4",
         "express": "^4.21.1",
         "framer-motion": "^11.11.9",
         "graphql": "^16.9.0",
+        "html-webpack-plugin": "^5.6.2",
         "node-cron": "^3.0.3",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
@@ -37,18 +39,23 @@
         "react-router-dom": "^6.27.0",
         "react-scripts": "5.0.1",
         "sass": "^1.80.1",
+        "ts-loader": "^9.5.1",
         "typescript": "^5.6.3",
         "undici": "^6.20.1",
         "viem": "^2.21.29",
         "wagmi": "^2.12.19",
-        "web-vitals": "^2.1.0"
+        "web-vitals": "^2.1.0",
+        "webpack": "^5.95.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.1.0"
     },
     "scripts": {
         "start": "craco start",
         "build": "craco build",
         "test": "craco test",
         "eject": "react-scripts eject",
-        "start-server:dev": "nodemon server/index.js"
+        "start-server:dev": "nodemon server/index.js",
+        "build-extension": "webpack --config webpack.config.js"
     },
     "browserslist": {
         "production": [
@@ -65,14 +72,19 @@
     "devDependencies": {
         "@craco/craco": "^7.1.0",
         "@eslint/js": "^9.12.0",
+        "@svgr/webpack": "^8.1.0",
+        "@types/chrome": "^0.0.278",
         "@typescript-eslint/eslint-plugin": "^8.10.0",
         "@typescript-eslint/parser": "^8.10.0",
         "eslint": "^9.12.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-react": "^7.37.1",
+        "file-loader": "^6.2.0",
         "globals": "^15.11.0",
         "nodemon": "^3.1.7",
         "prettier": "^3.3.3",
-        "typescript-eslint": "^8.9.0"
+        "svg-inline-loader": "^0.8.2",
+        "typescript-eslint": "^8.9.0",
+        "url-loader": "^4.1.1"
     }
 }
