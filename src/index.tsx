@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import { AaveDataProvider, Web3Provider } from './context'
 import { Toaster } from 'react-hot-toast'
 import { Theme } from '@radix-ui/themes'
-import '@radix-ui/themes/styles.css'
 import '@/styles/global.scss'
 import App from './App'
 
