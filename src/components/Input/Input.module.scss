@@ -1,13 +1,16 @@
+@import '@/styles/global.scss';
+
 .input {
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
+    box-shadow: $box-shadow;
 
     label {
         font-size: 1rem;
-        color: var(--primary-color);
+        color: $primary;
         opacity: 0.5;
     }
 
@@ -18,12 +21,21 @@
         font-size: 1rem;
         outline: none;
         border: none;
-        border-radius: var(--border-radius);
-        color: var(--primary-color);
-        background: var(--item-color);
+        border-radius: $border-radius;
+        color: $primaryText;
+        background: $secondaryBackground;
+        border: 1px solid transparent;
 
         &:disabled {
             opacity: 0.5;
+        }
+    
+        &:hover {
+            border: 1px solid rgba(218, 202, 235, 1)
+        }
+
+        &:focus {
+            border: 1px solid rgba(218, 202, 235, 1)
         }
     }
 

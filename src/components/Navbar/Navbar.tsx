@@ -6,7 +6,7 @@ const Navbar = () => {
 
     return (
         <div className={styles.navbar}>
-            <img src={MainLogo} alt={'SafeHawk Logo'} />
+            <img className={styles.logo} src={MainLogo} alt={'SafeHawk Logo'} />
             <CustomConnectWalletButton />
         </div>
     );
