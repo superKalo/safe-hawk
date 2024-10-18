@@ -1,13 +1,21 @@
+@import '@/styles/global.scss';
+
 .input {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 0.5rem;
+    padding: 0 $global-spacing;
     width: 100%;
+    box-shadow: $box-shadow;
+    border-radius: $border-radius;
+    border: 1px solid transparent;
 
     label {
         font-size: 1rem;
-        color: var(--primary-color);
+        color: $primary;
         opacity: 0.5;
     }
 
@@ -18,9 +26,9 @@
         font-size: 1rem;
         outline: none;
         border: none;
-        border-radius: var(--border-radius);
-        color: var(--primary-color);
-        background: var(--item-color);
+        border-radius: $border-radius;
+        color: $primaryText;
+        background: $secondaryBackground;
 
         &:disabled {
             opacity: 0.5;
@@ -31,5 +39,24 @@
         input {
             height: 2.5rem;
         }
+    }
+
+    .icon {
+        cursor: pointer;
+        opacity: 0.7;
+        transition: 0.3s all ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+    }
+
+    &:hover {
+        border: 1px solid rgba(218, 202, 235, 1);
+    }
+
+    &:focus-within {
+        border: 1px solid rgba(218, 202, 235, 1);
     }
 }

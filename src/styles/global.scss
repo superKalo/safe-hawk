@@ -1,18 +1,20 @@
 @import './sizes.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 $border-radius: 0.5rem;
+$font-family: 'Inter', sans-serif;
 $font-weight-bold: 700;
 $font-weight-mid: 600;
 $font-weight-semi-mid: 500;
 $font-weight-normal: 400;
-$font-size-title: 2rem;
+$font-size-title: 3rem;
 $font-size-subtitle: 1.25rem;
 $font-size-small-subtitle: 0.775rem;
 $font-size-normal: 1rem;
 $font-size-small: 0.625rem;
-$global-spacing: 1.313rem;
+$global-spacing: 0.75rem;
 $scroll-bar-size: 0.375rem;
-$route-box-shadow: -0.375rem 0rem 0.625rem -0.5625rem rgba(0, 0, 0, 1);
+$box-shadow: 0px 16px 40px 0px rgba(210, 204, 217, 0.4);
 
 // Colors
 $primaryBackground: #faf8fc;
@@ -22,19 +24,33 @@ $primaryBorder: #7a6095;
 $secondaryBorder: #ebe2f5;
 $primaryText: #20102f;
 $secondaryText: #523e65;
+$alternativeText: #ffffff;
 $primary: #9639f3;
+$linearGradient: linear-gradient(90deg, #9639F3 0%, #F55B42 100%);
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: $font-family;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
     scrollbar-width: thin;
-    scrollbar-color: var(--overlay-color) transparent;
+}
+
+body {
+    background-color: $primaryBackground;
 }
 
 @mixin container {
     max-width: 75rem;
     width: 100%;
     margin: 0 auto;
+}
+
+.gradientText {
+    background: $linearGradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
