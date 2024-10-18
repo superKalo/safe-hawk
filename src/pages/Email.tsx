@@ -83,8 +83,6 @@ const Email = () => {
                 }
             })
 
-            console.log(result)
-
             return result
         } catch (e) {
             console.error(e)
