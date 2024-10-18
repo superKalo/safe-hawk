@@ -10,7 +10,7 @@ type Props = {
 const LIQUIDATION_VALUE = 1.00;
 
 const LiquidationChart = ({ value, width }: Props) => {
-    const margin = { top: 10, bottom: 10, left: 40, right: 40 };
+    const margin = { top: 10, bottom: 10, left: 16, right: 10 };
 
     const xScale = scaleLinear({
         domain: [0, 10],
@@ -34,14 +34,20 @@ const LiquidationChart = ({ value, width }: Props) => {
                 fill='url(#healthGradient)'
                 rx={5}
             />
-            {/* <rect
-                x={xScale(value) - 5}
-                y={rectHeight - 20}
-                style={{borderLeft: '5px transparent', borderRight: '5px transparent', borderTop: '10px solid #000000', width: 0, height: 0 }}
-            /> */}
+            <svg
+                width='14'
+                height='7'
+                viewBox='0 0 14 7'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+                x={xScale(value) - 7}
+                y={rectHeight - 5}
+            >
+                <path d='M7 7L0 0H14L7 7Z' fill='#20102F' />
+            </svg>
             <text
                 x={xScale(value)}
-                y={rectHeight - 25}
+                y={rectHeight - 15}
                 fontSize={12}
                 fontWeight={600}
                 textAnchor={'middle'}
@@ -49,8 +55,6 @@ const LiquidationChart = ({ value, width }: Props) => {
             >
                 {value.toFixed(2)}
             </text>
-
-            {/* DONE */}
             <Line
                 from={{ x: xScale(LIQUIDATION_VALUE), y: margin.top - 5 }}
                 to={{ x: xScale(LIQUIDATION_VALUE), y: rectHeight + 15 }}
@@ -68,16 +72,6 @@ const LiquidationChart = ({ value, width }: Props) => {
                 className={styles.liquidationText}
             >
                 {LIQUIDATION_VALUE.toFixed(2)} Liquidation value
-            </text>
-            <text
-                x={xScale(7.4)}
-                y={rectHeight + 40}
-                fontSize={12}
-                textAnchor='middle'
-                fill={'#523E65'}
-                className={styles.liquidationText}
-            >
-                If the health factor goes below 1, the liquidation of your collateral might be triggered.
             </text>
         </svg>
     );

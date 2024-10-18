@@ -54,13 +54,14 @@ const HealthFactor = () => {
                 </div>
             </div>
             <ParentSize>
-                {({ width, height }) => (
+                {({ width }) => (
                     <LiquidationChart
                         value={healthFactorValue}
                         width={width}
                     />
                 )}
             </ParentSize>
+            <div className={styles.healthInfo}>If the health factor goes below 1, the liquidation of your collateral might be triggered.</div>
         </div>
     );
 };
