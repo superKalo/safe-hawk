@@ -2,23 +2,20 @@ import { useAAVEDataProvider } from '@/context'
 import styles from './Dashboard.module.scss'
 import LiquidationChart from './Chart/Chart'
 import { Page } from '@/components'
-import { useAccount } from 'wagmi'
-import { NETWORKS } from '@/common/networks'
 import EmailAndExtension from './EmailAndExtension'
 
 const Dashboard = () => {
-    const { chainId } = useAccount()
     const { address, isConnecting, isReconnecting, isLoading, aaveData, error } =
         useAAVEDataProvider()
 
-    // if (!(chainId in NETWORKS)) {
-    //     return (
-    //         <Page>
-    //             <h2>Unsupported network</h2>
-    //         </Page>
-    //     )
-    // }
-
+    console.log({
+        address,
+        isConnecting,
+        isReconnecting,
+        isLoading,
+        aaveData,
+        error
+    })
     return (
         <Page className={styles.dashboard}>
             <div className={styles.aaveData}>
