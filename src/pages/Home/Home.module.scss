@@ -16,10 +16,11 @@
         display: flex;
         align-items: center;
         background-color: $secondaryBackground;
+        border-radius: $border-radius;
         box-shadow: $box-shadow;
         flex-direction: column;
         margin: 0 auto;
-        
+
         @include lg {
             padding: 2rem;
             flex-direction: row;
@@ -38,7 +39,7 @@
                 max-width: 50%;
                 padding: 3rem;
             }
-            
+
             .content {
                 display: flex;
                 flex-direction: column;
@@ -49,27 +50,26 @@
                     background-color: $tertiaryBackground;
                     padding: calc($global-spacing / 2) $global-spacing;
                     width: fit-content;
-    
+
                     span {
                         font-size: $font-size-small-subtitle;
                         color: $secondaryText;
                         font-weight: $font-weight-bold;
                     }
                 }
-    
+
                 .title {
                     font-size: $font-size-title;
                     font-weight: $font-weight-bold;
                     margin-bottom: $global-spacing;
                     margin-bottom: 1.5rem;
                 }
-                
+
                 .description {
                     font-size: $font-size-subtitle;
                     color: $secondaryText;
                     margin-bottom: $global-spacing;
                 }
-    
             }
 
             .inputContainer {
@@ -85,33 +85,30 @@
                     line-height: 19.36px;
                     margin-left: 0.25rem;
                 }
-
             }
-        }  
-        
+        }
+
         .imageContainer {
             display: flex;
             justify-content: center;
             align-items: center;
-        
+
             .image {
                 width: 70%;
                 margin-top: 2rem;
             }
         }
-    }   
-    
+    }
+
     .content {
         @include container;
         display: flex;
         flex-direction: column;
         // flex-wrap: wrap;
         gap: 2rem;
-        
+
         @include lg {
             flex-direction: row;
         }
     }
-}    
-
-
+}
