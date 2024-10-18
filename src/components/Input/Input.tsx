@@ -27,6 +27,12 @@ const Input = ({
         }
     }, [onSubmit]);
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSubmit();
+        }
+    };
+
     return (
         <motion.div className={classNames(styles.input, className, { [styles.small]: small })} layout>
             {label ? <label htmlFor={name}>{label}</label> : null}
@@ -34,6 +40,7 @@ const Input = ({
                 ref={inputRef}
                 id={name}
                 name={name}
+                onKeyDown={handleKeyDown}
                 {...props}
             />
             <ArrowIcon className={styles.icon} onClick={handleSubmit} />
