@@ -1,4 +1,3 @@
-import React from 'react';
 import { scaleLinear } from '@visx/scale';
 import { Line } from '@visx/shape';
 import { LinearGradient } from '@visx/gradient';
@@ -7,12 +6,11 @@ import styles from './LiquidationChart.module.scss';
 type Props = {
     value: number;
     liquidationValue: number;
+    width: number;
+    height: number;
 };
 
-const LiquidationChart = ({ value, liquidationValue }: Props) => {
-    // Dimensions
-    const width = 1000;
-    const height = 27;
+const LiquidationChart = ({ value, liquidationValue, width, height }: Props) => {
     const margin = { top: 10, bottom: 10, left: 40, right: 40 };
 
     // Define the linear scale for the health factor
@@ -48,15 +46,15 @@ const LiquidationChart = ({ value, liquidationValue }: Props) => {
             />
 
             {/* Liquidation marker */}
-            <Line
+            {/* <Line
                 from={{ x: xScale(liquidationValue), y: margin.top }}
                 to={{ x: xScale(liquidationValue), y: height - margin.bottom }}
                 stroke='red'
                 strokeDasharray='4,4'
                 strokeWidth={2}
                 className={styles.liquidationMarker}
-            />
-
+            /> */}
+{/*
             <text
                 x={xScale(liquidationValue)}
                 y={height - margin.bottom + 15}
@@ -65,7 +63,7 @@ const LiquidationChart = ({ value, liquidationValue }: Props) => {
                 className={styles.liquidationText}
             >
                 {liquidationValue.toFixed(2)} Liquidation
-            </text>
+            </text> */}
         </svg>
     );
 };

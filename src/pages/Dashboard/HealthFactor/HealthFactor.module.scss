@@ -3,45 +3,93 @@
 
 .item {
     flex: 2;
-    padding: $global-spacing;
+    padding: 1rem;
     border-radius: $border-radius;
     background-color: $primaryBackground;
     text-align: center;
-    width: 100%;
+    min-height: 15rem;
+    min-width: 100%;
+    background: linear-gradient(94.86deg, #FFFFFF 0.38%, #EBE2F5 100%);
+    border: 1px solid rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 16px 0px rgba(210, 204, 217, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 
-    .title {
-        font-size: $font-size-subtitle;
-        margin-bottom: 0.625rem;
-        color: $primaryText;
-    }
-    
-    .healthValue {
-        font-size: $font-size-title;
-        margin-bottom: 0.9375rem; 
+    .content {
         display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        width: 100%;
+        justify-content: space-between;
+
+        .header {
+            text-align: left;
+            max-width: 30%;
+
+            .title {
+                font-size: 2rem;
+                margin-bottom: 0.625rem;
+                font-weight: 600;
+                color: $primaryText;
+            }
     
-    .safe {
-        color: #53aa14;
-    }
+            .label {
+                font-size: 0.875rem;
+                color: $secondaryText;
+            }
+        }
+        
+        .score {
+            font-size: $font-size-title;
+            margin-bottom: 0.9375rem; 
+            display: flex;
+            justify-content: center;
+
+            .content {
+                display: flex;
+                gap: 0.625rem;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .value {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    
+                    &.best {
+                        color: rgba(83, 170, 20, 0.32);
     
-    .atRisk {
-        color: #f33939;
-    }
+                    }
+                    &.good {
+                        color: rgba(83, 170, 20, 0.32);
     
-    .status {
-        margin-left: 0.625rem;
-        font-size: $font-size-small-subtitle;
-        font-weight: $font-weight-mid;
-        color: $secondaryText;
-    }
+                    }
     
-    .message {
-        font-size: $font-size-small-subtitle;
-        color: $secondaryText;
-        margin-top: 0.625rem;
+                    &.mid {
+                        color: rgba(195, 130, 0, 1);
+                    }
+    
+                    &.bad {
+                        color: rgba(243, 57, 57, 0.32);
+    
+                    }
+    
+                    &.veryBad {
+                        color: rgba(243, 57, 57, 1);
+                    }
+                }
+    
+                .label {
+                    background: rgba(245, 240, 250, 1);
+                    font-size: 0.875rem;
+                    color: $secondaryText;
+                }
+            }
+
+            .icon {
+                width: 8rem;
+                height: 5rem;
+            }
+        }
     }
 }
 
