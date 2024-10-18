@@ -1,18 +1,28 @@
 {
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "target": "ESNext",
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "target": "ESNext",
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "types": ["chrome"],
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "allowJs": true,
+        "checkJs": false,
+        "noEmitOnError": false,
+        "noEmit": true
     },
-    "allowJs": true,
-    "checkJs": false,
-    "noEmitOnError": false,  
-    "noEmit": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
-  "exclude": ["node_modules"]
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "extension/**/*.ts",
+        "extension/**/*.tsx",
+        "extension/**/*.js",
+        "extension/**/*.jsx"
+    ],
+    "exclude": ["node_modules"]
 }

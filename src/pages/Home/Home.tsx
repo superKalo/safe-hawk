@@ -1,46 +1,51 @@
-import { Feature, Input, Page } from '@/components';
-import styles from './Home.module.scss';
-import { Shield } from '@/assets/images';
-import classNames from 'classnames';
-import { AlertsIcon, MonitoringIcon, UpdatesIcon } from '@/assets/icons';
-import { motion } from 'framer-motion';
+import { Feature, Input, Page } from '@/components'
+import styles from './Home.module.scss'
+import { Shield } from '@/assets/images'
+// import { isExtension } from '../../helpers/browserApi'
+import classNames from 'classnames'
+import { AlertsIcon, MonitoringIcon, UpdatesIcon } from '@/assets/icons'
+import { motion } from 'framer-motion'
 import {
     appearBottomImageAnimation,
     appearTopAnimation,
-    hoverAnimationEasy,
-} from '@/styles/animations';
-import { useCallback } from 'react';
-import { useAAVEDataProvider } from '@/context';
-import { useNavigate } from 'react-router';
+    hoverAnimationEasy
+} from '@/styles/animations'
+import { useCallback } from 'react'
+import { useAAVEDataProvider } from '@/context'
+import { useNavigate } from 'react-router'
+
 const features = [
     {
         icon: UpdatesIcon,
         title: 'Privacy-First Web3 Updates',
         content:
-            'Get weekly email reports, powered by DeCC technology, delivering precise insights like a hawk guarding your stats.',
+            'Get weekly email reports, powered by DeCC technology, delivering precise insights like a hawk guarding your stats.'
     },
     {
         icon: AlertsIcon,
         title: 'Hawk-Eye Health Alerts',
         content:
-            'Stay sharp with timely insights into your loan health, empowering you to make proactive, informed decisions.',
+            'Stay sharp with timely insights into your loan health, empowering you to make proactive, informed decisions.'
     },
     {
         icon: MonitoringIcon,
         title: 'Real-Time Monitoring',
         content:
-            'Track your open DeFi lending positions in real time, keeping you ahead of changes with constant updates.',
-    },
-];
+            'Track your open DeFi lending positions in real time, keeping you ahead of changes with constant updates.'
+    }
+]
 
 const Home = () => {
-    const { setInputAddress } = useAAVEDataProvider();
-    const navigate = useNavigate();
+    const { setInputAddress } = useAAVEDataProvider()
+    const navigate = useNavigate()
 
-    const handleSumbitAddress = useCallback((address: string) => {
-        setInputAddress(address);
-        navigate('/dashboard');
-    }, [setInputAddress]);
+    const handleSumbitAddress = useCallback(
+        (address: string) => {
+            setInputAddress(address)
+            navigate('/dashboard')
+        },
+        [setInputAddress]
+    )
 
     return (
         <Page className={styles.home}>
@@ -60,9 +65,9 @@ const Home = () => {
                             Hawk’s eye view for your DeFi loans.
                         </h1>
                         <p className={styles.description}>
-                            In the dynamic world of decentralized finance, keeping track of
-                            your investments is crucial. SafeHawk provides the tools you
-                            need to monitor your positions effortlessly.
+                            In the dynamic world of decentralized finance, keeping track of your
+                            investments is crucial. SafeHawk provides the tools you need to monitor
+                            your positions effortlessly.
                         </p>
                     </div>
                     <div className={styles.inputContainer}>
@@ -92,7 +97,7 @@ const Home = () => {
                 ))}
             </div>
         </Page>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
