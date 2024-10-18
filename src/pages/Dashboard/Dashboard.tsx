@@ -1,9 +1,37 @@
-import React from 'react'
-
+import { useAAVEDataProvider } from '@/context';
+import styles from './Dashboard.module.scss';
+import LiquidationChart from './Chart/Chart';
 const Dashboard = () => {
-  return (
-    <div>Dashboard</div>
-  )
+	const { address, isConnecting, isReconnecting, isLoading, aaveData, error } = useAAVEDataProvider();
+	return (
+		<div>
+			<div className={styles.aaveData}>
+				{isConnecting || isReconnecting ? (
+					<p>Connecting...</p>
+				) : !address ? (
+					<p>
+						Please connect your wallet or input an address to view your AAVE
+						account data.
+					</p>
+				) : error ? (
+					<p>Error: {error.message}</p>
+				) : isLoading ? (
+					<p>Loading AAVE data...</p>
+				) : aaveData ? (
+					<>
+						<h4>{`Address: ${address}`}</h4>
+						<p>{`totalCollateralETH: ${aaveData.totalCollateralETH}`}</p>
+						<p>{`totalDebtETH: ${aaveData.totalDebtETH}`}</p>
+						<p>{`availableBorrowsETH: ${aaveData.availableBorrowsETH}`}</p>
+						<p>{`currentLiquidationThreshold: ${aaveData.currentLiquidationThreshold}`}</p>
+						<p>{`ltv: ${aaveData.ltv}`}</p>
+						<p>{`healthFactor: ${aaveData.healthFactor}`}</p>
+					</>
+				) : null}
+				<LiquidationChart liquidationValue={0.81} value={1.5} />
+			</div>
+		</div>
+	)
 }
 
 export default Dashboard

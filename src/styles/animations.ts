@@ -58,29 +58,14 @@ export const appearBottomImageAnimation = {
 export const hoverAnimation = {
 	scale: 1.05,
 	transition: {
-		duration: 0.2,
+		duration: 0.3,
 		ease: [0.61, 1, 0.88, 1]
 	}
 };
 export const hoverAnimationEasy = {
-	scale: 1.01,
+	scale: 1.02,
 	transition: {
-		duration: 0.2,
+		duration: 0.3,
 		ease: [0.61, 1, 0.88, 1]
-	}
-};
-
-export const ResizableAnimation = {
-	hidden: {
-		opacity: 0,
-		x: '150%',
-	},
-	visible: {
-		opacity: 1,
-		x: 0,
-		transition: {
-			duration: 0.3,
-			ease: [0, 0.55, 0.45, 1]
-		}
 	}
 };
