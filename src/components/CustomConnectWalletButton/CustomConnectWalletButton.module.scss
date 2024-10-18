@@ -12,6 +12,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.3s all ease-in-out;
+
+    &:hover {
+        background-color: #6c5ce7;
+    }
     
     &:active {
         background-color: #7a42b2;
