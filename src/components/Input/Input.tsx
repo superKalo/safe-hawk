@@ -4,7 +4,7 @@ import { InputHTMLAttributes, useCallback, useRef } from 'react';
 import { ArrowIcon } from '@/assets/icons';
 import { motion } from 'framer-motion';
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+type Props = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'> & {
     name: string;
     label?: string;
     small?: boolean;

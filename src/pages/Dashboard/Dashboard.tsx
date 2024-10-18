@@ -1,10 +1,11 @@
 import { useAAVEDataProvider } from '@/context';
 import styles from './Dashboard.module.scss';
 import LiquidationChart from './Chart/Chart';
+import { Page } from '@/components';
 const Dashboard = () => {
 	const { address, isConnecting, isReconnecting, isLoading, aaveData, error } = useAAVEDataProvider();
 	return (
-		<div>
+		<Page className={styles.dashboard}>
 			<div className={styles.aaveData}>
 				{isConnecting || isReconnecting ? (
 					<p>Connecting...</p>
@@ -30,7 +31,7 @@ const Dashboard = () => {
 				) : null}
 				<LiquidationChart liquidationValue={0.81} value={1.5} />
 			</div>
-		</div>
+		</Page>
 	)
 }
 

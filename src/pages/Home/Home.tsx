@@ -36,7 +36,7 @@ const features = [
 ]
 
 const Home = () => {
-    const { setInputAddress, isConnected } = useAAVEDataProvider()
+    const { setInputAddress } = useAAVEDataProvider()
     const navigate = useNavigate()
 
     const handleSumbitAddress = useCallback(
