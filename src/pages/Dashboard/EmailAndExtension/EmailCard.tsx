@@ -148,7 +148,14 @@ const EmailCard = () => {
 
     if (!signer) return <div>Please connect a signer</div>
 
-    if (isAccessGivenToEmail) return <div>Notifications enabled</div>
+    if (isAccessGivenToEmail) {
+        return (
+            <div className={`${styles.card} ${styles.emailCard}`} style={{ textAlign: 'center' }}>
+                <div>Weekly email updates configured!</div>
+                <span style={{ fontSize: 120 }}>🎉</span>
+            </div>
+        )
+    }
 
     return (
         <div className={`${styles.card} ${styles.emailCard}`}>
