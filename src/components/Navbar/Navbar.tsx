@@ -1,4 +1,4 @@
-import { MainLogo } from '@/assets/images';
+import { MainLogo } from '@/assets/icons';
 import { CustomConnectWalletButton } from '@/components';
 import styles from './Navbar.module.scss';
 import { useNavigate } from 'react-router';

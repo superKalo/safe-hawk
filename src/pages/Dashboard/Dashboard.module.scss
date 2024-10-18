@@ -4,4 +4,13 @@
 .dashboard {
     @include container;
     min-height: 100vh;
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: $global-spacing;
+        gap: 1rem;
+        border-radius: $border-radius;
+    }
 }

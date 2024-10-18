@@ -1,0 +1,7 @@
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+
+.item {
+    flex: 1;
+    border-radius: $border-radius;
+}

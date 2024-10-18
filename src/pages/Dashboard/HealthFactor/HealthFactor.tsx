@@ -13,7 +13,7 @@ const HealthFactor = () => {
     const healthFactorValue = parseFloat(aaveData.healthFactor);
 
     return (
-        <div className={styles.container}>
+        <div className={styles.item}>
             <h3 className={styles.title}>Health Factor</h3>
             <div
                 className={classNames(styles.healthValue, {

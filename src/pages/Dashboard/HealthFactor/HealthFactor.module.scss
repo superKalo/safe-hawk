@@ -1,45 +1,47 @@
 @import '@/styles/sizes.scss';
 @import '@/styles/global.scss';
 
-.container {
+.item {
+    flex: 2;
     padding: $global-spacing;
     border-radius: $border-radius;
     background-color: $primaryBackground;
     text-align: center;
     width: 100%;
+
+    .title {
+        font-size: $font-size-subtitle;
+        margin-bottom: 0.625rem;
+        color: $primaryText;
+    }
+    
+    .healthValue {
+        font-size: $font-size-title;
+        margin-bottom: 0.9375rem; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .safe {
+        color: #53aa14;
+    }
+    
+    .atRisk {
+        color: #f33939;
+    }
+    
+    .status {
+        margin-left: 0.625rem;
+        font-size: $font-size-small-subtitle;
+        font-weight: $font-weight-mid;
+        color: $secondaryText;
+    }
+    
+    .message {
+        font-size: $font-size-small-subtitle;
+        color: $secondaryText;
+        margin-top: 0.625rem;
+    }
 }
 
-.title {
-    font-size: $font-size-subtitle;
-    margin-bottom: 0.625rem;
-    color: $primaryText;
-}
-
-.healthValue {
-    font-size: $font-size-title;
-    margin-bottom: 0.9375rem; // Equivalent to 15px
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.safe {
-    color: #53aa14;
-}
-
-.atRisk {
-    color: #f33939;
-}
-
-.status {
-    margin-left: 0.625rem;
-    font-size: $font-size-small-subtitle;
-    font-weight: $font-weight-mid;
-    color: $secondaryText;
-}
-
-.message {
-    font-size: $font-size-small-subtitle;
-    color: $secondaryText;
-    margin-top: 0.625rem;
-}

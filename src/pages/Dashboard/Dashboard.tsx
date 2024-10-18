@@ -5,6 +5,7 @@ import { Page } from '@/components'
 import { useAccount } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
 import EmailAndExtension from './EmailAndExtension'
+import CurrentLTV from './CurrentLTV/CurrentLTV'
 
 const Dashboard = () => {
     const { chainId } = useAccount()
@@ -44,7 +45,10 @@ const Dashboard = () => {
                         <p>{`healthFactor: ${aaveData.healthFactor}`}</p>
                     </>
                 ) : null}
+            </div>
+            <div className={styles.content}>
                 <HealthFactor />
+                <CurrentLTV />
             </div>
             <EmailAndExtension />
         </Page>
