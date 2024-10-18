@@ -5,6 +5,7 @@
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",
         "baseUrl": "./",
+        "types": ["chrome"],
         "paths": {
             "@/*": ["src/*"]
         },
@@ -13,6 +14,15 @@
         "noEmitOnError": false,
         "noEmit": true
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "extension/**/*.ts",
+        "extension/**/*.tsx",
+        "extension/**/*.js",
+        "extension/**/*.jsx"
+    ],
     "exclude": ["node_modules"]
 }

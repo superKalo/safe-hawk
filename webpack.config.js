@@ -10,7 +10,7 @@ export default {
     mode: 'production',
     target: 'web',
     entry: {
-        background: './src/extension/service-worker.ts',
+        background: './extension/service-worker.ts',
         popup: './src/index.tsx'
     },
     output: {
@@ -54,7 +54,7 @@ export default {
             },
             {
                 test: /\.svg$/,
-                use: ['@svgr/webpack']
+                use: ['@svgr/webpack', 'url-loader']
             }
         ]
     },

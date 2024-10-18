@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from 'ethers'
-import { getAAVEUserContractDataFormatted } from '../../src/libs/getAAVEContractDataFormatted'
-import { NETWORKS } from '@/common/networks'
+import { getAAVEUserContractDataFormatted } from '../src/libs/getAAVEContractDataFormatted'
+import { NETWORKS } from '../src/common/networks'
 
 async function runHeartbeat() {
     await chrome.storage.local.set({ 'last-heartbeat': new Date().getTime() })
@@ -17,7 +17,7 @@ async function keepSwAlive() {
 keepSwAlive()
 
 const runDataUpdate = async () => {
-    const network = NETWORKS.find((n) => n.chainId === 1)
+    const network = NETWORKS.find((n) => n.chainId === 1)!
     const provider = new JsonRpcProvider(network.url)
 
     const update = async () => {
