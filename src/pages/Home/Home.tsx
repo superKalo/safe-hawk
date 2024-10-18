@@ -1,7 +1,9 @@
 import { useAccount, useReadContract } from 'wagmi'
 import { parseAbi, formatUnits } from 'viem'
+import { Page } from '@/components'
 import { ConnectKitButton } from 'connectkit'
 import formatDecimals from '@/helpers/formatDecimals'
+import styles from './Home.module.scss'
 
 const aaveLendingPoolAddress = '0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2'
 const aaveLendingPoolABI = [
@@ -24,40 +26,6 @@ const Home = () => {
         args: isConnected && address ? [address] : undefined,
     })
 
-    if (isConnecting || isReconnecting)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Connecting...</p>
-            </div>
-        )
-
-    if (isDisconnected)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Please connect your wallet to view your AAVE account data.</p>
-            </div>
-        )
-
-    if (error)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Error: {error.message}</p>
-            </div>
-        )
-
-    if (isLoading)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Loading AAVE data...</p>
-            </div>
-        )
-
-    if (!data || !address) return null
-
     const [
         totalCollateralETH,
         totalDebtETH,
@@ -67,7 +35,7 @@ const Home = () => {
         healthFactor,
     ] = (data as [bigint, bigint, bigint, bigint, bigint, bigint]) || []
 
-    const aaveData = {
+    const aaveData = data && address ? {
         totalCollateralETH: formatDecimals(
             parseFloat(formatUnits(totalCollateralETH, 18)),
             'price'
@@ -87,19 +55,31 @@ const Home = () => {
         healthFactor: formatDecimals(
             parseFloat(formatUnits(healthFactor, 18))
         ),
-    }
+    } : null
 
     return (
-        <div>
+        <Page>
             <ConnectKitButton />
-            <h4>{`Address: ${address}`}</h4>
-            <p>{`totalCollateralETH: ${aaveData.totalCollateralETH}`}</p>
-            <p>{`totalDebtETH: ${aaveData.totalDebtETH}`}</p>
-            <p>{`availableBorrowsETH: ${aaveData.availableBorrowsETH}`}</p>
-            <p>{`currentLiquidationThreshold: ${aaveData.currentLiquidationThreshold}`}</p>
-            <p>{`ltv: ${aaveData.ltv}`}</p>
-            <p>{`healthFactor: ${aaveData.healthFactor}`}</p>
-        </div>
+            {isConnecting || isReconnecting ? (
+                <p>Connecting...</p>
+            ) : isDisconnected ? (
+                <p>Please connect your wallet to view your AAVE account data.</p>
+            ) : error ? (
+                <p>Error: {error.message}</p>
+            ) : isLoading ? (
+                <p>Loading AAVE data...</p>
+            ) : aaveData && address ? (
+                <>
+                    <h4>{`Address: ${address}`}</h4>
+                    <p>{`totalCollateralETH: ${aaveData.totalCollateralETH}`}</p>
+                    <p>{`totalDebtETH: ${aaveData.totalDebtETH}`}</p>
+                    <p>{`availableBorrowsETH: ${aaveData.availableBorrowsETH}`}</p>
+                    <p>{`currentLiquidationThreshold: ${aaveData.currentLiquidationThreshold}`}</p>
+                    <p>{`ltv: ${aaveData.ltv}`}</p>
+                    <p>{`healthFactor: ${aaveData.healthFactor}`}</p>
+                </>
+            ) : null}
+        </Page>
     )
 }
 
