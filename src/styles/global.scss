@@ -49,6 +49,21 @@ body {
     margin: 0 auto;
 }
 
+button {
+    &:not(:disabled) {
+        &:hover {
+            cursor: pointer;
+        }
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
 .gradientText {
     background: $linearGradient;
     -webkit-background-clip: text;

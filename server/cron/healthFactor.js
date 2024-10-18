@@ -9,6 +9,7 @@ const scheduleHealthFactorCron = () => {
     const web3mail = new IExecWeb3mail(provider)
 
     const TWENTY_SECONDS_CRON_JOB = '*/20 * * * * *'
+    // const WEEKLY_CRON_JOB = '0 0 * * 0'
 
     cron.schedule(TWENTY_SECONDS_CRON_JOB, async () => {
         const contactsList = await web3mail.fetchMyContacts({
@@ -52,23 +53,29 @@ const scheduleHealthFactorCron = () => {
                 .filter(({ value: { healthFactor, error } }) => healthFactor && !error)
                 .map(({ value: { healthFactor, block, name, error } }) => {
                     if (error) {
-                        return `There was an error getting the Health Factor on ${name}: ${error}. Please check it manually.`
+                        return `
+                        <p>There was an error getting the Health Factor on <strong>${name}</strong>: ${error}. Please check it manually.</p>
+                    `
                     } else {
-                        return `On AAVE v3 (${name}) at block ${block} the Health Factor of ${owner} is ${healthFactor}.`
+                        return `
+                        <p>On AAVE v3 (${name}) at block <strong>${block}</strong>, the Health Factor of <strong>${owner}</strong> is <strong>${healthFactor}</strong>.</p>
+                    `
                     }
                 })
-                .join('\n')
+                .join('') // Remove \n for HTML and use inline spacing
 
             if (!healthFactorContent) return
 
             const content = `
-Hey,
-With the precision of a hawk scanning the horizon 🦅, here’s a quick update for your current open positions:
-${healthFactorContent}
-PS: More stats available on your dashboard at safe-hawk.com
-Have a great week,
-SafeHawk team.
-            `
+            <div>
+                <p>Hey,</p>
+                <p>With the precision of a hawk scanning the horizon 🦅, here’s a quick update for your current open positions:</p>
+                ${healthFactorContent}
+                <p>PS: More stats available on your dashboard at <a href="https://safe-hawk.com">safe-hawk.com</a></p>
+                <p>Have a great week,</p>
+                <p>SafeHawk team.</p>
+            </div>
+        `
 
             const subject = 'Health Factor report by SafeHawk'
             // Send email for this contact

@@ -55,6 +55,7 @@
         "test": "craco test",
         "eject": "react-scripts eject",
         "start-server:dev": "nodemon server/index.js",
+        "start-server": "node server/index.js",
         "build-extension": "webpack --config webpack.config.js"
     },
     "browserslist": {
