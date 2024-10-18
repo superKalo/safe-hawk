@@ -1,12 +1,34 @@
 import { useAccount, useReadContract } from 'wagmi'
 import { parseAbi, formatUnits } from 'viem'
-import { ConnectKitButton } from 'connectkit'
+import { Feature, Input, Page } from '@/components'
 import formatDecimals from '@/helpers/formatDecimals'
+import styles from './Home.module.scss'
+import { Shield } from '@/assets/images'
+import classNames from 'classnames'
+import { AlertsIcon, MonitoringIcon, UpdatesIcon } from '@/assets/icons'
 
 const aaveLendingPoolAddress = '0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2'
 const aaveLendingPoolABI = [
     'function getUserAccountData(address) view returns (uint256 totalCollateralETH, uint256 totalDebtETH, uint256 availableBorrowsETH, uint256 currentLiquidationThreshold, uint256 ltv, uint256 healthFactor)',
 ]
+
+const features = [
+    {
+        icon: UpdatesIcon,
+        title: 'Privacy-First Web3 Updates',
+        content: 'Get weekly email reports, powered by DeCC technology, delivering precise insights like a hawk guarding your stats.',
+    },
+    {
+        icon: AlertsIcon,
+        title: 'Hawk-Eye Health Alerts',
+        content: 'Stay sharp with timely insights into your loan health, empowering you to make proactive, informed decisions.',
+    },
+    {
+        icon: MonitoringIcon,
+        title: 'Real-Time Monitoring',
+        content: 'Track your open DeFi lending positions in real time, keeping you ahead of changes with constant updates.',
+    },
+];
 
 const Home = () => {
     const {
@@ -24,40 +46,6 @@ const Home = () => {
         args: isConnected && address ? [address] : undefined,
     })
 
-    if (isConnecting || isReconnecting)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Connecting...</p>
-            </div>
-        )
-
-    if (isDisconnected)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Please connect your wallet to view your AAVE account data.</p>
-            </div>
-        )
-
-    if (error)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Error: {error.message}</p>
-            </div>
-        )
-
-    if (isLoading)
-        return (
-            <div>
-                <ConnectKitButton />
-                <p>Loading AAVE data...</p>
-            </div>
-        )
-
-    if (!data || !address) return null
-
     const [
         totalCollateralETH,
         totalDebtETH,
@@ -67,7 +55,7 @@ const Home = () => {
         healthFactor,
     ] = (data as [bigint, bigint, bigint, bigint, bigint, bigint]) || []
 
-    const aaveData = {
+    const aaveData = data && address ? {
         totalCollateralETH: formatDecimals(
             parseFloat(formatUnits(totalCollateralETH, 18)),
             'price'
@@ -87,19 +75,58 @@ const Home = () => {
         healthFactor: formatDecimals(
             parseFloat(formatUnits(healthFactor, 18))
         ),
-    }
+    } : null
+
+    // {isConnecting || isReconnecting ? (
+    //     <p>Connecting...</p>
+    // ) : isDisconnected ? (
+    //     <p>Please connect your wallet to view your AAVE account data.</p>
+    // ) : error ? (
+    //     <p>Error: {error.message}</p>
+    // ) : isLoading ? (
+    //     <p>Loading AAVE data...</p>
+    // ) : aaveData && address ? (
+    //     <>
+    //         <h4>{`Address: ${address}`}</h4>
+    //         <p>{`totalCollateralETH: ${aaveData.totalCollateralETH}`}</p>
+    //         <p>{`totalDebtETH: ${aaveData.totalDebtETH}`}</p>
+    //         <p>{`availableBorrowsETH: ${aaveData.availableBorrowsETH}`}</p>
+    //         <p>{`currentLiquidationThreshold: ${aaveData.currentLiquidationThreshold}`}</p>
+    //         <p>{`ltv: ${aaveData.ltv}`}</p>
+    //         <p>{`healthFactor: ${aaveData.healthFactor}`}</p>
+    //     </>
+    // ) : null}
 
     return (
-        <div>
-            <ConnectKitButton />
-            <h4>{`Address: ${address}`}</h4>
-            <p>{`totalCollateralETH: ${aaveData.totalCollateralETH}`}</p>
-            <p>{`totalDebtETH: ${aaveData.totalDebtETH}`}</p>
-            <p>{`availableBorrowsETH: ${aaveData.availableBorrowsETH}`}</p>
-            <p>{`currentLiquidationThreshold: ${aaveData.currentLiquidationThreshold}`}</p>
-            <p>{`ltv: ${aaveData.ltv}`}</p>
-            <p>{`healthFactor: ${aaveData.healthFactor}`}</p>
-        </div>
+        <Page className={styles.home}>
+            <div className={styles.wrapper}>
+                <div className={styles.banner}>
+                    <div className={styles.content}>
+                        <div className={styles.poweredBy}>
+                            <span className={styles.gradientText}>POWERED BY DeCC</span>
+                        </div>
+                        <h1 className={classNames(styles.title, styles.gradientText)}>
+                            Hawk’s eye view for your DeFi loans.
+                        </h1>
+                        <p className={styles.description}>
+                            In the dynamic world of decentralized finance, keeping track of your investments is crucial. SafeHawk provides the tools you need to monitor your positions effortlessly
+                        </p>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <label className={styles.inputLabel}>Insert Address</label>
+                        <Input name={'walletAddressInput'} className={styles.inputBox} placeholder={'0x'} />
+                    </div>
+                </div>
+                <div className={styles.imageContainer}>
+                    <img src={Shield} className={styles.image} />
+                </div>
+            </div>
+            <div className={styles.content}>
+                {features.map((feature, index) => (
+                    <Feature key={index} {...feature} />
+                ))}
+            </div>
+        </Page>
     )
 }
 
