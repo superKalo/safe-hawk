@@ -37,6 +37,10 @@ $linearGradient: linear-gradient(90deg, #9639F3 0%, #F55B42 100%);
     scrollbar-width: thin;
 }
 
+body {
+    background-color: $primaryBackground;
+}
+
 @mixin container {
     max-width: 75rem;
     width: 100%;
