@@ -3,44 +3,31 @@
 .connectWalletButton {
     background-color: $primary;
     color: $alternativeText;
-    padding: $global-spacing calc($global-spacing * 2);
+    padding: calc($global-spacing * 1.5) calc($global-spacing * 2);
     border-radius: $border-radius;
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    min-width: 12.5rem;
     display: flex;
     align-items: center;
-    transition: background-color 0.3s ease;
-    transition: 0.3s ease-in-out;
-    height: 3.65rem;
-    width: 11.875rem;
-    display: flex;
     justify-content: center;
-
-    &:hover {
-        background-color: #9154cc;
-       transform: scale(1.01);
-    }
     
     &:active {
         background-color: #7a42b2;
     }
 
     .walletAddress {
-        margin-left: 0.625rem;
         color: $alternativeText;
-        padding: calc($global-spacing / 2) $global-spacing;
         font-size: 0.875rem;
         display: flex;
-        align-items: center;
-        display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         gap: 0.5rem;
 
         .walletPreview {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
         }
     }
 }

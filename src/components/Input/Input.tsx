@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styles from './Input.module.scss';
 import { InputHTMLAttributes, useCallback, useRef } from 'react';
 import { ArrowIcon } from '@/assets/icons';
+import { motion } from 'framer-motion';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
     name: string;
@@ -27,7 +28,7 @@ const Input = ({
     }, [onSubmit]);
 
     return (
-        <div className={classNames(styles.input, className, { [styles.small]: small })}>
+        <motion.div className={classNames(styles.input, className, { [styles.small]: small })} layout>
             {label ? <label htmlFor={name}>{label}</label> : null}
             <input
                 ref={inputRef}
@@ -36,7 +37,7 @@ const Input = ({
                 {...props}
             />
             <ArrowIcon className={styles.icon} onClick={handleSubmit} />
-        </div>
+        </motion.div>
     );
 };
 

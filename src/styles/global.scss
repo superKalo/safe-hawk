@@ -34,6 +34,7 @@ $linearGradient: linear-gradient(90deg, #9639F3 0%, #F55B42 100%);
     box-sizing: border-box;
     font-family: $font-family;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
     scrollbar-width: thin;
 }
 
