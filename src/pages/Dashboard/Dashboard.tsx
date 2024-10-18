@@ -11,13 +11,13 @@ const Dashboard = () => {
     const { address, isConnecting, isReconnecting, isLoading, aaveData, error } =
         useAAVEDataProvider()
 
-    if (!(chainId in NETWORKS)) {
-        return (
-            <Page>
-                <h2>Unsupported network</h2>
-            </Page>
-        )
-    }
+    // if (!(chainId in NETWORKS)) {
+    //     return (
+    //         <Page>
+    //             <h2>Unsupported network</h2>
+    //         </Page>
+    //     )
+    // }
 
     return (
         <Page className={styles.dashboard}>

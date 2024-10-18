@@ -44,10 +44,11 @@ const EmailCard = () => {
     const [isAccessGivenToEmail, setIsAccessGivenToEmail] = useState(false)
     const [hasProtectedEmail, setHasProtectedEmail] = useState(false)
 
-    const switchToIExecChain = () => {
+    const switchToIExecChain = (skipSwitch?: boolean) => {
+        if (skipSwitch) return
         try {
-            console.log('switch chain')
-            // return switchChain({ chainId: 134 })
+            // console.log('switch chain')
+            return switchChain({ chainId: 134 })
         } catch (e) {
             console.error(e)
             toast.error('Failed to switch chain')
@@ -73,8 +74,8 @@ const EmailCard = () => {
         }
     }
 
-    const getProtectedData = async () => {
-        switchToIExecChain()
+    const getProtectedData = async (skipSwitch?: boolean) => {
+        switchToIExecChain(skipSwitch)
         if (chainId !== 134) return
         try {
             const result = await dataProtectorCore.getProtectedData({
@@ -119,6 +120,11 @@ const EmailCard = () => {
     }
 
     useEffect(() => {
+        if (chainId !== 134) {
+            setIsLoading(false)
+            return
+        }
+
         getProtectedData().then((data) => {
             setHasProtectedEmail(data?.length > 0)
 
