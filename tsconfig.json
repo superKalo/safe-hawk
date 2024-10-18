@@ -13,15 +13,6 @@
         "noEmitOnError": false,
         "noEmit": true
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.js",
-        "src/**/*.jsx",
-        "extension/**/*.ts",
-        "extension/**/*.tsx",
-        "extension/**/*.js",
-        "extension/**/*.jsx"
-    ],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
     "exclude": ["node_modules"]
 }

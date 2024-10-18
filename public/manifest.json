@@ -16,7 +16,7 @@
     },
     "action": {
         "default_title": "SafeHawk",
-        "default_popup": "index.html"
+        "default_popup": "popup.html"
     },
     "start_url": ".",
     "display": "standalone",

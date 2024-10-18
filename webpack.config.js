@@ -2,7 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import webpack from 'webpack'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -21,7 +21,7 @@ export default {
     resolve: {
         extensions: ['.ts', '.js', '.tsx', '.jsx'],
         alias: {
-            '@': path.resolve(__dirname, 'src')
+            '@': path.resolve(__dirname, 'src/')
         }
     },
     module: {
@@ -47,6 +47,14 @@ export default {
             {
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i, // Add this rule for images
+                type: 'asset/resource' // Use asset/resource for handling images
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack']
             }
         ]
     },
@@ -70,6 +78,10 @@ export default {
                 {
                     from: './src/assets/icons',
                     to: 'assets'
+                },
+                {
+                    from: './public/style.css',
+                    to: 'style.css'
                 }
             ]
         })
