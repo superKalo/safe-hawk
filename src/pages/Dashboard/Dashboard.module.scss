@@ -7,10 +7,15 @@
 
     .content {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         width: 100%;
         padding: $global-spacing;
         gap: 1rem;
         border-radius: $border-radius;
+
+        @include lg {
+            flex-direction: row;
+        }
     }
 }
