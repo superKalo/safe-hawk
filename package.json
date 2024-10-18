@@ -19,6 +19,7 @@
         "@types/react": "^18.0.0",
         "@types/react-dom": "^18.0.0",
         "connectkit": "^1.8.2",
+        "copy-webpack-plugin": "^12.0.2",
         "ethers": "^6.13.4",
         "express": "^4.21.1",
         "firebase": "^10.14.1",
@@ -49,7 +50,7 @@
         "eject": "react-scripts eject",
         "start-server:dev": "nodemon server/index.js",
         "start-extension:dev": "webpack serve",
-        "build-extension": "webpack"
+        "build-extension": "webpack --config webpack.config.js"
     },
     "browserslist": {
         "production": [
@@ -66,9 +67,9 @@
     "devDependencies": {
         "@craco/craco": "^7.1.0",
         "@eslint/js": "^9.12.0",
+        "@types/chrome": "^0.0.212",
         "@typescript-eslint/eslint-plugin": "^8.10.0",
         "@typescript-eslint/parser": "^8.10.0",
-        "@types/chrome": "^0.0.212",
         "eslint": "^9.12.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-react": "^7.37.1",
