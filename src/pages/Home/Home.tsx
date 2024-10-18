@@ -11,6 +11,7 @@ import {
 } from '@/styles/animations';
 import { useCallback } from 'react';
 import { useAAVEDataProvider } from '@/context';
+import { useNavigate } from 'react-router';
 const features = [
     {
         icon: UpdatesIcon,
@@ -34,13 +35,12 @@ const features = [
 
 const Home = () => {
     const { setInputAddress } = useAAVEDataProvider();
+    const navigate = useNavigate();
 
-    const handleSumbitAddress = useCallback(
-        (address: string) => {
-            setInputAddress(address);
-        },
-        [setInputAddress]
-    );
+    const handleSumbitAddress = useCallback((address: string) => {
+        setInputAddress(address);
+        navigate('/dashboard');
+    }, [setInputAddress]);
 
     return (
         <Page className={styles.home}>
