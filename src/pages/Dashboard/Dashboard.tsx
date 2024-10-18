@@ -1,5 +1,6 @@
 import { useAAVEDataProvider } from '@/context';
 import styles from './Dashboard.module.scss';
+import LiquidationChart from './Chart/Chart';
 const Dashboard = () => {
 	const { address, isConnecting, isReconnecting, isLoading, aaveData, error } = useAAVEDataProvider();
 	return (
@@ -27,6 +28,7 @@ const Dashboard = () => {
 						<p>{`healthFactor: ${aaveData.healthFactor}`}</p>
 					</>
 				) : null}
+				<LiquidationChart liquidationValue={0.81} value={1.5} />
 			</div>
 		</div>
 	)
