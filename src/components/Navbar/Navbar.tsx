@@ -1,4 +1,4 @@
-import { MainLogo } from '@/assets/images'
+import { MainLogo } from '@/assets/icons'
 import { CustomConnectWalletButton } from '@/components'
 import styles from './Navbar.module.scss'
 import { useNavigate } from 'react-router'
@@ -12,7 +12,7 @@ const Navbar = () => {
 
     return (
         <div className={styles.navbar}>
-            <img className={styles.logo} src={MainLogo} onClick={onClick} alt={'SafeHawk Logo'} />
+            <MainLogo className={styles.logo} onClick={onClick} />
             <CustomConnectWalletButton />
         </div>
     )
