@@ -14,6 +14,7 @@ const sendMail = async (protectedDataAddress, { subject, content }) => {
         protectedData: protectedDataAddress,
         emailSubject: subject,
         emailContent: content,
+        contentType: 'text/html',
         senderName: 'SafeHawk',
         workerpoolAddressOrEns: 'prod-v8-learn.main.pools.iexec.eth'
     })

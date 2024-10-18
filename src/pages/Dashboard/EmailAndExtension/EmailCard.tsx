@@ -42,12 +42,11 @@ const EmailCard = () => {
     const [email, setEmail] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [isAccessGivenToEmail, setIsAccessGivenToEmail] = useState(false)
+    const [isInProgress, setIsInProgress] = useState(false)
     const [hasProtectedEmail, setHasProtectedEmail] = useState(false)
 
-    const switchToIExecChain = (skipSwitch?: boolean) => {
-        if (skipSwitch) return
+    const switchToIExecChain = () => {
         try {
-            // console.log('switch chain')
             return switchChain({ chainId: 134 })
         } catch (e) {
             console.error(e)
@@ -60,6 +59,7 @@ const EmailCard = () => {
 
         if (chainId !== 134) return
 
+        setIsInProgress(true)
         try {
             await dataProtectorCore.protectData({
                 name: 'email',
@@ -71,12 +71,14 @@ const EmailCard = () => {
         } catch (e) {
             console.error(e)
             toast.error('Failed to save email address')
+        } finally {
+            setIsInProgress(false)
         }
     }
 
-    const getProtectedData = async (skipSwitch?: boolean) => {
-        switchToIExecChain(skipSwitch)
+    const getProtectedData = async () => {
         if (chainId !== 134) return
+        setIsInProgress(true)
         try {
             const result = await dataProtectorCore.getProtectedData({
                 owner: address,
@@ -89,6 +91,8 @@ const EmailCard = () => {
         } catch (e) {
             console.error(e)
             toast.error('Failed to get email address')
+        } finally {
+            setIsInProgress(false)
         }
     }
 
@@ -102,6 +106,7 @@ const EmailCard = () => {
             toast.error('Internal error. Please contact support')
             return
         }
+        setIsInProgress(true)
         try {
             const access = await dataProtectorCore.grantAccess({
                 protectedData: protectedData[0].address,
@@ -116,10 +121,42 @@ const EmailCard = () => {
         } catch (e) {
             console.error(e)
             toast.error('Failed to grant email address access')
+        } finally {
+            setIsInProgress(false)
+        }
+    }
+
+    const revokeAccess = async () => {
+        const protectedData = await getProtectedData()
+        if (chainId !== 134) {
+            toast.error('Please switch to iExec chain')
+            return
+        }
+        if (!protectedData?.length) {
+            toast.error('Internal error. Please contact support')
+            return
+        }
+        setIsInProgress(true)
+        try {
+            const access = await dataProtectorCore.revokeAllAccess({
+                protectedData: protectedData[0].address,
+                authorizedApp: '0x781482C39CcE25546583EaC4957Fb7Bf04C277D2',
+                authorizedUser: process.env.REACT_APP_EMAIL_ACCOUNT_ADDRESS
+            })
+
+            setIsAccessGivenToEmail(!access)
+
+            return access
+        } catch (e) {
+            console.error(e)
+            toast.error('Failed to revoke email address access')
+        } finally {
+            setIsInProgress(false)
         }
     }
 
     useEffect(() => {
+        setIsLoading(true)
         if (chainId !== 134) {
             setIsLoading(false)
             return
@@ -148,21 +185,53 @@ const EmailCard = () => {
                     setIsLoading(false)
                 })
         })
-    }, [])
+    }, [chainId])
 
-    if (isLoading) return <div>Loading...</div>
-
-    // TODO: Should never happen?
-    if (!signer) return <div>Please connect a signer</div>
-
-    if (isAccessGivenToEmail) {
+    if (chainId !== 134) {
         return (
-            <div className={`${styles.card} ${styles.emailCard}`} style={{ textAlign: 'center' }}>
-                <div>Weekly email updates configured!</div>
-                <span style={{ fontSize: 120 }}>🎉</span>
+            <div className={`${styles.card} ${styles.emailCard}`}>
+                <div className={styles.content}>
+                    <h3 className={styles.title}>Switch to iExec chain</h3>
+                    <p className={styles.text}>
+                        Please switch to iExec chain to manage email updates.
+                    </p>
+                </div>
+                <button onClick={switchToIExecChain} className={styles.button}>
+                    Switch to iExec chain
+                </button>
             </div>
         )
     }
+
+    if (isLoading) {
+        return (
+            <div className={`${styles.card} ${styles.emailCard}`}>
+                <h3 className={styles.title}>Loading...</h3>
+            </div>
+        )
+    }
+
+    if (isAccessGivenToEmail) {
+        return (
+            <div className={`${styles.card} ${styles.emailCard} ${styles.complete}`}>
+                <div className={styles.content}>
+                    <h3 className={styles.title}>Weekly email updates configured!</h3>
+                    <p>You will receive weekly email updates about your Health Factor.</p>
+                </div>
+                <button
+                    disabled={isInProgress}
+                    onClick={revokeAccess}
+                    type="button"
+                    className={styles.button2}
+                >
+                    {isInProgress ? 'Loading...' : 'Disable email updates'}
+                </button>
+                <span className={`${styles.image} ${styles.tada}`}>🎉</span>
+            </div>
+        )
+    }
+
+    console.log(isInProgress)
 
     return (
         <div className={`${styles.card} ${styles.emailCard}`}>
@@ -173,14 +242,21 @@ const EmailCard = () => {
                 </p>
             </div>
             <div className={styles.form}>
-                <input
-                    name="email"
-                    className={styles.input}
-                    placeholder="Insert Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={hasProtectedEmail}
-                />
+                {!hasProtectedEmail ? (
+                    <input
+                        name="email"
+                        className={styles.input}
+                        placeholder="Insert Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={hasProtectedEmail}
+                    />
+                ) : (
+                    <p className={styles.text} style={{ opacity: 0.8 }}>
+                        Email address saved. Click the button below to grant access, which will
+                        enable weekly email updates.
+                    </p>
+                )}
                 <button
                     onClick={() => {
                         if (hasProtectedEmail) {
@@ -189,10 +265,13 @@ const EmailCard = () => {
                             saveEmailAsProtected()
                         }
                     }}
-                    disabled={!hasProtectedEmail && !email}
+                    disabled={(!hasProtectedEmail && !email) || isInProgress}
                     className={styles.button}
                 >
-                    {hasProtectedEmail ? 'Grant access' : 'Save email'}
+                    {hasProtectedEmail && !isInProgress && 'Grant access'}
+                    {hasProtectedEmail && isInProgress && 'Granting access...'}
+                    {!hasProtectedEmail && !isInProgress && 'Save email'}
+                    {!hasProtectedEmail && isInProgress && 'Saving email...'}
                 </button>
             </div>
         </div>

@@ -11,12 +11,12 @@ const EmailAndExtension = () => {
                     <h3 className={styles.title}>Install Extension</h3>
                     <p className={styles.text}>Real-time monitoring by our browser extension.</p>
                 </div>
-                <img src="/logo.png" alt="logo" className={styles.logo} />
+                <img src="/logo.png" alt="logo" className={styles.image} />
                 <a
                     href="https://chrome.google.com/webstore/detail/extension-name"
                     target="_blank"
                     rel="noreferrer"
-                    className={styles.downloadLink}
+                    className={styles.button2}
                 >
                     Install
                 </a>
