@@ -1,6 +1,7 @@
 import { Feature, Input, Page } from '@/components'
 import styles from './Home.module.scss'
 import { Shield } from '@/assets/images'
+// import { isExtension } from '../../helpers/browserApi'
 import classNames from 'classnames'
 import { AlertsIcon, MonitoringIcon, UpdatesIcon } from '@/assets/icons'
 import { motion } from 'framer-motion'

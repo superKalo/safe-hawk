@@ -1,4 +1,4 @@
-import formatDecimals from '@/helpers/formatDecimals'
+import formatDecimals from '../../helpers/formatDecimals'
 import { formatUnits, Contract } from 'ethers'
 
 /// This function is not used anymore since wagmi integration
