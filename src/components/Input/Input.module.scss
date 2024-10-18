@@ -3,10 +3,15 @@
 .input {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 0.5rem;
+    padding: 0 $global-spacing;
     width: 100%;
     box-shadow: $box-shadow;
+    border-radius: $border-radius;
+    border: 1px solid transparent;
 
     label {
         font-size: 1rem;
@@ -24,18 +29,9 @@
         border-radius: $border-radius;
         color: $primaryText;
         background: $secondaryBackground;
-        border: 1px solid transparent;
 
         &:disabled {
             opacity: 0.5;
-        }
-    
-        &:hover {
-            border: 1px solid rgba(218, 202, 235, 1)
-        }
-
-        &:focus {
-            border: 1px solid rgba(218, 202, 235, 1)
         }
     }
 
@@ -43,5 +39,17 @@
         input {
             height: 2.5rem;
         }
+    }
+
+    .icon {
+        cursor: pointer;
+    }
+
+    &:hover {
+        border: 1px solid rgba(218, 202, 235, 1)
+    }
+
+    &:focus {
+        border: 1px solid rgba(218, 202, 235, 1)
     }
 }
