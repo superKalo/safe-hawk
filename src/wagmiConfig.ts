@@ -1,11 +1,30 @@
 import { createConfig, http } from 'wagmi'
 import { mainnet, avalanche, polygon, optimism, arbitrum } from 'wagmi/chains' // Add the chains you want to support
 import { getDefaultConfig } from 'connectkit'
+import { defineChain } from 'viem'
+
+const ixec = defineChain({
+    id: 134,
+    name: 'iExec Sidechain',
+    nativeCurrency: { name: 'xRLC', symbol: 'xRLC', decimals: 18 },
+    rpcUrls: {
+        default: {
+            http: ['https://bellecour.iex.ec']
+        }
+    },
+    blockExplorers: {
+        default: {
+            name: 'IXEC Explorer',
+            url: 'https://blockscout.bellecour.iex.ec',
+            apiUrl: 'https://blockscout.bellecour.iex.ec'
+        }
+    }
+})
 
 export const config = createConfig(
     getDefaultConfig({
         // Your dApp's supported chains
-        chains: [mainnet, avalanche, polygon, optimism, arbitrum], // Add more chains as needed
+        chains: [mainnet, avalanche, polygon, optimism, arbitrum, ixec], // Add more chains as needed
         transports: {
             // RPC URL for each chain
             [mainnet.id]: http(
@@ -14,7 +33,8 @@ export const config = createConfig(
             [avalanche.id]: http('https://api.avax.network/ext/bc/C/rpc'),
             [polygon.id]: http('https://polygon-rpc.com'),
             [optimism.id]: http('https://mainnet.optimism.io'),
-            [arbitrum.id]: http('https://arb1.arbitrum.io/rpc')
+            [arbitrum.id]: http('https://arb1.arbitrum.io/rpc'),
+            134: http('https://bellecour.iex.ec')
         },
 
         // Required API Keys

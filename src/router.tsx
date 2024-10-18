@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
+import Email from './pages/Email'
 import { Root, Home, Dashboard } from '@/pages'
 import ErrorPage from '@/ErrorPage'
 
 const router = createBrowserRouter([
     {
-        path: '/',
         element: <Root />,
         errorElement: <ErrorPage />,
         children: [
@@ -16,6 +16,18 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <Dashboard />,
+                errorElement: <ErrorPage />
+            }
+        ]
+    },
+    {
+        path: '/email',
+        element: <Root />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: '/email',
+                element: <Email />,
                 errorElement: <ErrorPage />
             }
         ]
