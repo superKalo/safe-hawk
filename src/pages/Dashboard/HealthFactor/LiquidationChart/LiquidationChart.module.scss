@@ -3,19 +3,10 @@
 
 .chart {
     margin: 0.625rem 0;
+    overflow: visible;
+    height: 3rem;
 }
 
 .valueMarker {
     stroke-width: 2px;
-}
-
-.liquidationMarker {
-    stroke-width: 2px;
-    stroke-dasharray: 4, 4;
-}
-
-.liquidationText {
-    font-size: $font-size-small;
-    fill: red;
-    text-anchor: middle;
 }

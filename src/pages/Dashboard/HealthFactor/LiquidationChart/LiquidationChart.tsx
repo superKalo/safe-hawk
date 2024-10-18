@@ -5,23 +5,22 @@ import styles from './LiquidationChart.module.scss';
 
 type Props = {
     value: number;
-    liquidationValue: number;
     width: number;
-    height: number;
 };
+const LIQUIDATION_VALUE = 1.00;
 
-const LiquidationChart = ({ value, liquidationValue, width, height }: Props) => {
+const LiquidationChart = ({ value, width }: Props) => {
     const margin = { top: 10, bottom: 10, left: 40, right: 40 };
 
-    // Define the linear scale for the health factor
     const xScale = scaleLinear({
-        domain: [0, 10], // Health factor range (example 0 to 10)
+        domain: [0, 10],
         range: [margin.left, width - margin.right],
     });
 
+    const rectHeight = 8;
+
     return (
-        <svg width={width} height={height} className={styles.chart}>
-            {/* Background gradient */}
+        <svg width={width} className={styles.chart}>
             <LinearGradient id='healthGradient' vertical={false}>
                 <stop offset='0%' stopColor='#F33939' />
                 <stop offset='50%' stopColor='#E09D19' />
@@ -31,39 +30,55 @@ const LiquidationChart = ({ value, liquidationValue, width, height }: Props) => 
                 x={margin.left}
                 y={margin.top}
                 width={width - margin.left - margin.right}
-                height={height - margin.top - margin.bottom}
+                height={rectHeight}
                 fill='url(#healthGradient)'
                 rx={5}
             />
+            {/* <rect
+                x={xScale(value) - 5}
+                y={rectHeight - 20}
+                style={{borderLeft: '5px transparent', borderRight: '5px transparent', borderTop: '10px solid #000000', width: 0, height: 0 }}
+            /> */}
+            <text
+                x={xScale(value)}
+                y={rectHeight - 25}
+                fontSize={12}
+                fontWeight={600}
+                textAnchor={'middle'}
+                fill={'#523E65'}
+            >
+                {value.toFixed(2)}
+            </text>
 
-            {/* Current health factor value marker */}
+            {/* DONE */}
             <Line
-                from={{ x: xScale(value), y: margin.top }}
-                to={{ x: xScale(value), y: height - margin.bottom }}
-                stroke='black'
-                strokeWidth={2}
-                className={styles.valueMarker}
+                from={{ x: xScale(LIQUIDATION_VALUE), y: margin.top - 5 }}
+                to={{ x: xScale(LIQUIDATION_VALUE), y: rectHeight + 15 }}
+                stroke='#C91818'
+                strokeWidth={3}
+                className={styles.liquidationMarker}
             />
 
-            {/* Liquidation marker */}
-            {/* <Line
-                from={{ x: xScale(liquidationValue), y: margin.top }}
-                to={{ x: xScale(liquidationValue), y: height - margin.bottom }}
-                stroke='red'
-                strokeDasharray='4,4'
-                strokeWidth={2}
-                className={styles.liquidationMarker}
-            /> */}
-{/*
             <text
-                x={xScale(liquidationValue)}
-                y={height - margin.bottom + 15}
-                fontSize={10}
+                x={xScale(LIQUIDATION_VALUE)}
+                y={rectHeight + 40}
+                fontSize={12}
                 textAnchor='middle'
+                fill='#C91818'
                 className={styles.liquidationText}
             >
-                {liquidationValue.toFixed(2)} Liquidation
-            </text> */}
+                {LIQUIDATION_VALUE.toFixed(2)} Liquidation value
+            </text>
+            <text
+                x={xScale(7.4)}
+                y={rectHeight + 40}
+                fontSize={12}
+                textAnchor='middle'
+                fill={'#523E65'}
+                className={styles.liquidationText}
+            >
+                If the health factor goes below 1, the liquidation of your collateral might be triggered.
+            </text>
         </svg>
     );
 };

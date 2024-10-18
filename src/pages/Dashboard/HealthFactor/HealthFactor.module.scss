@@ -7,7 +7,7 @@
     border-radius: $border-radius;
     background-color: $primaryBackground;
     text-align: center;
-    min-height: 15rem;
+    height: 20rem;
     min-width: 100%;
     background: linear-gradient(94.86deg, #FFFFFF 0.38%, #EBE2F5 100%);
     border: 1px solid rgba(255, 255, 255, 1);
@@ -16,6 +16,16 @@
     flex-direction: column;
     gap: 3rem;
 
+    @include lg {
+        height: 15rem;
+
+        .content {
+            .header {
+                max-width: 35%;
+            }
+        }
+    }
+
     .content {
         display: flex;
         width: 100%;
@@ -23,7 +33,6 @@
 
         .header {
             text-align: left;
-            max-width: 30%;
 
             .title {
                 font-size: 2rem;

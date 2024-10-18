@@ -1,7 +1,7 @@
 import { LiquidationChart } from './LiquidationChart';
 import { useAAVEDataProvider } from '@/context';
 import { BestHealthScore, GoodHealthScore, MidHealthScore, BadHealthScore, VeryBadHealthScore } from '@/assets/icons';
-import { useParentSize } from '@visx/responsive';
+import { ParentSize } from '@visx/responsive';
 import styles from './HealthFactor.module.scss';
 import classNames from 'classnames';
 
@@ -17,7 +17,6 @@ const HealthIcon = () => {
 
 const HealthFactor = () => {
     const { aaveData } = useAAVEDataProvider();
-    const { parentRef, width, height } = useParentSize({ debounceTime: 10 });
 
     if (!aaveData) {
         return null;
@@ -25,9 +24,8 @@ const HealthFactor = () => {
 
     const healthFactorValue = parseFloat(aaveData.healthFactor);
 
-    console.log('healthFactorValue', height, width);
     return (
-        <div className={styles.item} ref={parentRef} style={{ width: '100%', height: '16rem' }}>
+        <div className={styles.item}>
             <div className={styles.content}>
                 <div className={styles.header}>
                     <h3 className={styles.title}>Health Factor</h3>
@@ -55,7 +53,14 @@ const HealthFactor = () => {
                     <HealthIcon />
                 </div>
             </div>
-            <LiquidationChart value={healthFactorValue} liquidationValue={Number(aaveData.currentLiquidationThreshold)} width={width} height={height} />
+            <ParentSize>
+                {({ width, height }) => (
+                    <LiquidationChart
+                        value={healthFactorValue}
+                        width={width}
+                    />
+                )}
+            </ParentSize>
         </div>
     );
 };
