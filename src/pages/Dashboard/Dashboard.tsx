@@ -4,6 +4,8 @@ import { HealthFactor } from './HealthFactor'
 import { Page } from '@/components'
 import { useAccount } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
+import EmailAndExtension from './EmailAndExtension'
+
 const Dashboard = () => {
     const { chainId } = useAccount()
     const { address, isConnecting, isReconnecting, isLoading, aaveData, error } =
@@ -44,6 +46,7 @@ const Dashboard = () => {
                 ) : null}
                 <HealthFactor />
             </div>
+            <EmailAndExtension />
         </Page>
     )
 }

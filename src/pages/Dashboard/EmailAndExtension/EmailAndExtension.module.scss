@@ -1,0 +1,29 @@
+@import '@/styles/global.scss';
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    gap: 1.25rem;
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: $border-radius;
+        padding: 1rem;
+        color: $alternativeText;
+
+        &.extensionCard {
+            background-color: $primaryAccent;
+        }
+
+        .title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        .text {
+            font-size: 0.875rem;
+        }
+    }
+}
