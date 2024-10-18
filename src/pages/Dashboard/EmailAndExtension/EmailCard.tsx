@@ -1,4 +1,3 @@
-import { Input } from '@/components'
 import { IExecDataProtectorCore } from '@iexec/dataprotector'
 import { useEffect, useState } from 'react'
 import { useAccount, useConnectorClient, useSwitchChain } from 'wagmi'
@@ -8,6 +7,7 @@ import { type Config } from '@wagmi/core'
 import type { Client, Chain, Transport, Account } from 'viem'
 import toast from 'react-hot-toast'
 import { config } from '@/wagmiConfig'
+import styles from './EmailAndExtension.module.scss'
 
 export function clientToSigner(client: Client<Transport, Chain, Account>) {
     const { account, chain, transport } = client
@@ -151,25 +151,36 @@ const EmailCard = () => {
     if (isAccessGivenToEmail) return <div>Notifications enabled</div>
 
     return (
-        <div>
-            <Input
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={hasProtectedEmail}
-            />
-            <button
-                onClick={() => {
-                    if (hasProtectedEmail) {
-                        grantAccess()
-                    } else {
-                        saveEmailAsProtected()
-                    }
-                }}
-                disabled={!hasProtectedEmail && !email}
-            >
-                {hasProtectedEmail ? 'Grant access' : 'Save email'}
-            </button>
+        <div className={`${styles.card} ${styles.emailCard}`}>
+            <div className={styles.content}>
+                <h3 className={styles.title}>Set-up email updates</h3>
+                <p className={styles.text}>
+                    Privacy-first Web3 email updates, powered by DeCC tech, sent weekly.
+                </p>
+            </div>
+            <div className={styles.form}>
+                <input
+                    name="email"
+                    className={styles.input}
+                    placeholder="Insert Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={hasProtectedEmail}
+                />
+                <button
+                    onClick={() => {
+                        if (hasProtectedEmail) {
+                            grantAccess()
+                        } else {
+                            saveEmailAsProtected()
+                        }
+                    }}
+                    disabled={!hasProtectedEmail && !email}
+                    className={styles.button}
+                >
+                    {hasProtectedEmail ? 'Grant access' : 'Save email'}
+                </button>
+            </div>
         </div>
     )
 }
