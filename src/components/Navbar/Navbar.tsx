@@ -12,9 +12,12 @@ const Navbar = () => {
     const prevIsConnected = usePrevious(isConnected)
 
     useEffect(() => {
-        const didJustGotConnected = !prevIsConnected && isConnected === true;
+        const didJustGotConnected = !prevIsConnected && isConnected;
         if (didJustGotConnected) navigate('/dashboard');
-    })
+
+        const didJustGotDisconnected = prevIsConnected && !isConnected;
+        if (didJustGotDisconnected) navigate('/');
+    }, [prevIsConnected, isConnected])
 
     const onClick = () => {
         navigate('/');
