@@ -20,13 +20,25 @@ const Input = ({ name, className, label, small, onSubmit, ...props }: Props) => 
         }
     }, [onSubmit])
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSubmit();
+        }
+    };
+
     return (
         <motion.div
             className={classNames(styles.input, className, { [styles.small]: small })}
             layout
         >
             {label ? <label htmlFor={name}>{label}</label> : null}
-            <input ref={inputRef} id={name} name={name} {...props} />
+            <input
+                ref={inputRef}
+                id={name}
+                name={name}
+                onKeyDown={handleKeyDown}
+                {...props}
+            />
             <ArrowIcon className={styles.icon} onClick={handleSubmit} />
         </motion.div>
     )
