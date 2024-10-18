@@ -1,5 +1,6 @@
 import { JsonRpcProvider } from 'ethers'
 import { getAAVEUserContractDataFormatted } from '../../src/libs/getAAVEContractDataFormatted'
+import { NETWORKS } from '@/common/networks'
 
 async function runHeartbeat() {
     await chrome.storage.local.set({ 'last-heartbeat': new Date().getTime() })
@@ -16,14 +17,8 @@ async function keepSwAlive() {
 keepSwAlive()
 
 const runDataUpdate = async () => {
-    const networkRPCURLs = {
-        ethereum: 'https://eth-mainnet.g.alchemy.com/v2/XqYEVNd8CVHFp_U2sLXA-gWuxq58d4BB',
-        avalanche: 'https://api.avax.network/ext/bc/C/rpc',
-        polygon: 'https://polygon-rpc.com',
-        optimism: 'https://mainnet.optimism.io',
-        arbitrum: 'https://arb1.arbitrum.io/rpc'
-    }
-    const provider = new JsonRpcProvider(networkRPCURLs.ethereum)
+    const network = NETWORKS.find((n) => n.chainId === 1)
+    const provider = new JsonRpcProvider(network.url)
 
     const update = async () => {
         const data = await getAAVEUserContractDataFormatted(
