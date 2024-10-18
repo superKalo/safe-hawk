@@ -6,6 +6,8 @@ import styles from './Home.module.scss'
 import { Shield } from '@/assets/images'
 import classNames from 'classnames'
 import { AlertsIcon, MonitoringIcon, UpdatesIcon } from '@/assets/icons'
+import { motion } from 'framer-motion'
+import { appearBottomImageAnimation, appearTopAnimation, hoverAnimationEasy } from '@/styles/animations'
 
 const aaveLendingPoolAddress = '0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2'
 const aaveLendingPoolABI = [
@@ -100,7 +102,7 @@ const Home = () => {
     return (
         <Page className={styles.home}>
             <div className={styles.wrapper}>
-                <div className={styles.banner}>
+                <motion.div className={styles.banner} layout whileInView={appearTopAnimation.visible} initial={appearTopAnimation.hidden} viewport={{ once: true }}>
                     <div className={styles.content}>
                         <div className={styles.poweredBy}>
                             <span className={styles.gradientText}>POWERED BY DeCC</span>
@@ -116,9 +118,9 @@ const Home = () => {
                         <label className={styles.inputLabel}>Insert Address</label>
                         <Input name={'walletAddressInput'} className={styles.inputBox} placeholder={'0x'} />
                     </div>
-                </div>
+                </motion.div>
                 <div className={styles.imageContainer}>
-                    <img src={Shield} className={styles.image} />
+                    <motion.img src={Shield} className={styles.image} whileInView={appearBottomImageAnimation.visible} whileHover={hoverAnimationEasy} initial={appearBottomImageAnimation.hidden} viewport={{ once: true }}/>
                 </div>
             </div>
             <div className={styles.content}>

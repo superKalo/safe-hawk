@@ -26,6 +26,7 @@
             padding: $global-spacing;
             text-align: left;
             transition: 0.3s all ease-in-out;
+            opacity: 0.7;
 
             span {
                 font-size: 0.875rem;
@@ -44,7 +45,7 @@
             }
 
             &:hover {
-                transform: scale(1.01);
+                opacity: 1;
             }
         }
 
