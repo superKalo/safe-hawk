@@ -1,7 +1,6 @@
 import { useAccount, useReadContract } from 'wagmi'
 import { parseAbi, formatUnits } from 'viem'
 import { Page } from '@/components'
-import { ConnectKitButton } from 'connectkit'
 import formatDecimals from '@/helpers/formatDecimals'
 import styles from './Home.module.scss'
 
@@ -58,7 +57,7 @@ const Home = () => {
     } : null
 
     return (
-        <Page>
+        <Page className={styles.home}>
             {isConnecting || isReconnecting ? (
                 <p>Connecting...</p>
             ) : isDisconnected ? (
