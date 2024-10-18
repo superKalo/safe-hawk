@@ -1,3 +1,7 @@
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+
 .dashboard {
-    
+    @include container;
+    min-height: 100vh;
 }
