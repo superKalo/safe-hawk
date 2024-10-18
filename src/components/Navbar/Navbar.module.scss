@@ -2,192 +2,26 @@
 
 .navbar {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    max-width: 420px;
-    height: var(--navbar-height);
+    height: 6rem;
     background: var(--item-color);
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     z-index: 9;
 
-    @include lg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: var(--navbar-width);
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
-        max-width: none;
-        transform: translateX(0%);
-        background-color: var(--section-background-color);
-    }
+    .logo {
 
-    .stremioLogo {
-        width: 2.5rem;
-        height: 2.5rem;
-        transition: transform 0.3s;
-        display: none;
-
-        @include lg {
-            display: block;
-            margin: 3rem 0;
-        }
-    }
-
-    .tabWrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: column;
-        gap: 0.5rem 0;
-        margin: 0.5rem;
-        cursor: pointer;
-
-        .tabButton {
-            width: 3.5rem;
-            height: 2.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            outline: none;
-            border: none;
-            border-radius: 24px;
-            background-color: transparent;
-            position: relative;
-
-            .icon {
-                width: 2rem;
-                height: 2rem;
-                transition: transform 0.3s;
-                stroke: #1C55DC;
-        
-                &:hover {
-                    transform: scale(1.1);
-                }
-            }
-
-            .newTaskIcon {
-                display: block;
-                width: 3.5rem;
-                height: 3.5rem;
-                transition: transform 0.3s;
-                transform: translateY(-5px);
-        
-                &:hover {
-                    transform: translateY(-5px) scale(1.1);
-                }
-        
-                @include lg {
-                    display: none;
-                }
-
-                &.toggle {
-                    transform: rotate3d(0, 0, 1, 45deg);
-                }
-            }
-
-            .animatedSpan {
-                position: absolute;
-                top: 0;
-                right: 0;
-                left: 0;
-                bottom: 0;
-                z-index: -1;
-                background-color: #fff;
-                border-radius: 2rem;
-    
-                @media (prefers-color-scheme: dark) {
-                    filter: invert(0.94);
-                }
-            }    
-        
-            &[disabled] {
-                pointer-events: none;
-                opacity: 0.3;
-            }
-        
-            &.active {
-                .icon {
-                    path {
-                        fill: var(--secondary-accent-color);
-                        stroke: none;
-                    }
-
-                    rect {
-                        fill: var(--secondary-accent-color);
-                    }
-                }
-            }
-        
-            &.newTask {
-                transform: translateY(-70%);
-        
-                @include lg {
-                    display: none;
-                }
-            }
-        }
-
-        .tabName {
-            display: none;
-
-            @include lg {
-                display: block;
-                font-size: var(--font-size-small);
-                font-weight: var(--font-weight-semi-mid);
-                color: #5C86E4;
-                opacity: 0.6;
-            }
-
-            &.active {
-                opacity: 1;
-            }
-        }
-
-        &.logoutTab {
-            @include lg {
-                position: absolute;
-                bottom: 0;
-                margin-bottom: 3rem;
-            }
-        }
-    
-        &.newTaskTab {
-            @include lg {
-                margin: 0;
-            }
-        }
-
-        &.hideOnMobile {
-            display: none;
-        }
-
-        &.hideOnDesktop {
-            display: flex;
-        }
     }
 }
 
 @include lg {
-    .navbarContainer {
-        .tabWrapper {
-            &.hideOnMobile {
-                display: flex;
-            }
+    .navbar {
 
-            &.hideOnDesktop {
-                display: none;
-            }
-        }
     }
 }
 

@@ -59,7 +59,6 @@ const Home = () => {
 
     return (
         <Page>
-            <ConnectKitButton />
             {isConnecting || isReconnecting ? (
                 <p>Connecting...</p>
             ) : isDisconnected ? (

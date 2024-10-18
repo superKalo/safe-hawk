@@ -4,11 +4,6 @@
 .Page {
     display: flex;
 	flex-direction: column;
-	padding: 0 $global-spacing;
-	
-	@include lg {
-		padding: $global-spacing;
-		overflow-y: auto;
-		height: 100vh;
-	}
+	padding: $global-spacing;
+	margin-top: 6rem;
 }
