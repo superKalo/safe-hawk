@@ -41,7 +41,7 @@ const runDataUpdate = async () => {
         }
         setTimeout(() => {
             update()
-        }, 15000)
+        }, 150000)
     }
 
     update()
