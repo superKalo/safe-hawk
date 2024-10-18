@@ -1,7 +1,7 @@
 import cron from 'node-cron'
 import sendMail from '../services/mail.js'
 import { IExecWeb3mail, getWeb3Provider } from '@iexec/web3mail'
-import getAAVEUserContractDataFormatted from '../utils/getAaveHealthFactor.js'
+import getAAVEUserContractDataFormatted from '../../src/common/getAaveHealthFactor.js'
 import { NETWORKS } from '../../src/common/networks.js'
 
 const scheduleHealthFactorCron = () => {
