@@ -9,7 +9,7 @@ import {
     appearTopAnimation,
     hoverAnimationEasy,
 } from '@/styles/animations';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useAAVEDataProvider } from '@/context';
 import { useNavigate } from 'react-router';
 const features = [
@@ -34,7 +34,7 @@ const features = [
 ];
 
 const Home = () => {
-    const { setInputAddress, isConnected } = useAAVEDataProvider();
+    const { setInputAddress } = useAAVEDataProvider();
     const navigate = useNavigate();
 
     const handleSumbitAddress = useCallback((address: string) => {

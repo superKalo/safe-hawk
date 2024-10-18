@@ -1,6 +1,5 @@
 import { scaleLinear } from '@visx/scale';
 import { Line } from '@visx/shape';
-import { AxisBottom } from '@visx/axis';
 import { LinearGradient } from '@visx/gradient';
 type Props = {
     value: number;
@@ -9,20 +8,27 @@ type Props = {
 
 const LiquidationChart = ({ value, liquidationValue }: Props) => {
     // Dimensions
-    const width = 500;
-    const height = 50;
-    const margin = { top: 10, bottom: 20, left: 40, right: 40 };
+    const width = 1000;
+    const height = 27;
+    const margin = { top: 10, bottom: 10, left: 40, right: 40 };
 
     // Define the linear scale for the health factor
     const xScale = scaleLinear({
-        domain: [0, 3], // Health factor range (example 0 to 3)
+        domain: [0, 10], // Health factor range (example 0 to 3)
         range: [margin.left, width - margin.right],
     });
 
     return (
         <svg width={width} height={height}>
             {/* Background gradient */}
-            <LinearGradient id='healthGradient' from='#f00' to='#0f0' />
+            <LinearGradient
+                id='healthGradient'
+                vertical={false}
+            >
+                <stop offset='0%' stopColor='#F33939' />
+                <stop offset='50%' stopColor='#E09D19' />
+                <stop offset='100%' stopColor='#53AA14' />
+            </LinearGradient>
             <rect
                 x={margin.left}
                 y={margin.top}
@@ -30,20 +36,6 @@ const LiquidationChart = ({ value, liquidationValue }: Props) => {
                 height={height - margin.top - margin.bottom}
                 fill='url(#healthGradient)'
                 rx={5}
-            />
-
-            {/* Axis */}
-            <AxisBottom
-                top={height - margin.bottom}
-                scale={xScale}
-                numTicks={5}
-                stroke='#333'
-                tickStroke='#333'
-                tickLabelProps={() => ({
-                    fill: '#333',
-                    fontSize: 12,
-                    textAnchor: 'middle',
-                })}
             />
 
             {/* Current health factor value marker */}
@@ -54,16 +46,6 @@ const LiquidationChart = ({ value, liquidationValue }: Props) => {
                 strokeWidth={2}
                 markerMid='triangle'
             />
-            <text
-                x={xScale(value)}
-                y={height - margin.bottom - 5}
-                fill='black'
-                fontSize={10}
-                textAnchor='middle'
-            >
-                {value.toFixed(2)}
-            </text>
-
             {/* Liquidation marker */}
             <Line
                 from={{ x: xScale(liquidationValue), y: margin.top }}
