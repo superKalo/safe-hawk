@@ -1,31 +1,21 @@
-import express from 'express'
 import dotenv from 'dotenv'
-import sendMail from './services/mail.js'
-import scheduleHealthScoreCron from './cron/healthscore.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import express from 'express'
+import scheduleHealthFactorCron from './cron/healthFactor.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // Load environment variables from .env file
-dotenv.config()
+dotenv.config({
+    path: path.resolve(__dirname, '../.env')
+})
 
 const app = express()
 const PORT = 5000
 
-scheduleHealthScoreCron()
-
-app.post('/send-mail', async (req, res) => {
-    const { address, subject, content } = req.body || {}
-
-    if (!address || !subject || !content) return res.status(400).send('Invalid request')
-    try {
-        await sendMail(address, {
-            subject,
-            content
-        })
-
-        return res.send('success')
-    } catch (e) {
-        res.send('error' + e)
-    }
-})
+scheduleHealthFactorCron()
 
 app.listen(PORT, () => {
     console.log(`HealthHawk is running on port ${PORT}`)
