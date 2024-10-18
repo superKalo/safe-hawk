@@ -38,7 +38,8 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
     const [inputAddress, setInputAddress] = useState('')
 
     const accountAddress = isConnected && address ? address : inputAddress
-    const aaveLendingPoolAddress = NETWORKS[chainId]?.aaveLendingPoolAddress as `0x${string}`
+    const network = NETWORKS.find((network) => network.chainId === chainId)
+    const aaveLendingPoolAddress = network?.aaveLendingPoolAddress as `0x${string}`
     const { data, error, isLoading } = useReadContract({
         address: aaveLendingPoolAddress,
         abi: parseAbi(aaveLendingPoolABI),
