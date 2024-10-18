@@ -1,8 +1,66 @@
-.wrapper {
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+.footer {
     background-color: $tertiaryBackground;
-    padding: 3rem 1rem;
+    padding: $global-spacing;
 
-    .container {
+    .content {
         @include container;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+
+        .hr {
+            height: 1px;
+            width: 2rem;
+            background-color: $secondaryText;
+            margin: 1rem 0;
+        }
+
+        .label {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $alternativeText;
+            line-height: 1.5rem;
+            padding: $global-spacing;
+            text-align: left;
+            transition: 0.3s all ease-in-out;
+
+            span {
+                font-size: 0.875rem;
+                font-weight: 600;
+                line-height: 1.5rem;
+                text-align: left;
+            }
+
+            a {
+                text-decoration: underline;
+                color: inherit;
+
+                &:hover, &:active, &:visited {
+                    color: inherit;
+                }
+            }
+
+            &:hover {
+                transform: scale(1.01);
+            }
+        }
+
+        @include lg {
+            flex-direction: row;
+
+            .label {
+                padding: 0;
+            }
+
+            .hr {
+                height: 2rem;
+                width: 1px;
+                background-color: $secondaryText;
+                margin: 1rem 0;
+            }
+        }
     }
 }

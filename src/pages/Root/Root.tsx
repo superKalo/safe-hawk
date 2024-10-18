@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import { HIDE_COMPONENTS } from '@/common/constants'
-import { Navbar } from '@/components'
+import { Navbar, Footer } from '@/components'
 
 const Root = () => {
     const location = useLocation()
@@ -16,6 +16,7 @@ const Root = () => {
             <Navbar />
             <ScrollRestoration />
             <Outlet />
+            <Footer />
         </>
     )
 }
