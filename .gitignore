@@ -26,3 +26,5 @@ yarn-error.log*
 
 # Other
 server/config/service-key.json
+
+/dist
