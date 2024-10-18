@@ -53,7 +53,7 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
         availableBorrowsETH,
         currentLiquidationThreshold,
         ltv,
-        healthFactor
+        healthFactor,
     ] = (data as [bigint, bigint, bigint, bigint, bigint, bigint]) || []
 
     const aaveData = data
