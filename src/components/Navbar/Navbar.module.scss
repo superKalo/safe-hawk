@@ -2,17 +2,13 @@
 @import '@/styles/global.scss';
 
 .navbar {
+    background-color: $primaryBackground;
     @include container;
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 6rem;
     z-index: 9;
-    padding: 0 $global-spacing;
+    padding: $global-spacing;
 
     .logo {
         height: 3rem;

@@ -5,6 +5,9 @@
     background-color: $primaryBackground;
     padding: 2rem;
     font-family: $font-family;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
 
     .wrapper {
         @include container;
@@ -96,7 +99,19 @@
                 margin-top: 2rem;
             }
         }
-    }    
+    }   
+    
+    .content {
+        @include container;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        
+        @include lg {
+            display: grid;
+            grid-template-columns: repeat(3, 33%);
+        }
+    }
 }    
 
 

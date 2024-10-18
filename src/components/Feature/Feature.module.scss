@@ -1,0 +1,22 @@
+@import '@/styles/global.scss';
+.feature {
+    padding: $global-spacing;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    .icon {
+        font-size: 2rem;
+        margin-bottom: $global-spacing;
+    }
+
+    .title {
+        font-size: 1.25rem;
+        margin-bottom: $global-spacing;
+        color: $primaryText;
+    }
+
+    .content {
+        font-size: 1rem;
+        color: #666;
+    }
+}
