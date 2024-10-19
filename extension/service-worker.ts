@@ -132,6 +132,15 @@ const runDataUpdate = async () => {
         }, 7000) // run every 10 mins 10 * 60 * 1000
     }
     update()
+
+    chrome.storage.onChanged.addListener(function (changes, areaName) {
+        if (areaName === 'local') {
+            // Listen for changes in local storage
+            if (changes.viewOnlyChainId || changes.viewOnlyAddress) {
+                update()
+            }
+        }
+    })
 }
 
 runDataUpdate()
