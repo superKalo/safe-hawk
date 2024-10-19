@@ -5,9 +5,22 @@ import styles from './Dashboard.module.scss'
 import { CurrentLTV } from './CurrentLTV'
 import { useAAVEDataProvider } from '@/context'
 import { motion } from 'framer-motion'
+import { useChainId } from 'wagmi'
+import { NETWORKS } from '@/common/networks'
+
+const Placeholder = ({ title, text }: { title: string; text: string }) => {
+    return (
+        <div className={styles.placeholder}>
+            <h2 className={styles.placeholderTitle}>{title}</h2>
+            <p className={styles.placeholderText}>{text}</p>
+        </div>
+    )
+}
 
 const Dashboard = () => {
-    const { aaveData } = useAAVEDataProvider()
+    const chainId = useChainId()
+    const { aaveData, isLoading } = useAAVEDataProvider()
+    const isNetworkSupported = NETWORKS.some((network) => network.chainId === chainId)
 
     return (
         <Page className={styles.wrapper}>
@@ -19,10 +32,28 @@ const Dashboard = () => {
                         {aaveData?.totalDebtETH || '-$'}
                     </p>
                 </div>
-                <motion.div className={styles.content}>
-                    <HealthFactor />
-                    <CurrentLTV />
-                </motion.div>
+                {aaveData && isNetworkSupported && !isLoading && (
+                    <motion.div className={styles.content}>
+                        <HealthFactor />
+                        <CurrentLTV />
+                    </motion.div>
+                )}
+                {isLoading && isNetworkSupported && (
+                    <Placeholder title="Loading AAVE data..." text="" />
+                )}
+                {!aaveData && !isLoading && isNetworkSupported && (
+                    <Placeholder
+                        title="No AAVE data found"
+                        text="You don't have any AAVE positions."
+                    />
+                )}
+                {!aaveData && chainId === 134 && (
+                    <Placeholder
+                        title="Connected to iExec Sidechain"
+                        text="iExec is not supported by AAVE. Please switch to a supported network to view your AAVE data."
+                    />
+                )}
+                {/* TODO: Other network handling */}
                 <EmailAndExtension />
             </motion.div>
         </Page>

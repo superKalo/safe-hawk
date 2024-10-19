@@ -13,13 +13,16 @@ import { motion } from 'framer-motion'
 import classNames from 'classnames'
 
 type WrapperProps = {
-    complete?: boolean;
-    children: React.ReactNode;
+    complete?: boolean
+    children: React.ReactNode
 }
 
 const EmailCardWrapper = ({ complete = false, children }: WrapperProps) => {
     return (
-        <motion.div className={classNames(styles.card, styles.emailCard, { [styles.complete]: complete })} whileHover={hoverAnimationEasy}>
+        <motion.div
+            className={classNames(styles.card, styles.emailCard, { [styles.complete]: complete })}
+            whileHover={hoverAnimationEasy}
+        >
             {children}
         </motion.div>
     )
@@ -50,6 +53,10 @@ export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
     return useMemo(() => (client ? clientToSigner(client) : undefined), [client])
 }
 
+const isValidEmail = (email: string) => {
+    return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
 const EmailCard = () => {
     const chainId = useChainId()
     const { address, isConnected } = useAccount()
@@ -72,6 +79,11 @@ const EmailCard = () => {
     }
 
     const saveEmailAsProtected = async () => {
+        if (isValidEmail(email)) {
+            toast.error('Please enter a valid email address')
+            return
+        }
+
         switchToIExecChain()
 
         if (chainId !== 134) return
