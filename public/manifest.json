@@ -4,7 +4,7 @@
     "manifest_version": 3,
     "version": "1.0.0",
     "description": "SafeHawk provides the tools you need to monitor your positions effortlessly.",
-    "permissions": ["storage", "notifications"],
+    "permissions": ["storage", "notifications", "bookmarks"],
     "background": {
         "service_worker": "background.js"
     },

@@ -31,6 +31,45 @@ const runDataUpdate = async () => {
         return percentageDiff
     }
 
+    function getBookmarkTitle(healthFactor) {
+        healthFactor = Number(healthFactor)
+        let statusDot = '🟢'
+        if (healthFactor < 1.3) {
+            statusDot = '🔴'
+        } else if (healthFactor >= 1.3 && healthFactor <= 1.8) {
+            statusDot = '🟡'
+        }
+
+        return `${statusDot} Health ${formatDecimals(healthFactor)}`
+    }
+
+    function updateHealthFactorBookmark(healthFactor) {
+        const bookmarkTitle = getBookmarkTitle(healthFactor)
+
+        chrome.bookmarks.getTree(function (tree) {
+            const folders = tree[0].children
+            let bookmarksBar = folders.filter((f) => f.title === 'Bookmarks Bar')[0]
+
+            if (!bookmarksBar) bookmarksBar = folders[0]
+
+            chrome.bookmarks.search({ url: 'https://safe-hawk.com/' }, function (bookmarks) {
+                if (bookmarks.length > 0) {
+                    chrome.bookmarks.update(bookmarks[0].id, {
+                        title: bookmarkTitle,
+                        url: 'https://safe-hawk.com/'
+                    })
+                } else {
+                    chrome.bookmarks.create({
+                        parentId: bookmarksBar.id,
+                        title: bookmarkTitle,
+                        url: 'https://safe-hawk.com/',
+                        index: 0
+                    })
+                }
+            })
+        })
+    }
+
     async function checkForImmediateDrop(healthFactors) {
         if (healthFactors.length < 2) return // Need at least two data points to compare
         for (let i = 0; i < healthFactors.length - 1; i++) {
@@ -65,6 +104,7 @@ const runDataUpdate = async () => {
         }
 
         await checkForImmediateDrop(pricesByNetwork[network.chainId.toString()])
+        updateHealthFactorBookmark(data.healthFactor)
 
         setTimeout(
             () => {
@@ -73,8 +113,15 @@ const runDataUpdate = async () => {
             10 * 60 * 1000
         ) // run every 10 mins
     }
-
     update()
 }
 
 runDataUpdate()
+
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+    if (reason === 'install') {
+        setTimeout(() => {
+            chrome.action.openPopup()
+        }, 200)
+    }
+})
