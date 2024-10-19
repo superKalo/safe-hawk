@@ -29,7 +29,7 @@ const runDataUpdate = async () => {
     }
 
     function getBookmarkTitle(healthFactor, network) {
-        if (!healthFactor) {
+        if (!healthFactor || !network) {
             return `🟡 -/- on ${network.shortName}`
         }
         healthFactor = Number(healthFactor)
@@ -43,9 +43,8 @@ const runDataUpdate = async () => {
         return `${statusDot} ${formatDecimals(healthFactor)} on ${network.shortName}`
     }
 
-    function updateHealthFactorBookmark(healthFactor, totalCollateral, network) {
+    function updateHealthFactorBookmark(healthFactor, network) {
         const bookmarkTitle = getBookmarkTitle(healthFactor, network)
-        console.log({ totalCollateral })
         chrome.bookmarks.getTree(function (tree) {
             const folders = tree[0].children
             let bookmarksBar = folders.filter((f) => f.title === 'Bookmarks Bar')[0]
@@ -94,21 +93,23 @@ const runDataUpdate = async () => {
         try {
             const storage = await chrome.storage.local.get(['viewOnlyChainId', 'viewOnlyAddress'])
             const network = NETWORKS.find((n) => n.chainId === storage.viewOnlyChainId)
-            console.log({ storage })
             if (!storage.viewOnlyAddress || !network) return
 
             const provider = new JsonRpcProvider(network.url)
 
-            const data = await getAAVEUserContractDataFormatted(
-                storage.viewOnlyAddress,
-                provider,
-                network.aaveLendingPoolAddress
-            )
-
-            console.log({ data })
+            let data = null
+            try {
+                data = await getAAVEUserContractDataFormatted(
+                    storage.viewOnlyAddress,
+                    provider,
+                    network.aaveLendingPoolAddress
+                )
+            } catch (e) {
+                //silent fail
+            }
 
             if (!data || !data.healthFactor) {
-                updateHealthFactorBookmark(null, null, network)
+                updateHealthFactorBookmark(null, network)
                 return
             }
 
@@ -120,16 +121,20 @@ const runDataUpdate = async () => {
             }
 
             await checkForImmediateDrop(pricesByNetwork[network.chainId.toString()])
-            updateHealthFactorBookmark(data.healthFactor, data.totalCollateralETH, network)
+            updateHealthFactorBookmark(data.healthFactor, network)
 
             provider.destroy()
         } catch (error) {
+            updateHealthFactorBookmark(null, null)
             console.error(error)
         }
 
-        setTimeout(() => {
-            update()
-        }, 7000) // run every 10 mins 10 * 60 * 1000
+        setTimeout(
+            () => {
+                update()
+            },
+            10 * 60 * 1000
+        ) // run every 10 mins
     }
     update()
 
