@@ -80,7 +80,7 @@ export default {
                     to: 'assets'
                 },
                 {
-                    from: './public/style.css',
+                    from: './public/extension-style.css',
                     to: 'style.css'
                 }
             ]

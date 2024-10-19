@@ -1,0 +1,122 @@
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+
+.item {
+    flex: 2;
+    padding: 1rem;
+    border-radius: $border-radius;
+    background-color: $primaryBackground;
+    text-align: center;
+    background: linear-gradient(94.86deg, #ffffff 0.38%, #ebe2f5 100%);
+    border: 1px solid rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 16px 0px rgba(210, 204, 217, 0.25);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    @include lg {
+        .content {
+            .header {
+                max-width: 35%;
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+
+        .header {
+            text-align: left;
+
+            .title {
+                font-size: 1.5rem;
+                margin-bottom: 0.625rem;
+                font-weight: 600;
+                color: $primaryText;
+
+                @include lg {
+                    font-size: 1.875rem;
+                }
+            }
+
+            .label {
+                font-size: 0.75rem;
+                color: $secondaryText;
+            }
+        }
+
+        .score {
+            font-size: $font-size-title;
+            margin-bottom: 0.9375rem;
+            display: flex;
+            justify-content: center;
+
+            .content {
+                display: flex;
+                gap: 0.625rem;
+                align-items: flex-end;
+                justify-content: center;
+                flex-direction: column;
+
+                @include lg {
+                    align-items: center;
+                }
+
+                .value {
+                    font-size: 2rem;
+                    font-weight: 700;
+
+                    &.best {
+                        color: #347C00;
+                    }
+        
+                    &.good {
+                        color: #347C00;
+                    }
+
+                    &.mid {
+                        color: rgba(195, 130, 0, 1);
+                    }
+
+                    &.bad {
+                        color: rgba(243, 57, 57, 0.32);
+                    }
+
+                    &.veryBad {
+                        color: rgba(243, 57, 57, 1);
+                    }
+                }
+
+                .label {
+                    background: rgba(245, 240, 250, 1);
+                    padding: 0.25rem 0.75rem;
+                    border-radius: 1rem;
+                    font-size: 0.875rem;
+                    color: $secondaryText;
+                }
+            }
+
+            .icon {
+                width: 8rem;
+                height: 5rem;
+            }
+        }
+    }
+
+    .healthInfo {
+        text-align: left;
+        margin-top: 1rem;
+        font-size: 0.75rem;
+
+        @include lg {
+            position: absolute;
+            text-align: right;
+            font-size: 0.75rem;
+            bottom: 1.7rem;
+            right: 1rem;
+        }
+    }
+}

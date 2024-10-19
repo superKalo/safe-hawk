@@ -1,49 +1,19 @@
-import { useAAVEDataProvider } from '@/context'
-import styles from './Dashboard.module.scss'
-import LiquidationChart from './Chart/Chart'
+import { HealthFactor } from './HealthFactor'
 import { Page } from '@/components'
 import EmailAndExtension from './EmailAndExtension'
+import styles from './Dashboard.module.scss'
+import { CurrentLTV } from './CurrentLTV'
 
 const Dashboard = () => {
-    const { address, isConnecting, isReconnecting, isLoading, aaveData, error } =
-        useAAVEDataProvider()
-
-    console.log({
-        address,
-        isConnecting,
-        isReconnecting,
-        isLoading,
-        aaveData,
-        error
-    })
     return (
-        <Page className={styles.dashboard}>
-            <div className={styles.aaveData}>
-                {isConnecting || isReconnecting ? (
-                    <p>Connecting...</p>
-                ) : !address ? (
-                    <p>
-                        Please connect your wallet or input an address to view your AAVE account
-                        data.
-                    </p>
-                ) : error ? (
-                    <p>Error: {error.message}</p>
-                ) : isLoading ? (
-                    <p>Loading AAVE data...</p>
-                ) : aaveData ? (
-                    <>
-                        <h4>{`Address: ${address}`}</h4>
-                        <p>{`totalCollateralETH: ${aaveData.totalCollateralETH}`}</p>
-                        <p>{`totalDebtETH: ${aaveData.totalDebtETH}`}</p>
-                        <p>{`availableBorrowsETH: ${aaveData.availableBorrowsETH}`}</p>
-                        <p>{`currentLiquidationThreshold: ${aaveData.currentLiquidationThreshold}`}</p>
-                        <p>{`ltv: ${aaveData.ltv}`}</p>
-                        <p>{`healthFactor: ${aaveData.healthFactor}`}</p>
-                    </>
-                ) : null}
-                <LiquidationChart liquidationValue={0.81} value={1.5} />
+        <Page className={styles.wrapper}>
+            <div className={styles.container}>
+                <div className={styles.content}>
+                    <HealthFactor />
+                    <CurrentLTV />
+                </div>
+                <EmailAndExtension />
             </div>
-            <EmailAndExtension />
         </Page>
     )
 }

@@ -1,4 +1,4 @@
-import { MainLogo } from '@/assets/images'
+import { MainLogo } from '@/assets/icons'
 import { CustomConnectWalletButton } from '@/components'
 import styles from './Navbar.module.scss'
 import { useNavigate } from 'react-router'
@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi'
 import { useEffect } from 'react'
 import usePrevious from '@/common/usePrevious'
 import { isExtension } from '@/helpers/browserApi'
+import NetworkSelect from '@/components/NetworkSelect'
 
 const Navbar = () => {
     const navigate = useNavigate()
@@ -25,9 +26,14 @@ const Navbar = () => {
     }
 
     return (
-        <div className={styles.navbar}>
-            <img className={styles.logo} src={MainLogo} alt={'SafeHawk Logo'} onClick={onClick} />
-            {!isExtension && <CustomConnectWalletButton />}
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <MainLogo className={styles.logo} onClick={onClick} />
+                <div className={styles.actions}>
+                    <NetworkSelect />
+                    {!isExtension && <CustomConnectWalletButton />}
+                </div>
+            </div>
         </div>
     )
 }

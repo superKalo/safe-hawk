@@ -3,16 +3,20 @@
 
 .home {
     background-color: $primaryBackground;
-    padding: 2rem;
+    padding: 1rem;
     font-family: $font-family;
     display: flex;
     flex-direction: column;
     gap: 5rem;
 
+    @include sm {
+        padding: 2rem;
+        padding-top: 0;
+    }
+
     .wrapper {
         @include container;
         min-height: 70vh;
-        padding: $global-spacing;
         display: flex;
         align-items: center;
         background-color: $secondaryBackground;
@@ -20,11 +24,7 @@
         box-shadow: $box-shadow;
         flex-direction: column;
         margin: 0 auto;
-
-        @include lg {
-            padding: 2rem;
-            flex-direction: row;
-        }
+        padding-bottom: 2rem;
 
         .banner {
             border-radius: $border-radius;
@@ -32,7 +32,6 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: flex-start;
-            padding: $global-spacing;
             gap: 3rem;
 
             @include lg {
@@ -59,16 +58,16 @@
                 }
 
                 .title {
-                    font-size: $font-size-title;
+                    font-size: $font-size-title / 2;
                     font-weight: $font-weight-bold;
-                    margin-bottom: $global-spacing;
-                    margin-bottom: 1.5rem;
+                    margin-bottom: 1rem;
                 }
 
                 .description {
                     font-size: $font-size-subtitle;
                     color: $secondaryText;
                     margin-bottom: $global-spacing;
+                    line-height: 1.5;
                 }
             }
 
@@ -98,17 +97,61 @@
                 margin-top: 2rem;
             }
         }
+
+        @include lg {
+            padding: 2rem;
+            flex-direction: row;
+
+            .banner {
+                .content {
+                    .title {
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+        @include xl {
+            .banner {
+                .content {
+                    .title {
+                        font-size: 3rem;
+                        margin-bottom: 1.5rem;
+                    }
+                }
+            }
+        }
     }
 
-    .content {
+    .features {
         @include container;
+        padding-bottom: 2rem;
         display: flex;
         flex-direction: column;
-        // flex-wrap: wrap;
-        gap: 2rem;
 
         @include lg {
             flex-direction: row;
+        }
+    }
+
+    .button {
+        background-color: $primary;
+        color: $alternativeText;
+        padding: calc($global-spacing * 1.5) calc($global-spacing * 2);
+        border-radius: $border-radius;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        min-width: 8rem;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s all ease-in-out;
+
+        &:hover {
+            background-color: #6c5ce7;
+        }
+
+        &:active {
+            background-color: #7a42b2;
         }
     }
 }

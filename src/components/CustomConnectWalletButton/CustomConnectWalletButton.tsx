@@ -1,6 +1,6 @@
-import { ConnectKitButton } from 'connectkit';
-import styles from './CustomConnectWalletButton.module.scss';
-import { WalletPreview } from '@/assets/images';
+import { ConnectKitButton } from 'connectkit'
+import styles from './CustomConnectWalletButton.module.scss'
+import { WalletPreview } from '@/assets/images'
 
 const CustomConnectWalletButton = () => {
     return (
@@ -19,10 +19,10 @@ const CustomConnectWalletButton = () => {
                             'Connect Wallet'
                         )}
                     </button>
-                );
+                )
             }}
         </ConnectKitButton.Custom>
-    );
-};
+    )
+}
 
-export default CustomConnectWalletButton;
+export default CustomConnectWalletButton

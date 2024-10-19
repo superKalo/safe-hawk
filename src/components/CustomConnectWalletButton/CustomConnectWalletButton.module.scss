@@ -8,16 +8,16 @@
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    min-width: 12.5rem;
-    display: flex;
+    min-width: 8rem;
     align-items: center;
     justify-content: center;
     transition: 0.3s all ease-in-out;
+    display: none;
 
     &:hover {
         background-color: #6c5ce7;
     }
-    
+
     &:active {
         background-color: #7a42b2;
     }
@@ -35,6 +35,9 @@
             height: 1.25rem;
         }
     }
+
+    @include lg {
+        min-width: 12rem;
+        display: flex;
+    }
 }
-
-

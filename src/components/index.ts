@@ -5,11 +5,4 @@ import CustomConnectWalletButton from './CustomConnectWalletButton/CustomConnect
 import Feature from './Feature/Feature'
 import Footer from './Footer/Footer'
 
-export {
-    Input,
-    Page,
-    Navbar,
-    Feature,
-    Footer,
-    CustomConnectWalletButton
-}
+export { Input, Page, Navbar, Feature, Footer, CustomConnectWalletButton }

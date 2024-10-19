@@ -1,0 +1,12 @@
+@import '@/styles/sizes.scss';
+@import '@/styles/global.scss';
+
+.chart {
+    margin: 0.625rem 0;
+    overflow: visible;
+    height: 7rem;
+}
+
+.valueMarker {
+    stroke-width: 2px;
+}

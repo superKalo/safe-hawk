@@ -1,7 +1,6 @@
 import { Feature, Input, Page } from '@/components'
 import styles from './Home.module.scss'
 import { Shield } from '@/assets/images'
-// import { isExtension } from '../../helpers/browserApi'
 import classNames from 'classnames'
 import { AlertsIcon, MonitoringIcon, UpdatesIcon } from '@/assets/icons'
 import { motion } from 'framer-motion'
@@ -13,7 +12,6 @@ import {
 import { useCallback } from 'react'
 import { useAAVEDataProvider } from '@/context'
 import { useNavigate } from 'react-router'
-
 const features = [
     {
         icon: UpdatesIcon,
@@ -36,15 +34,22 @@ const features = [
 ]
 
 const Home = () => {
-    const { setInputAddress } = useAAVEDataProvider()
+    const {
+        updateViewOnlyAddress,
+        isConnected,
+        viewOnlyAddress,
+        viewOnlyChainId,
+        updateViewOnlyChainId
+    } = useAAVEDataProvider()
     const navigate = useNavigate()
 
-    const handleSumbitAddress = useCallback(
+    const handleSubmitAddress = useCallback(
         (address: string) => {
-            setInputAddress(address)
+            updateViewOnlyAddress(address)
+            updateViewOnlyChainId(viewOnlyChainId || 1)
             navigate('/dashboard')
         },
-        [setInputAddress]
+        [updateViewOnlyAddress, updateViewOnlyChainId, navigate]
     )
 
     return (
@@ -70,15 +75,22 @@ const Home = () => {
                             your positions effortlessly.
                         </p>
                     </div>
-                    <div className={styles.inputContainer}>
-                        <label className={styles.inputLabel}>Insert Address</label>
-                        <Input
-                            name={'walletAddressInput'}
-                            className={styles.inputBox}
-                            placeholder={'0x'}
-                            onSubmit={handleSumbitAddress}
-                        />
-                    </div>
+                    {!isConnected ? (
+                        <div className={styles.inputContainer}>
+                            <label className={styles.inputLabel}>Insert Address</label>
+                            <Input
+                                name={'walletAddressInput'}
+                                className={styles.inputBox}
+                                placeholder={'0x'}
+                                onSubmit={handleSubmitAddress}
+                                defaultValue={viewOnlyAddress}
+                            />
+                        </div>
+                    ) : (
+                        <button className={styles.button} onClick={() => navigate('/dashboard')}>
+                            Go to Dashboard
+                        </button>
+                    )}
                 </motion.div>
                 <div className={styles.imageContainer}>
                     <motion.img
@@ -91,7 +103,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <div className={styles.content}>
+            <div className={styles.features}>
                 {features.map((feature, index) => (
                     <Feature key={index} {...feature} />
                 ))}

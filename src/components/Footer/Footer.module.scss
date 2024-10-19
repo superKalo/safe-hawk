@@ -39,7 +39,9 @@
                 text-decoration: underline;
                 color: inherit;
 
-                &:hover, &:active, &:visited {
+                &:hover,
+                &:active,
+                &:visited {
                     color: inherit;
                 }
             }

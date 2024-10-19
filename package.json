@@ -21,6 +21,7 @@
         "@types/react-dom": "^18.0.0",
         "@visx/axis": "^3.10.1",
         "@visx/gradient": "^3.3.0",
+        "@visx/responsive": "^3.10.2",
         "@visx/scale": "^3.5.0",
         "@visx/shape": "^3.5.0",
         "classnames": "^2.5.1",
