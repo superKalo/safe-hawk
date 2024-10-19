@@ -9,9 +9,10 @@ import {
     appearTopAnimation,
     hoverAnimationEasy
 } from '@/styles/animations'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useAAVEDataProvider } from '@/context'
 import { useNavigate } from 'react-router'
+import { isExtension } from '@/helpers/browserApi'
 const features = [
     {
         icon: MonitoringIcon,
@@ -51,6 +52,12 @@ const Home = () => {
         },
         [updateViewOnlyAddress, updateViewOnlyChainId, navigate]
     )
+
+    useEffect(() => {
+        if (isExtension && viewOnlyAddress) {
+            navigate('/dashboard')
+        }
+    }, [viewOnlyAddress, navigate])
 
     return (
         <Page className={styles.home}>

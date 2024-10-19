@@ -8,7 +8,6 @@ body,
     -webkit-overflow-scrolling: touch;
     margin: 0;
     padding: 0;
-    overflow: scroll;
 }
 
 html {
