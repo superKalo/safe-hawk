@@ -68,7 +68,7 @@ export default {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './public/index.html',
+            template: './public/popup.html',
             filename: 'popup.html',
             chunks: ['popup']
         }),
@@ -80,7 +80,7 @@ export default {
                     to: 'assets'
                 },
                 {
-                    from: './public/extension-style.css',
+                    from: './public/popup-style.css',
                     to: 'style.css'
                 }
             ]
