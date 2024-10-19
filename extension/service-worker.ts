@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from 'ethers'
-import { getAAVEUserContractDataFormatted } from '../src/libs/getAAVEContractDataFormatted'
-import { NETWORKS } from '../src/common/networks'
+import { getAAVEUserContractDataFormatted } from '@/libs/getAAVEContractDataFormatted'
+import { NETWORKS } from '@/common/networks'
 import formatDecimals from '@/helpers/formatDecimals'
 
 async function runHeartbeat() {
@@ -22,9 +22,6 @@ Object.values(NETWORKS).forEach((n) => {
     pricesByNetwork[n.chainId.toString()] = []
 })
 const runDataUpdate = async () => {
-    const network = NETWORKS.find((n) => n.chainId === 1)!
-    const provider = new JsonRpcProvider(network.url)
-
     function percentageDifference(newValue, oldValue) {
         const difference = newValue - oldValue
         const percentageDiff = (difference / oldValue) * 100
@@ -91,27 +88,38 @@ const runDataUpdate = async () => {
     }
 
     const update = async () => {
-        const data = await getAAVEUserContractDataFormatted(
-            '0x4F3c11ac6f552E36211661d161360e4A7677C683',
-            provider
-        )
+        try {
+            const storage = await chrome.storage.local.get(['viewOnlyChainId', 'viewOnlyAddress'])
+            const network = NETWORKS.find((n) => n.chainId === storage.viewOnlyChainId)
 
-        pricesByNetwork[network.chainId.toString()].push(data.healthFactor)
+            if (!storage.viewOnlyAddress || !network) return
 
-        // Keep only the last 6 prices (one hour worth of data)
-        if (pricesByNetwork[network.chainId.toString()].length > 6) {
-            pricesByNetwork[network.chainId.toString()].shift()
+            const provider = new JsonRpcProvider(network.url)
+
+            const data = await getAAVEUserContractDataFormatted(
+                storage.viewOnlyAddress,
+                provider,
+                network.aaveLendingPoolAddress
+            )
+
+            pricesByNetwork[network.chainId.toString()].push(data.healthFactor)
+
+            // Keep only the last 6 prices (one hour worth of data)
+            if (pricesByNetwork[network.chainId.toString()].length > 6) {
+                pricesByNetwork[network.chainId.toString()].shift()
+            }
+
+            await checkForImmediateDrop(pricesByNetwork[network.chainId.toString()])
+            updateHealthFactorBookmark(data.healthFactor)
+
+            provider.destroy()
+        } catch (error) {
+            console.error(error)
         }
 
-        await checkForImmediateDrop(pricesByNetwork[network.chainId.toString()])
-        updateHealthFactorBookmark(data.healthFactor)
-
-        setTimeout(
-            () => {
-                update()
-            },
-            10 * 60 * 1000
-        ) // run every 10 mins
+        setTimeout(() => {
+            update()
+        }, 7000) // run every 10 mins 10 * 60 * 1000
     }
     update()
 }

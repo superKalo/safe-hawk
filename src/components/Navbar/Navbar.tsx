@@ -22,7 +22,7 @@ const Navbar = () => {
     }, [prevIsConnected, isConnected])
 
     const onClick = () => {
-        navigate('/')
+        navigate(isExtension ? '/popup.html' : '/')
     }
 
     return (
