@@ -37,15 +37,21 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
     const { address, isConnected, connector, isConnecting, isReconnecting, isDisconnected } =
         useAccount()
 
-    const [viewOnlyAddress, setViewOnlyAddress] = useState(() => {
-        const address = localStorage.getItem('viewOnlyAddress')
+    const [viewOnlyAddress, setViewOnlyAddress] = useState<string | null>(() => {
+        if (!isExtension) {
+            const address = localStorage.getItem('viewOnlyAddress')
+            return address || ''
+        }
 
-        return address || ''
+        return null
     })
     const [viewOnlyChainId, setViewOnlyChainId] = useState<number | null>(() => {
-        const chainId = localStorage.getItem('viewOnlyChainId')
+        if (!isExtension) {
+            const chainId = localStorage.getItem('viewOnlyChainId')
+            return chainId ? parseInt(chainId) : null
+        }
 
-        return chainId ? parseInt(chainId) : null
+        return null
     })
     const accountAddress = isConnected && address ? address : viewOnlyAddress
     const chainId = isConnected ? connectedChainId : viewOnlyChainId
@@ -74,22 +80,37 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
             })
     }, [accountAddress, network, connector])
 
+    useEffect(() => {
+        if (!isExtension || !chrome) return
+
+        chrome.storage.local.get(['viewOnlyAddress', 'viewOnlyChainId'], (result) => {
+            if (result.viewOnlyAddress) {
+                setViewOnlyAddress(result.viewOnlyAddress)
+            }
+            if (result.viewOnlyChainId) {
+                setViewOnlyChainId(result.viewOnlyChainId)
+            }
+        })
+    }, [])
+
     const updateViewOnlyAddress = (address: string) => {
         setViewOnlyAddress(address)
-        localStorage.setItem('viewOnlyAddress', address)
+        if (!isExtension) {
+            localStorage.setItem('viewOnlyAddress', address)
+        } else if (chrome) {
+            chrome.storage.local.set({ viewOnlyAddress: address })
+        }
     }
 
     const updateViewOnlyChainId = (chainId: number) => {
         setViewOnlyChainId(chainId)
-        localStorage.setItem('viewOnlyChainId', chainId.toString())
+        if (!isExtension) {
+            localStorage.setItem('viewOnlyChainId', chainId.toString())
+        } else {
+            chrome.storage.local.set({ viewOnlyChainId: chainId })
+        }
     }
 
-    console.log({
-        aaveData,
-        address,
-        isConnected,
-        chainId
-    })
     return (
         <AaveDataContext.Provider
             value={{
