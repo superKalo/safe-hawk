@@ -28,7 +28,10 @@ const runDataUpdate = async () => {
         return percentageDiff
     }
 
-    function getBookmarkTitle(healthFactor) {
+    function getBookmarkTitle(healthFactor, network) {
+        if (!healthFactor) {
+            return `🟡 -/- on ${network.shortName}`
+        }
         healthFactor = Number(healthFactor)
         let statusDot = '🟢'
         if (healthFactor < 1.3) {
@@ -37,12 +40,12 @@ const runDataUpdate = async () => {
             statusDot = '🟡'
         }
 
-        return `${statusDot} Health ${formatDecimals(healthFactor)}`
+        return `${statusDot} ${formatDecimals(healthFactor)} on ${network.shortName}`
     }
 
-    function updateHealthFactorBookmark(healthFactor) {
-        const bookmarkTitle = getBookmarkTitle(healthFactor)
-
+    function updateHealthFactorBookmark(healthFactor, totalCollateral, network) {
+        const bookmarkTitle = getBookmarkTitle(healthFactor, network)
+        console.log({ totalCollateral })
         chrome.bookmarks.getTree(function (tree) {
             const folders = tree[0].children
             let bookmarksBar = folders.filter((f) => f.title === 'Bookmarks Bar')[0]
@@ -91,7 +94,7 @@ const runDataUpdate = async () => {
         try {
             const storage = await chrome.storage.local.get(['viewOnlyChainId', 'viewOnlyAddress'])
             const network = NETWORKS.find((n) => n.chainId === storage.viewOnlyChainId)
-
+            console.log({ storage })
             if (!storage.viewOnlyAddress || !network) return
 
             const provider = new JsonRpcProvider(network.url)
@@ -102,6 +105,13 @@ const runDataUpdate = async () => {
                 network.aaveLendingPoolAddress
             )
 
+            console.log({ data })
+
+            if (!data || !data.healthFactor) {
+                updateHealthFactorBookmark(null, null, network)
+                return
+            }
+
             pricesByNetwork[network.chainId.toString()].push(data.healthFactor)
 
             // Keep only the last 6 prices (one hour worth of data)
@@ -110,7 +120,7 @@ const runDataUpdate = async () => {
             }
 
             await checkForImmediateDrop(pricesByNetwork[network.chainId.toString()])
-            updateHealthFactorBookmark(data.healthFactor)
+            updateHealthFactorBookmark(data.healthFactor, data.totalCollateralETH, network)
 
             provider.destroy()
         } catch (error) {
@@ -122,6 +132,15 @@ const runDataUpdate = async () => {
         }, 7000) // run every 10 mins 10 * 60 * 1000
     }
     update()
+
+    chrome.storage.onChanged.addListener(function (changes, areaName) {
+        if (areaName === 'local') {
+            // Listen for changes in local storage
+            if (changes.viewOnlyChainId || changes.viewOnlyAddress) {
+                update()
+            }
+        }
+    })
 }
 
 runDataUpdate()

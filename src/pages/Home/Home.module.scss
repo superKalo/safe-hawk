@@ -24,7 +24,7 @@
         box-shadow: $box-shadow;
         flex-direction: column;
         margin: 0 auto;
-        padding-bottom: 2rem;
+        padding: calc($global-spacing * 5) $global-spacing;
 
         .banner {
             border-radius: $border-radius;
@@ -58,13 +58,17 @@
                 }
 
                 .title {
-                    font-size: $font-size-title / 2;
+                    font-size: 2rem;
                     font-weight: $font-weight-bold;
                     margin-bottom: 1rem;
+
+                    @include lg {
+                        font-size: 2rem;
+                    }
                 }
 
                 .description {
-                    font-size: $font-size-subtitle;
+                    font-size: 1rem;
                     color: $secondaryText;
                     margin-bottom: $global-spacing;
                     line-height: 1.5;
