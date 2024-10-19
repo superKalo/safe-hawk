@@ -9,7 +9,10 @@ const EmailAndExtension = () => {
         <motion.div className={styles.wrapper} layout>
             <EmailCard />
             {!isExtension && (
-                <motion.div className={`${styles.card} ${styles.extensionCard}`} whileHover={hoverAnimationEasy}>
+                <motion.div
+                    className={`${styles.card} ${styles.extensionCard}`}
+                    whileHover={hoverAnimationEasy}
+                >
                     <div className={styles.content}>
                         <h3 className={styles.title}>Install Extension</h3>
                         <p className={styles.text}>
@@ -18,7 +21,7 @@ const EmailAndExtension = () => {
                     </div>
                     <img src="/logo.png" alt="logo" className={styles.image} />
                     <a
-                        href="https://chrome.google.com/webstore/detail/extension-name"
+                        href="https://github.com/PetromirDev/safe-hawk/releases/tag/v1.0.0"
                         target="_blank"
                         rel="noreferrer"
                         className={styles.button2}

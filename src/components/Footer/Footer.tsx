@@ -14,7 +14,11 @@ const Footer = () => {
                 <div className={styles.hr} />
                 <div className={styles.label}>
                     Made with ❤️ by{' '}
-                    <a href="https://goodmorning.dev/" target="_blank" rel="noopener noreferrer">
+                    <a
+                        href="https://dorahacks.io/buidl/17699/team"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <span>team Good Morning</span>
                     </a>
                 </div>

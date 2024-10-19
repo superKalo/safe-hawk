@@ -33,6 +33,13 @@ const NETWORKS = [
         name: 'Arbitrum',
         shortName: 'Arb..',
         aaveLendingPoolAddress: '0x794a61358D6845594F94dc1DB02A252b5b4814aD'
+    },
+    {
+        url: 'https://lb.drpc.org/ogrpc?network=base&dkey=Aq_9hKViS0SckPrtTHpH_c8dayHbjV8R77oJTgFkVp5j',
+        chainId: 8453,
+        name: 'Base',
+        shortName: 'Base',
+        aaveLendingPoolAddress: '0xA238Dd80C259a72e81d7e4664a9801593F98d1c5'
     }
 ]
 

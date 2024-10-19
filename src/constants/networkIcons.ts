@@ -3,6 +3,7 @@ import { ReactComponent as EthereumIcon } from '@/assets/images/networks/ethereu
 import { ReactComponent as OptimismIcon } from '@/assets/images/networks/optimism.svg'
 import { ReactComponent as PolygonIcon } from '@/assets/images/networks/polygon.svg'
 import { ReactComponent as ArbitrumIcon } from '@/assets/images/networks/arbitrum.svg'
+import { ReactComponent as BaseIcon } from '@/assets/images/networks/base.svg'
 import { ReactComponent as IExecIcon } from '@/assets/images/networks/iexec.svg'
 
 const NETWORK_ICONS: {
@@ -13,6 +14,7 @@ const NETWORK_ICONS: {
     10: OptimismIcon,
     137: PolygonIcon,
     42161: ArbitrumIcon,
+    8453: BaseIcon,
     134: IExecIcon
 }
 
