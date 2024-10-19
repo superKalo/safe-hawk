@@ -75,7 +75,9 @@ interface SelectItemProps {
 }
 
 const SelectItem = ({ name, Icon, onClick, isSelected }: SelectItemProps) => {
-    const { address } = useAccount()
+    const { address: connectedAddress } = useAccount()
+    const { viewOnlyAddress } = useAAVEDataProvider()
+    const address = connectedAddress || viewOnlyAddress
 
     return (
         <button

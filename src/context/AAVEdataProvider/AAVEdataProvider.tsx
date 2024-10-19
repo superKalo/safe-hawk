@@ -3,6 +3,7 @@ import { useAccount, useChainId } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
 import { getAAVEUserContractDataFormatted } from '@/libs/getAAVEContractDataFormatted'
 import { JsonRpcProvider } from 'ethers'
+import { isExtension } from '@/helpers/browserApi'
 
 type AaveData = {
     totalCollateralETH: string
