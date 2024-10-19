@@ -4,6 +4,7 @@ import EmailAndExtension from './EmailAndExtension'
 import styles from './Dashboard.module.scss'
 import { CurrentLTV } from './CurrentLTV'
 import { useAAVEDataProvider } from '@/context'
+import { motion } from 'framer-motion'
 import { useChainId } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
 
@@ -23,7 +24,7 @@ const Dashboard = () => {
 
     return (
         <Page className={styles.wrapper}>
-            <div className={styles.container}>
+            <motion.div className={styles.container}>
                 <div className={styles.header}>
                     <h1 className={styles.title}>AAVE v3 positions</h1>
                     <p className={styles.text}>
@@ -32,10 +33,10 @@ const Dashboard = () => {
                     </p>
                 </div>
                 {aaveData && isNetworkSupported && !isLoading && (
-                    <div className={styles.content}>
+                    <motion.div className={styles.content}>
                         <HealthFactor />
                         <CurrentLTV />
-                    </div>
+                    </motion.div>
                 )}
                 {isLoading && isNetworkSupported && (
                     <Placeholder title="Loading AAVE data..." text="" />
@@ -54,7 +55,7 @@ const Dashboard = () => {
                 )}
                 {/* TODO: Other network handling */}
                 <EmailAndExtension />
-            </div>
+            </motion.div>
         </Page>
     )
 }

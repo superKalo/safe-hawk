@@ -14,7 +14,7 @@ import { useAAVEDataProvider } from '@/context'
 import { useNavigate } from 'react-router'
 const features = [
     {
-        icon: UpdatesIcon,
+        icon: MonitoringIcon,
         title: 'Privacy-First Web3 Updates',
         content:
             'Get weekly email reports, powered by DeCC technology, delivering precise insights like a hawk guarding your stats.'
@@ -26,7 +26,7 @@ const features = [
             'Stay sharp with timely insights into your loan health, empowering you to make proactive, informed decisions.'
     },
     {
-        icon: MonitoringIcon,
+        icon: UpdatesIcon,
         title: 'Real-Time Monitoring',
         content:
             'Track your open DeFi lending positions in real time, keeping you ahead of changes with constant updates.'
@@ -64,7 +64,7 @@ const Home = () => {
                 >
                     <div className={styles.content}>
                         <div className={styles.poweredBy}>
-                            <span className={styles.gradientText}>POWERED BY DeCC</span>
+                            <span className={styles.gradientTextSecondary}>POWERED BY DeCC</span>
                         </div>
                         <h1 className={classNames(styles.title, styles.gradientText)}>
                             Hawk’s eye view for your DeFi loans.

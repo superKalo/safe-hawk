@@ -10,6 +10,8 @@ import {
 import { ParentSize } from '@visx/responsive'
 import styles from './HealthFactor.module.scss'
 import classNames from 'classnames'
+import { motion } from 'framer-motion'
+import { hoverAnimationEasy } from '@/styles/animations'
 
 const HealthIcon = () => {
     const { aaveData } = useAAVEDataProvider()
@@ -37,7 +39,7 @@ const HealthFactor = () => {
     const healthFactorValue = parseFloat(aaveData.healthFactor)
 
     return (
-        <div className={styles.item}>
+        <motion.div className={styles.item} layout whileHover={hoverAnimationEasy}>
             <div className={styles.content}>
                 <div className={styles.header}>
                     <h3 className={styles.title}>Health Factor</h3>
@@ -86,7 +88,7 @@ const HealthFactor = () => {
                 If the health factor goes below 1, the liquidation of your collateral might be
                 triggered.
             </div>
-        </div>
+        </motion.div>
     )
 }
 

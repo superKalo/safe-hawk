@@ -8,6 +8,25 @@ import type { Client, Chain, Transport, Account } from 'viem'
 import toast from 'react-hot-toast'
 import { config } from '@/wagmiConfig'
 import styles from './EmailAndExtension.module.scss'
+import { hoverAnimationEasy } from '@/styles/animations'
+import { motion } from 'framer-motion'
+import classNames from 'classnames'
+
+type WrapperProps = {
+    complete?: boolean
+    children: React.ReactNode
+}
+
+const EmailCardWrapper = ({ complete = false, children }: WrapperProps) => {
+    return (
+        <motion.div
+            className={classNames(styles.card, styles.emailCard, { [styles.complete]: complete })}
+            whileHover={hoverAnimationEasy}
+        >
+            {children}
+        </motion.div>
+    )
+}
 
 export function clientToSigner(client: Client<Transport, Chain, Account>) {
     const { account, chain, transport } = client
@@ -199,7 +218,7 @@ const EmailCard = () => {
 
     if (!isConnected) {
         return (
-            <div className={`${styles.card} ${styles.emailCard}`}>
+            <EmailCardWrapper complete={false}>
                 <div className={styles.content}>
                     <h3 className={styles.title}>Connect wallet to set-up email updates</h3>
                     <p className={styles.text}>
@@ -207,13 +226,13 @@ const EmailCard = () => {
                         Factor.
                     </p>
                 </div>
-            </div>
+            </EmailCardWrapper>
         )
     }
 
     if (chainId !== 134) {
         return (
-            <div className={`${styles.card} ${styles.emailCard}`}>
+            <EmailCardWrapper>
                 <div className={styles.content}>
                     <h3 className={styles.title}>Switch to iExec chain</h3>
                     <p className={styles.text}>
@@ -223,21 +242,21 @@ const EmailCard = () => {
                 <button onClick={switchToIExecChain} className={styles.button}>
                     Switch to iExec chain
                 </button>
-            </div>
+            </EmailCardWrapper>
         )
     }
 
     if (isLoading) {
         return (
-            <div className={`${styles.card} ${styles.emailCard}`}>
+            <EmailCardWrapper>
                 <h3 className={styles.title}>Loading...</h3>
-            </div>
+            </EmailCardWrapper>
         )
     }
 
     if (isAccessGivenToEmail) {
         return (
-            <div className={`${styles.card} ${styles.emailCard} ${styles.complete}`}>
+            <EmailCardWrapper complete>
                 <div className={styles.content}>
                     <h3 className={styles.title}>Weekly email updates configured!</h3>
                     <p>You will receive weekly email updates about your Health Factor.</p>
@@ -251,12 +270,12 @@ const EmailCard = () => {
                     {isInProgress ? 'Loading...' : 'Disable email updates'}
                 </button>
                 <span className={`${styles.image} ${styles.tada}`}>🎉</span>
-            </div>
+            </EmailCardWrapper>
         )
     }
 
     return (
-        <div className={`${styles.card} ${styles.emailCard}`}>
+        <EmailCardWrapper>
             <div className={styles.content}>
                 <h3 className={styles.title}>Set-up email updates</h3>
                 <p className={styles.text}>
@@ -296,7 +315,7 @@ const EmailCard = () => {
                     {!hasProtectedEmail && isInProgress && 'Saving email...'}
                 </button>
             </div>
-        </div>
+        </EmailCardWrapper>
     )
 }
 

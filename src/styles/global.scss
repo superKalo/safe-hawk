@@ -28,6 +28,8 @@ $alternativeText: #ffffff;
 $primary: #9639f3;
 $primaryAccent: #f55b42;
 $linearGradient: linear-gradient(90deg, #9639f3 0%, #f55b42 100%);
+$secondaryLinearGradient: linear-gradient(90deg, #CC9EFA 0%, #FAAA9E 100%);
+
 
 * {
     margin: 0;
@@ -66,6 +68,13 @@ button {
 
 .gradientText {
     background: $linearGradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.gradientTextSecondary {
+    background: $secondaryLinearGradient;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;

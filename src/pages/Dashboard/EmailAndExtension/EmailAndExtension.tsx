@@ -1,14 +1,15 @@
-import React from 'react'
 import EmailCard from './EmailCard'
 import styles from './EmailAndExtension.module.scss'
 import { isExtension } from '@/helpers/browserApi'
+import { motion } from 'framer-motion'
+import { hoverAnimationEasy } from '@/styles/animations'
 
 const EmailAndExtension = () => {
     return (
-        <div className={styles.wrapper}>
+        <motion.div className={styles.wrapper} layout>
             <EmailCard />
             {!isExtension && (
-                <div className={`${styles.card} ${styles.extensionCard}`}>
+                <motion.div className={`${styles.card} ${styles.extensionCard}`} whileHover={hoverAnimationEasy}>
                     <div className={styles.content}>
                         <h3 className={styles.title}>Install Extension</h3>
                         <p className={styles.text}>
@@ -24,9 +25,9 @@ const EmailAndExtension = () => {
                     >
                         Install
                     </a>
-                </div>
+                </motion.div>
             )}
-        </div>
+        </motion.div>
     )
 }
 

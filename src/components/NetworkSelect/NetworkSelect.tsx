@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useAccount, useChainId, useSwitchChain } from 'wagmi'
 import styles from './NetworkSelect.module.scss'
 import { NETWORKS } from '@/common/networks'
 import { ChevronDownIcon } from '@/assets/icons'
 import { config } from '@/wagmiConfig'
 import { useAAVEDataProvider } from '@/context'
+import { useOnClickOutside } from '@/common/useOnClickOutside'
+import classNames from 'classnames'
 
 const NetworkSelect = () => {
     const connectedChainId = useChainId()
@@ -29,10 +31,18 @@ const NetworkSelect = () => {
         setMenuOpen(false)
     }
 
+    const ref = useRef();
+
+    const handler = () => {
+        setMenuOpen(false)
+    };
+
+    useOnClickOutside(ref, handler)
+
     if (!chainId) return null
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} ref={ref}>
             <button
                 className={styles.button}
                 onClick={() => setMenuOpen((prevIsOpen) => !prevIsOpen)}
@@ -51,7 +61,7 @@ const NetworkSelect = () => {
                 ) : (
                     <p className={styles.name}>Unsupported Network</p>
                 )}
-                <ChevronDownIcon width={16} height={8} className={styles.arrow} />
+                <ChevronDownIcon width={16} height={8} className={classNames(styles.arrow, { [styles.open]: menuOpen})} />
             </button>
             <div className={`${styles.menu} ${menuOpen ? styles.menuOpen : ''}`}>
                 {NETWORKS.map(({ chainId, name, icon: Icon }) => (
