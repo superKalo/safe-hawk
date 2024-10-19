@@ -32,46 +32,55 @@ const LTVChart = ({ stringValue, maxValue, threshold, width }: Props) => {
 
     return (
         <svg width={width} className={styles.chart}>
-            <LinearGradient id="healthGradient" vertical={false}>
-                <stop offset="0%" stopColor="#F33939" />
-                <stop offset="50%" stopColor="#E09D19" />
-                <stop offset="100%" stopColor="#53AA14" />
+            <LinearGradient id={'ltvValue'} vertical={false}>
+                <stop offset={'0%'} stopColor={'#53AA14'} />
+                <stop offset={`${stringValue}`} stopColor={'rgba(83, 170, 20, 0.5)'} />
+                <stop offset={`${threshold}`} stopColor={'#F33939'} />
+                <stop offset={`${threshold}`} stopColor={'#F33939'} />
             </LinearGradient>
+
             <rect
                 x={margin.left}
                 y={margin.top}
                 width={width - margin.left - margin.right}
                 height={rectHeight}
-                fill="url(#healthGradient)"
+                fill={'url(#ltvValue)'}
                 rx={5}
             />
-            {/* Current LTV Indicator */}
             <svg
-                width="14"
-                height="7"
-                viewBox="0 0 14 7"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                width={'14'}
+                height={'7'}
+                viewBox={'0 0 14 7'}
+                fill={'none'}
+                xmlns={'http://www.w3.org/2000/svg'}
                 x={xScale(currentValue) - 7}
                 y={rectHeight - 5}
             >
-                <path d="M7 7L0 0H14L7 7Z" fill="#20102F" />
+                <path d={'M7 7L0 0H14L7 7Z'} fill={'#20102F'} />
             </svg>
             <text
                 x={xScale(currentValue)}
-                y={rectHeight - 15}
+                y={rectHeight - 30}
                 fontSize={12}
                 fontWeight={600}
-                textAnchor="middle"
-                fill="#523E65"
+                textAnchor={'middle'}
+                fill={'#523E65'}
             >
                 {stringValue}
             </text>
-            {/* Liquidation Threshold Line */}
+            <text
+                x={xScale(currentValue)}
+                y={rectHeight - 15}
+                fontSize={10}
+                textAnchor={'middle'}
+                fill={'#7A6095'}
+            >
+                MAX {maxValue}
+            </text>
             <Line
                 from={{ x: xScale(thresholdValue), y: margin.top - 5 }}
                 to={{ x: xScale(thresholdValue), y: rectHeight + 15 }}
-                stroke="#C91818"
+                stroke={'#C91818'}
                 strokeWidth={3}
                 className={styles.liquidationMarker}
             />
@@ -79,8 +88,8 @@ const LTVChart = ({ stringValue, maxValue, threshold, width }: Props) => {
                 x={xScale(thresholdValue)}
                 y={rectHeight + 40}
                 fontSize={12}
-                textAnchor="middle"
-                fill="#C91818"
+                textAnchor={'middle'}
+                fill={'#C91818'}
                 className={styles.liquidationText}
             >
                 {threshold}
@@ -89,8 +98,8 @@ const LTVChart = ({ stringValue, maxValue, threshold, width }: Props) => {
                 x={xScale(thresholdValue)}
                 y={rectHeight + 55}
                 fontSize={12}
-                textAnchor="middle"
-                fill="#C91818"
+                textAnchor={'middle'}
+                fill={'#C91818'}
                 className={styles.liquidationText}
             >
                 Liquidation Threshold
