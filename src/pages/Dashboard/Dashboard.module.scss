@@ -10,6 +10,21 @@
         display: flex;
         flex-direction: column;
     }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+
+        .title {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .text {
+            font-size: 0.875rem;
+            color: $secondaryText;
+        }
+    }
     .content {
         display: flex;
         flex-direction: column;
