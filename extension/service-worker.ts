@@ -117,3 +117,11 @@ const runDataUpdate = async () => {
 }
 
 runDataUpdate()
+
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+    if (reason === 'install') {
+        setTimeout(() => {
+            chrome.action.openPopup()
+        }, 200)
+    }
+})
