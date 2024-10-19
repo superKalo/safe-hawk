@@ -4,13 +4,14 @@ import EmailAndExtension from './EmailAndExtension'
 import styles from './Dashboard.module.scss'
 import { CurrentLTV } from './CurrentLTV'
 import { useAAVEDataProvider } from '@/context'
+import { motion } from 'framer-motion'
 
 const Dashboard = () => {
     const { aaveData } = useAAVEDataProvider()
 
     return (
         <Page className={styles.wrapper}>
-            <div className={styles.container}>
+            <motion.div className={styles.container}>
                 <div className={styles.header}>
                     <h1 className={styles.title}>AAVE v3 positions</h1>
                     <p className={styles.text}>
@@ -18,12 +19,12 @@ const Dashboard = () => {
                         {aaveData?.totalDebtETH || '-$'}
                     </p>
                 </div>
-                <div className={styles.content}>
+                <motion.div className={styles.content}>
                     <HealthFactor />
                     <CurrentLTV />
-                </div>
+                </motion.div>
                 <EmailAndExtension />
-            </div>
+            </motion.div>
         </Page>
     )
 }

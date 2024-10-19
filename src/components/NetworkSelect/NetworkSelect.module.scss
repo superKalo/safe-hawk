@@ -17,12 +17,6 @@
     color: $primaryText;
     cursor: pointer;
 
-    &:hover {
-        .arrow {
-            transform: rotate(180deg);
-        }
-    }
-
     .option {
         padding: 0;
         background-color: transparent;
@@ -39,6 +33,10 @@
         height: 0.5rem;
         transition: 0.2s ease;
         margin-left: 1rem;
+
+        &.open {
+            transform: rotate(180deg);
+        }
     }
 
     @include sm {
@@ -98,6 +96,7 @@
     .address {
         display: none;
     }
+
     &.selected {
         .name {
             display: none;

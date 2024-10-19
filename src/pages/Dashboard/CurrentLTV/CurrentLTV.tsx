@@ -10,6 +10,8 @@ import {
 import { ParentSize } from '@visx/responsive'
 import styles from './CurrentLTV.module.scss'
 import classNames from 'classnames'
+import { motion } from 'framer-motion'
+import { hoverAnimationEasy } from '@/styles/animations'
 
 type HealthIconProps = {
     currentLtvValue: number
@@ -51,7 +53,7 @@ const CurrentLTV = () => {
         (parseFloat(aaveData.currentLiquidationThreshold) / 100) * 100
 
     return (
-        <div className={styles.item}>
+        <motion.div className={styles.item} layout whileHover={hoverAnimationEasy}>
             <div className={styles.content}>
                 <div className={styles.header}>
                     <h3 className={styles.title}>Current LTV</h3>
@@ -107,7 +109,7 @@ const CurrentLTV = () => {
                 If your loan to value goes above the liquidation threshold, your collateral supplied
                 may be liquidated.
             </div>
-        </div>
+        </motion.div>
     )
 }
 

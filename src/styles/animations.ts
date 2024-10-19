@@ -63,7 +63,7 @@ export const hoverAnimation = {
     }
 }
 export const hoverAnimationEasy = {
-    scale: 1.02,
+    scale: 1.01,
     transition: {
         duration: 0.3,
         ease: [0.61, 1, 0.88, 1]
