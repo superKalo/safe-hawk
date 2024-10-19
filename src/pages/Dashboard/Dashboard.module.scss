@@ -5,7 +5,7 @@
     padding: $global-spacing;
     padding-bottom: 4rem;
     overflow-y: auto;
-    height: 82vh;
+    min-height: 82vh;
 
     .container {
         @include container;
