@@ -51,18 +51,20 @@
         .score {
             font-size: $font-size-title;
             margin-bottom: 0.9375rem;
+            gap: 0.5rem;
             display: flex;
             justify-content: center;
 
             .content {
                 display: flex;
-                gap: 0.625rem;
                 align-items: flex-end;
                 justify-content: center;
                 flex-direction: column;
+                width: auto;
 
                 @include lg {
                     align-items: center;
+                    gap: 0.625rem;
                 }
 
                 .value {
@@ -70,11 +72,11 @@
                     font-weight: 700;
 
                     &.best {
-                        color: #347C00;
+                        color: #347c00;
                     }
-        
+
                     &.good {
-                        color: #347C00;
+                        color: #347c00;
                     }
 
                     &.mid {
@@ -100,8 +102,13 @@
             }
 
             .icon {
-                width: 8rem;
-                height: 5rem;
+                width: 3rem;
+                height: 3rem;
+
+                @include md {
+                    width: 5rem;
+                    height: 5rem;
+                }
             }
         }
     }

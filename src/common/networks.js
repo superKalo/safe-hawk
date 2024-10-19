@@ -38,6 +38,7 @@ const NETWORKS = [
 
 const IEXEC_NETWORK = {
     id: 134,
+    chainId: 134,
     name: 'iExec Sidechain',
     aaveLendingPoolAddress: null,
     url: 'https://bellecour.iex.ec'

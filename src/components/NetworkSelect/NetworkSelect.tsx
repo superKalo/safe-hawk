@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { useAccount, useChainId, useSwitchChain } from 'wagmi'
 import styles from './NetworkSelect.module.scss'
-import { NETWORKS } from '@/common/networks'
+import { ALL_NETWORKS } from '@/common/networks'
 import { ChevronDownIcon } from '@/assets/icons'
 import { config } from '@/wagmiConfig'
 import { useAAVEDataProvider } from '@/context'
@@ -18,7 +18,7 @@ const NetworkSelect = ({ className }: { className?: string }) => {
     const chainId = isConnected ? connectedChainId : viewOnlyChainId
 
     const selectedNetwork = useMemo(() => {
-        const foundNetwork = NETWORKS.find((network) => network.chainId === chainId)
+        const foundNetwork = ALL_NETWORKS.find((network) => network.chainId === chainId)
 
         return foundNetwork || null
     }, [chainId])
@@ -41,6 +41,8 @@ const NetworkSelect = ({ className }: { className?: string }) => {
     useOnClickOutside(ref, handler)
 
     if (!chainId) return null
+
+    console.log(chainId)
 
     return (
         <div className={classNames(styles.wrapper, className)} ref={ref}>
@@ -69,7 +71,7 @@ const NetworkSelect = ({ className }: { className?: string }) => {
                 />
             </button>
             <div className={`${styles.menu} ${menuOpen ? styles.menuOpen : ''}`}>
-                {NETWORKS.map(({ chainId, name }) => (
+                {ALL_NETWORKS.map(({ chainId, name }) => (
                     <SelectItem
                         key={chainId}
                         name={name}
