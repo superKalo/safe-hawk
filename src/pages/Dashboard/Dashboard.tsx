@@ -37,7 +37,7 @@ const Dashboard = () => {
                         <CurrentLTV />
                     </div>
                 )}
-                {!aaveData && isLoading && isNetworkSupported && (
+                {isLoading && isNetworkSupported && (
                     <Placeholder title="Loading AAVE data..." text="" />
                 )}
                 {!aaveData && !isLoading && isNetworkSupported && (
