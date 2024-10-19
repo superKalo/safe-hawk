@@ -39,5 +39,9 @@
     @include md {
         padding: 1.5rem 2rem;
         display: flex;
+
+        .hideOnMobile {
+            display: flex;
+        }
     }
 }
