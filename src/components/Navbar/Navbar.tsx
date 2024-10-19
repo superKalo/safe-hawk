@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi'
 import { useEffect } from 'react'
 import usePrevious from '@/common/usePrevious'
 import { isExtension } from '@/helpers/browserApi'
+import NetworkSelect from '@/components/NetworkSelect'
 
 const Navbar = () => {
     const navigate = useNavigate()
@@ -28,7 +29,10 @@ const Navbar = () => {
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <MainLogo className={styles.logo} onClick={onClick} />
-                {!isExtension && <CustomConnectWalletButton />}
+                <div className={styles.actions}>
+                    <NetworkSelect />
+                    {!isExtension && <CustomConnectWalletButton />}
+                </div>
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import { IExecDataProtectorCore } from '@iexec/dataprotector'
 import { useEffect, useState } from 'react'
-import { useAccount, useConnectorClient, useSwitchChain } from 'wagmi'
+import { useAccount, useChainId, useConnectorClient, useSwitchChain } from 'wagmi'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { useMemo } from 'react'
 import { type Config } from '@wagmi/core'
@@ -8,6 +8,7 @@ import type { Client, Chain, Transport, Account } from 'viem'
 import toast from 'react-hot-toast'
 import { config } from '@/wagmiConfig'
 import styles from './EmailAndExtension.module.scss'
+import { CustomConnectWalletButton } from '@/components'
 
 export function clientToSigner(client: Client<Transport, Chain, Account>) {
     const { account, chain, transport } = client
@@ -35,7 +36,8 @@ export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
 }
 
 const EmailCard = () => {
-    const { address, chainId } = useAccount()
+    const chainId = useChainId()
+    const { address, isConnected } = useAccount()
     const { switchChain } = useSwitchChain({ config })
     const signer = useEthersSigner({ chainId })
     const dataProtectorCore = new IExecDataProtectorCore(signer)
@@ -186,6 +188,20 @@ const EmailCard = () => {
                 })
         })
     }, [chainId])
+
+    if (!isConnected) {
+        return (
+            <div className={`${styles.card} ${styles.emailCard}`}>
+                <div className={styles.content}>
+                    <h3 className={styles.title}>Connect wallet to set-up email updates</h3>
+                    <p className={styles.text}>
+                        Please connect your wallet to set-up email updates updates about your Health
+                        Factor.
+                    </p>
+                </div>
+            </div>
+        )
+    }
 
     if (chainId !== 134) {
         return (

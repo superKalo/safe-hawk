@@ -1,0 +1,129 @@
+@import '@/styles/global.scss';
+@import '@/styles/sizes.scss';
+
+.wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    color: $primaryText;
+    cursor: pointer;
+
+    &:hover {
+        .arrow {
+            transform: rotate(180deg);
+        }
+    }
+
+    .option {
+        padding: 0;
+        background-color: transparent;
+        border: none;
+
+        &:hover {
+            background-color: $primaryBackground;
+            color: $primaryText;
+        }
+    }
+
+    .arrow {
+        width: 1rem;
+        height: 0.5rem;
+        transition: 0.2s ease;
+        margin-left: 1rem;
+    }
+
+    @include sm {
+        margin-left: 2rem;
+    }
+}
+
+.menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    background-color: $secondaryBackground;
+    border: 1px solid $secondaryBorder;
+    border-radius: $border-radius;
+    width: 100%;
+    z-index: 10;
+    max-height: 20rem;
+    overflow-y: auto;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease;
+
+    &.menuOpen {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.option {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    color: $primaryText;
+    cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+
+    &:hover {
+        background-color: $tertiaryBackground;
+        color: $alternativeText;
+    }
+
+    svg {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.25rem;
+    }
+
+    .name {
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+    .address {
+        display: none;
+    }
+    &.selected {
+        .name {
+            display: none;
+        }
+        .address {
+            display: block;
+        }
+    }
+
+    @include lg {
+        font-size: 1rem;
+        padding: 0.5rem;
+
+        &.selected {
+            .address {
+                display: none;
+            }
+            .name {
+                display: block;
+            }
+        }
+
+        svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            margin-right: 0;
+        }
+    }
+}

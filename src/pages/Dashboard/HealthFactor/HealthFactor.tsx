@@ -29,7 +29,6 @@ const HealthIcon = () => {
 
 const HealthFactor = () => {
     const { aaveData } = useAAVEDataProvider()
-    console.log(aaveData) // eslint-disable-line no-console
 
     if (!aaveData) {
         return null

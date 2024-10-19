@@ -16,6 +16,12 @@
             cursor: pointer;
         }
 
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         @include lg {
             .logo {
                 height: 4rem;

@@ -2,8 +2,11 @@ import formatDecimals from '@/helpers/formatDecimals'
 import { formatUnits, Contract } from 'ethers'
 
 /// This function is not used anymore since wagmi integration
-const getAAVEUserContractDataFormatted = async (address: string, provider: any) => {
-    const aaveLendingPoolAddress = '0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2'
+const getAAVEUserContractDataFormatted = async (
+    address: string,
+    provider: any,
+    aaveLendingPoolAddress: string
+) => {
     const aaveLendingPoolABI = [
         'function getUserAccountData(address) view returns (uint256 totalCollateralETH, uint256 totalDebtETH, uint256 availableBorrowsETH, uint256 currentLiquidationThreshold, uint256 ltv, uint256 healthFactor)'
     ]

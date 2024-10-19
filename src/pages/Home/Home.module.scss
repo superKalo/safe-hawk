@@ -132,4 +132,26 @@
             flex-direction: row;
         }
     }
+
+    .button {
+        background-color: $primary;
+        color: $alternativeText;
+        padding: calc($global-spacing * 1.5) calc($global-spacing * 2);
+        border-radius: $border-radius;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        min-width: 8rem;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s all ease-in-out;
+
+        &:hover {
+            background-color: #6c5ce7;
+        }
+
+        &:active {
+            background-color: #7a42b2;
+        }
+    }
 }
