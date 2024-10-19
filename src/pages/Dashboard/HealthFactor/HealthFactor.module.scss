@@ -12,11 +12,9 @@
     box-shadow: 0px 8px 16px 0px rgba(210, 204, 217, 0.25);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
     position: relative;
 
     @include lg {
-        gap: 3rem;
         .content {
             .header {
                 max-width: 35%;
@@ -28,19 +26,24 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+        margin-bottom: 1.5rem;
 
         .header {
             text-align: left;
 
             .title {
-                font-size: 2rem;
+                font-size: 1.5rem;
                 margin-bottom: 0.625rem;
                 font-weight: 600;
                 color: $primaryText;
+
+                @include lg {
+                    font-size: 1.875rem;
+                }
             }
 
             .label {
-                font-size: 0.875rem;
+                font-size: 0.75rem;
                 color: $secondaryText;
             }
         }
@@ -54,9 +57,13 @@
             .content {
                 display: flex;
                 gap: 0.625rem;
-                align-items: center;
+                align-items: flex-end;
                 justify-content: center;
                 flex-direction: column;
+
+                @include lg {
+                    align-items: center;
+                }
 
                 .value {
                     font-size: 2rem;
@@ -100,7 +107,8 @@
 
     .healthInfo {
         text-align: left;
-        padding: 0 1rem;
+        margin-top: 1rem;
+        font-size: 0.75rem;
 
         @include lg {
             position: absolute;
