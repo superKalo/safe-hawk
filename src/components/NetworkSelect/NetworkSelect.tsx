@@ -7,8 +7,9 @@ import { config } from '@/wagmiConfig'
 import { useAAVEDataProvider } from '@/context'
 import { useOnClickOutside } from '@/common/useOnClickOutside'
 import classNames from 'classnames'
+import { NETWORK_ICONS } from '@/constants/networkIcons'
 
-const NetworkSelect = () => {
+const NetworkSelect = ({ className }: { className?: string }) => {
     const connectedChainId = useChainId()
     const { updateViewOnlyChainId, viewOnlyChainId } = useAAVEDataProvider()
     const { isConnected } = useAccount()
@@ -31,18 +32,18 @@ const NetworkSelect = () => {
         setMenuOpen(false)
     }
 
-    const ref = useRef();
+    const ref = useRef()
 
     const handler = () => {
         setMenuOpen(false)
-    };
+    }
 
     useOnClickOutside(ref, handler)
 
     if (!chainId) return null
 
     return (
-        <div className={styles.wrapper} ref={ref}>
+        <div className={classNames(styles.wrapper, className)} ref={ref}>
             <button
                 className={styles.button}
                 onClick={() => setMenuOpen((prevIsOpen) => !prevIsOpen)}
@@ -50,7 +51,7 @@ const NetworkSelect = () => {
                 {selectedNetwork ? (
                     <SelectItem
                         name={selectedNetwork.name}
-                        Icon={selectedNetwork.icon}
+                        Icon={NETWORK_ICONS[chainId]}
                         onClick={(e) => {
                             e.preventDefault()
                             e.stopPropagation()
@@ -61,14 +62,18 @@ const NetworkSelect = () => {
                 ) : (
                     <p className={styles.name}>Unsupported Network</p>
                 )}
-                <ChevronDownIcon width={16} height={8} className={classNames(styles.arrow, { [styles.open]: menuOpen})} />
+                <ChevronDownIcon
+                    width={16}
+                    height={8}
+                    className={classNames(styles.arrow, { [styles.open]: menuOpen })}
+                />
             </button>
             <div className={`${styles.menu} ${menuOpen ? styles.menuOpen : ''}`}>
-                {NETWORKS.map(({ chainId, name, icon: Icon }) => (
+                {NETWORKS.map(({ chainId, name }) => (
                     <SelectItem
                         key={chainId}
                         name={name}
-                        Icon={Icon}
+                        Icon={NETWORK_ICONS[chainId]}
                         onClick={() => handleSelect(chainId)}
                     />
                 ))}
@@ -94,7 +99,7 @@ const SelectItem = ({ name, Icon, onClick, isSelected }: SelectItemProps) => {
             className={`${styles.option} ${isSelected ? styles.selected : ''}`}
             onClick={onClick}
         >
-            <Icon />
+            {Icon && <Icon />}
             <span className={styles.name}>{name}</span>
             <span className={styles.address}>
                 {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : ''}

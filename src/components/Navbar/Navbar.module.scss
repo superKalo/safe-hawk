@@ -29,10 +29,15 @@
         }
     }
 
+    .hideOnMobile {
+        display: none;
+    }
+
     @include sm {
         padding: $global-spacing 2rem;
     }
     @include md {
         padding: 1.5rem 2rem;
+        display: flex;
     }
 }

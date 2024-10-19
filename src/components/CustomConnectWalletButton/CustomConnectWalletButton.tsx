@@ -1,13 +1,17 @@
+import classNames from 'classnames'
 import { ConnectKitButton } from 'connectkit'
 import styles from './CustomConnectWalletButton.module.scss'
 import { WalletPreview } from '@/assets/images'
 
-const CustomConnectWalletButton = () => {
+const CustomConnectWalletButton = ({ className }: { className?: string }) => {
     return (
         <ConnectKitButton.Custom>
             {({ isConnected, isConnecting, show, address }) => {
                 return (
-                    <button className={styles.connectWalletButton} onClick={show}>
+                    <button
+                        className={classNames(styles.connectWalletButton, className)}
+                        onClick={show}
+                    >
                         {isConnected ? (
                             <div className={styles.walletAddress}>
                                 <img src={WalletPreview} className={styles.walletPreview} />

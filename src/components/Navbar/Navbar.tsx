@@ -7,9 +7,11 @@ import { useEffect } from 'react'
 import usePrevious from '@/common/usePrevious'
 import { isExtension } from '@/helpers/browserApi'
 import NetworkSelect from '@/components/NetworkSelect'
+import { useAAVEDataProvider } from '@/context'
 
 const Navbar = () => {
     const navigate = useNavigate()
+    const { viewOnlyAddress } = useAAVEDataProvider()
     const { isConnected } = useAccount()
     const prevIsConnected = usePrevious(isConnected)
 
@@ -30,8 +32,12 @@ const Navbar = () => {
             <div className={styles.container}>
                 <MainLogo className={styles.logo} onClick={onClick} />
                 <div className={styles.actions}>
-                    <NetworkSelect />
-                    {!isExtension && <CustomConnectWalletButton />}
+                    <NetworkSelect className={isConnected ? styles.hideOnMobile : ''} />
+                    {!isExtension && (
+                        <CustomConnectWalletButton
+                            className={viewOnlyAddress && !isConnected ? styles.hideOnMobile : ''}
+                        />
+                    )}
                 </div>
             </div>
         </div>
