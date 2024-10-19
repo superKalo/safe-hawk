@@ -15,6 +15,8 @@ const getAAVEUserContractDataFormatted = async (
 
     const accountData = await lendingPoolContract.getUserAccountData(address)
 
+    if (accountData.totalCollateralETH === 0n) return null
+
     return {
         totalCollateralETH: formatDecimals(
             parseFloat(formatUnits(accountData.totalCollateralETH, 8)),

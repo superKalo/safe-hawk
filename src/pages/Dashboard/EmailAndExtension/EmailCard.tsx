@@ -8,7 +8,6 @@ import type { Client, Chain, Transport, Account } from 'viem'
 import toast from 'react-hot-toast'
 import { config } from '@/wagmiConfig'
 import styles from './EmailAndExtension.module.scss'
-import { CustomConnectWalletButton } from '@/components'
 
 export function clientToSigner(client: Client<Transport, Chain, Account>) {
     const { account, chain, transport } = client
@@ -35,6 +34,10 @@ export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
     return useMemo(() => (client ? clientToSigner(client) : undefined), [client])
 }
 
+const isValidEmail = (email: string) => {
+    return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
 const EmailCard = () => {
     const chainId = useChainId()
     const { address, isConnected } = useAccount()
@@ -57,6 +60,11 @@ const EmailCard = () => {
     }
 
     const saveEmailAsProtected = async () => {
+        if (isValidEmail(email)) {
+            toast.error('Please enter a valid email address')
+            return
+        }
+
         switchToIExecChain()
 
         if (chainId !== 134) return
@@ -246,8 +254,6 @@ const EmailCard = () => {
             </div>
         )
     }
-
-    console.log(isInProgress)
 
     return (
         <div className={`${styles.card} ${styles.emailCard}`}>

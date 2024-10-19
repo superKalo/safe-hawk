@@ -63,6 +63,7 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
     const [error, setError] = useState<Error | null>(null)
 
     useEffect(() => {
+        setIsLoading(true)
         const provider = new JsonRpcProvider(network?.url)
 
         getAAVEUserContractDataFormatted(accountAddress, provider, network?.aaveLendingPoolAddress)

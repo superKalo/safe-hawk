@@ -25,6 +25,20 @@
             color: $secondaryText;
         }
     }
+    .placeholder {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 15rem;
+        border-radius: $border-radius;
+        background-color: $secondaryBackground;
+        margin-bottom: 1.25rem;
+
+        .placeholderTitle {
+            margin-bottom: 0.5rem;
+        }
+    }
     .content {
         display: flex;
         flex-direction: column;
