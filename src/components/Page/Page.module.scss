@@ -4,5 +4,8 @@
 .Page {
     display: flex;
     flex-direction: column;
-    padding: $global-spacing;
+
+    @include lg {
+        padding: $global-spacing;
+    }
 }

@@ -1,23 +1,32 @@
 @import '@/styles/sizes.scss';
 @import '@/styles/global.scss';
 
-.navbar {
-    background-color: $primaryBackground;
-    @include container;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 9;
+.wrapper {
     padding: $global-spacing;
 
-    .logo {
-        height: 3rem;
-        cursor: pointer;
+    .container {
+        @include container;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logo {
+            height: 2.5rem;
+            width: auto;
+            cursor: pointer;
+        }
+
+        @include lg {
+            .logo {
+                height: 4rem;
+            }
+        }
     }
 
-    @include lg {
-        .logo {
-            height: 4rem;
-        }
+    @include sm {
+        padding: $global-spacing 2rem;
+    }
+    @include md {
+        padding: 1.5rem 2rem;
     }
 }

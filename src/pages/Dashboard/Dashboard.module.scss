@@ -1,18 +1,23 @@
 @import '@/styles/sizes.scss';
 @import '@/styles/global.scss';
 
-.dashboard {
-    @include container;
-    min-height: 100vh;
+.wrapper {
+    padding: $global-spacing;
+    padding-bottom: 4rem;
 
+    .container {
+        @include container;
+        display: flex;
+        flex-direction: column;
+    }
     .content {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 100%;
-        padding: $global-spacing;
         gap: 1rem;
         border-radius: $border-radius;
+        margin-bottom: 1.25rem;
 
         @include lg {
             flex-direction: row;

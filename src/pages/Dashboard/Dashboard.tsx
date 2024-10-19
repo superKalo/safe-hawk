@@ -1,31 +1,19 @@
 import { HealthFactor } from './HealthFactor'
 import { Page } from '@/components'
-import { useAccount } from 'wagmi'
-import { NETWORKS } from '@/common/networks'
-import { CurrentLTV } from './CurrentLTV'
+import EmailAndExtension from './EmailAndExtension'
 import styles from './Dashboard.module.scss'
-import { useAAVEDataProvider } from '@/context'
+import { CurrentLTV } from './CurrentLTV'
 
 const Dashboard = () => {
-    const { chainId } = useAccount()
-    const { aaveData } = useAAVEDataProvider()
-
-    if (!(chainId in NETWORKS)) {
-        return (
-            <Page>
-                <h2>Unsupported network</h2>
-            </Page>
-        )
-    }
-    console.log(aaveData); // eslint-disable-line
-
     return (
-        <Page className={styles.dashboard}>
-            <div className={styles.content}>
-                <HealthFactor />
-                <CurrentLTV />
+        <Page className={styles.wrapper}>
+            <div className={styles.container}>
+                <div className={styles.content}>
+                    <HealthFactor />
+                    <CurrentLTV />
+                </div>
+                <EmailAndExtension />
             </div>
-            {/* <EmailAndExtension /> */}
         </Page>
     )
 }

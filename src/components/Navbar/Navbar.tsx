@@ -25,9 +25,11 @@ const Navbar = () => {
     }
 
     return (
-        <div className={styles.navbar}>
-            <MainLogo className={styles.logo} onClick={onClick} />
-            {!isExtension && <CustomConnectWalletButton />}
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <MainLogo className={styles.logo} onClick={onClick} />
+                {!isExtension && <CustomConnectWalletButton />}
+            </div>
         </div>
     )
 }

@@ -55,7 +55,8 @@
         "build": "craco build",
         "test": "craco test",
         "eject": "react-scripts eject",
-        "start-server:dev": "nodemon server/index.js",
+        "start-server:dev": "NODE_ENV=development nodemon server/index.js",
+        "start-server": "NODE_ENV=production node server/index.js",
         "build-extension": "webpack --config webpack.config.js"
     },
     "browserslist": {

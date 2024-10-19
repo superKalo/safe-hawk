@@ -90,7 +90,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <div className={styles.content}>
+            <div className={styles.features}>
                 {features.map((feature, index) => (
                     <Feature key={index} {...feature} />
                 ))}
