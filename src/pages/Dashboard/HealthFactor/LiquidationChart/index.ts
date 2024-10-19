@@ -1,5 +1,3 @@
-import LiquidationChart from './LiquidationChart';
+import LiquidationChart from './LiquidationChart'
 
-export {
-    LiquidationChart
-}
+export { LiquidationChart }

@@ -7,7 +7,7 @@
     border-radius: $border-radius;
     background-color: $primaryBackground;
     text-align: center;
-    background: linear-gradient(94.86deg, #FFFFFF 0.38%, #EBE2F5 100%);
+    background: linear-gradient(94.86deg, #ffffff 0.38%, #ebe2f5 100%);
     border: 1px solid rgba(255, 255, 255, 1);
     box-shadow: 0px 8px 16px 0px rgba(210, 204, 217, 0.25);
     display: flex;
@@ -38,16 +38,16 @@
                 font-weight: 600;
                 color: $primaryText;
             }
-    
+
             .label {
                 font-size: 0.875rem;
                 color: $secondaryText;
             }
         }
-        
+
         .score {
             font-size: $font-size-title;
-            margin-bottom: 0.9375rem; 
+            margin-bottom: 0.9375rem;
             display: flex;
             justify-content: center;
 
@@ -61,30 +61,27 @@
                 .value {
                     font-size: 2rem;
                     font-weight: 700;
-                    
+
                     &.best {
                         color: rgba(83, 170, 20, 0.32);
-    
                     }
                     &.good {
                         color: rgba(83, 170, 20, 0.32);
-    
                     }
-    
+
                     &.mid {
                         color: rgba(195, 130, 0, 1);
                     }
-    
+
                     &.bad {
                         color: rgba(243, 57, 57, 0.32);
-    
                     }
-    
+
                     &.veryBad {
                         color: rgba(243, 57, 57, 1);
                     }
                 }
-    
+
                 .label {
                     background: rgba(245, 240, 250, 1);
                     padding: 0.25rem 0.75rem;
@@ -103,7 +100,7 @@
 
     .healthInfo {
         text-align: left;
-        padding:  0 1rem;
+        padding: 0 1rem;
 
         @include lg {
             position: absolute;
@@ -114,4 +111,3 @@
         }
     }
 }
-

@@ -1,5 +1,3 @@
-import HealthFactor from './HealthFactor';
+import HealthFactor from './HealthFactor'
 
-export {
-    HealthFactor
-}
+export { HealthFactor }

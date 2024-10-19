@@ -1,5 +1,3 @@
-import LTVChart from './LTVChart';
+import LTVChart from './LTVChart'
 
-export {
-    LTVChart
-}
+export { LTVChart }

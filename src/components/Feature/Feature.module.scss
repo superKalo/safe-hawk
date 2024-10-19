@@ -2,6 +2,7 @@
 .feature {
     border-radius: $border-radius;
     margin-bottom: 1.25rem;
+    padding: calc($global-spacing * 1.5);
 
     .icon {
         font-size: 2rem;

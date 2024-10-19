@@ -22,63 +22,63 @@
         display: flex;
         justify-content: space-between;
         gap: 1rem;
-    
+
         .header {
             text-align: left;
             flex-grow: 2;
-    
+
             .title {
                 font-size: 1rem;
                 margin-bottom: 0.625rem;
                 font-weight: 600;
                 color: $primaryText;
             }
-    
+
             .label {
                 font-size: 0.875rem;
                 color: $secondaryText;
             }
         }
-        
+
         .score {
             flex-grow: 1;
             font-size: $font-size-title;
-            margin-bottom: 0.9375rem; 
+            margin-bottom: 0.9375rem;
             display: flex;
             justify-content: center;
             align-items: center;
-    
+
             .scoreContent {
                 display: flex;
                 gap: 0.625rem;
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
-    
+
                 .value {
                     font-size: 1.25rem;
                     font-weight: 700;
-                    
+
                     &.best {
                         color: rgba(83, 170, 20, 0.32);
                     }
                     &.good {
                         color: rgba(83, 170, 20, 0.32);
                     }
-    
+
                     &.mid {
                         color: rgba(195, 130, 0, 1);
                     }
-    
+
                     &.bad {
                         color: rgba(243, 57, 57, 0.32);
                     }
-    
+
                     &.veryBad {
                         color: rgba(243, 57, 57, 1);
                     }
                 }
-    
+
                 .label {
                     background: rgba(245, 240, 250, 1);
                     padding: 0.25rem 0.75rem;
@@ -87,17 +87,17 @@
                     color: $secondaryText;
                 }
             }
-    
+
             .icon {
                 width: 5rem;
                 height: 3rem;
             }
         }
-    }    
+    }
 
     .loanValue {
         text-align: left;
-        padding:  0 1rem;
+        padding: 0 1rem;
 
         @include lg {
             position: absolute;
@@ -108,4 +108,3 @@
         }
     }
 }
-

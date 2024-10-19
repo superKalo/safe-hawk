@@ -1,5 +1,3 @@
 import CurrentLTV from './CurrentLTV'
 
-export {
-    CurrentLTV
-}
+export { CurrentLTV }
