@@ -11,6 +11,8 @@ import styles from './EmailAndExtension.module.scss'
 import { hoverAnimationEasy } from '@/styles/animations'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
+import { isExtension } from '@/helpers/browserApi'
+import { useNavigate } from 'react-router'
 
 type WrapperProps = {
     complete?: boolean
@@ -68,6 +70,7 @@ const EmailCard = () => {
     const [isAccessGivenToEmail, setIsAccessGivenToEmail] = useState(false)
     const [isInProgress, setIsInProgress] = useState(false)
     const [hasProtectedEmail, setHasProtectedEmail] = useState(false)
+    const navigate = useNavigate()
 
     const switchToIExecChain = () => {
         try {
@@ -220,12 +223,23 @@ const EmailCard = () => {
         return (
             <EmailCardWrapper complete={false}>
                 <div className={styles.content}>
-                    <h3 className={styles.title}>Connect wallet to set-up email updates</h3>
+                    <h3 className={styles.title}>Connect wallet to set up email updates</h3>
                     <p className={styles.text}>
-                        Please connect your wallet to set-up email updates updates about your Health
-                        Factor.
+                        {isExtension
+                            ? 'To set up email Health Factor updates, please open the SafeHawk dApp and connect your wallet.'
+                            : 'Please connect your wallet to set-up email Health Factor updates.'}
                     </p>
                 </div>
+                {!!isExtension && (
+                    <button
+                        className={styles.button}
+                        onClick={() => {
+                            chrome.tabs.create({ url: 'https://safe-hawk.com/' })
+                        }}
+                    >
+                        Proceed
+                    </button>
+                )}
             </EmailCardWrapper>
         )
     }
