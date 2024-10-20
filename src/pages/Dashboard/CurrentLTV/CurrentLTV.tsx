@@ -1,3 +1,4 @@
+import React from 'react'
 import { LTVChart } from './LTVChart'
 import { useAAVEDataProvider } from '@/context'
 import {
@@ -113,4 +114,4 @@ const CurrentLTV = () => {
     )
 }
 
-export default CurrentLTV
+export default React.memo(CurrentLTV)

@@ -1,9 +1,9 @@
 {
     "short_name": "SafeHawk",
-    "name": "Hawk’s eye view for your DeFi loans. Powered by DeCC.",
+    "name": "SafeHawk",
     "manifest_version": 3,
-    "version": "1.0.0",
-    "description": "SafeHawk provides the tools you need to monitor your positions effortlessly.",
+    "version": "1.0.1",
+    "description": "Hawk’s eye view for your DeFi loans. Powered by DeCC.",
     "permissions": ["storage", "notifications", "bookmarks"],
     "background": {
         "service_worker": "background.js"

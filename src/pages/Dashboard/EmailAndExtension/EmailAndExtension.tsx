@@ -1,3 +1,4 @@
+import React from 'react'
 import EmailCard from './EmailCard'
 import styles from './EmailAndExtension.module.scss'
 import { isExtension } from '@/helpers/browserApi'
@@ -34,4 +35,4 @@ const EmailAndExtension = () => {
     )
 }
 
-export default EmailAndExtension
+export default React.memo(EmailAndExtension)

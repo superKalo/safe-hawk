@@ -1,12 +1,7 @@
+import React from 'react'
 import { LiquidationChart } from './LiquidationChart'
 import { useAAVEDataProvider } from '@/context'
-import {
-    BestHealthScore,
-    GoodHealthScore,
-    MidHealthScore,
-    BadHealthScore,
-    VeryBadHealthScore
-} from '@/assets/icons'
+import { GoodHealthScore, MidHealthScore, VeryBadHealthScore } from '@/assets/icons'
 import { ParentSize } from '@visx/responsive'
 import styles from './HealthFactor.module.scss'
 import classNames from 'classnames'
@@ -16,17 +11,11 @@ import { hoverAnimationEasy } from '@/styles/animations'
 const HealthIcon = () => {
     const { aaveData } = useAAVEDataProvider()
     const healthFactorValue = parseFloat(aaveData.healthFactor)
-    return healthFactorValue >= 5 ? (
-        <BestHealthScore className={styles.icon} />
-    ) : healthFactorValue >= 4 ? (
-        <GoodHealthScore className={styles.icon} />
-    ) : healthFactorValue >= 2 ? (
-        <MidHealthScore className={styles.icon} />
-    ) : healthFactorValue >= 1 ? (
-        <BadHealthScore className={styles.icon} />
-    ) : (
-        <VeryBadHealthScore className={styles.icon} />
-    )
+
+    if (healthFactorValue >= 2.8) return <GoodHealthScore className={styles.icon} />
+    else if (healthFactorValue >= 1.2 && healthFactorValue < 2.8)
+        return <MidHealthScore className={styles.icon} />
+    return <VeryBadHealthScore className={styles.icon} />
 }
 
 const HealthFactor = () => {
@@ -53,29 +42,21 @@ const HealthFactor = () => {
                         <div
                             className={classNames(
                                 styles.value,
-                                healthFactorValue >= 5
-                                    ? styles.best
-                                    : healthFactorValue >= 4
-                                      ? styles.good
-                                      : healthFactorValue >= 2
-                                        ? styles.mid
-                                        : healthFactorValue >= 1
-                                          ? styles.bad
-                                          : styles.veryBad
+                                healthFactorValue >= 2.8
+                                    ? styles.good
+                                    : healthFactorValue >= 1.2
+                                      ? styles.mid
+                                      : styles.veryBad
                             )}
                         >
-                            {healthFactorValue.toFixed(2)}
+                            {aaveData.healthFactor}
                         </div>
                         <div className={styles.label}>
-                            {healthFactorValue >= 5
-                                ? 'Best'
-                                : healthFactorValue >= 4
-                                  ? 'Good'
-                                  : healthFactorValue >= 2
-                                    ? 'Mid'
-                                    : healthFactorValue >= 1
-                                      ? 'Bad'
-                                      : 'Very Bad'}
+                            {healthFactorValue >= 2.8
+                                ? 'Good'
+                                : healthFactorValue >= 1.2
+                                  ? 'Mid'
+                                  : 'Bad'}
                         </div>
                     </div>
                     <HealthIcon />
@@ -92,4 +73,4 @@ const HealthFactor = () => {
     )
 }
 
-export default HealthFactor
+export default React.memo(HealthFactor)

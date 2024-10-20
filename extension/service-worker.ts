@@ -32,15 +32,16 @@ const runDataUpdate = async () => {
         if (!healthFactor || !network) {
             return `🟡 -/- on ${network.shortName}`
         }
-        healthFactor = Number(healthFactor)
+
+        const healthFactorValue = parseFloat(healthFactor)
         let statusDot = '🟢'
-        if (healthFactor < 1.3) {
+        if (healthFactorValue < 1.2) {
             statusDot = '🔴'
-        } else if (healthFactor >= 1.3 && healthFactor <= 1.8) {
+        } else if (healthFactorValue >= 1.2 && healthFactorValue <= 2.8) {
             statusDot = '🟡'
         }
 
-        return `${statusDot} ${formatDecimals(healthFactor)} on ${network.shortName}`
+        return `${statusDot} ${healthFactor} on ${network.shortName}`
     }
 
     function updateHealthFactorBookmark(healthFactor, network) {

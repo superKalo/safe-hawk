@@ -1,3 +1,4 @@
+import React from 'react'
 import { scaleLinear } from '@visx/scale'
 import { Line } from '@visx/shape'
 import { LinearGradient } from '@visx/gradient'
@@ -23,8 +24,8 @@ const LiquidationChart = ({ value, width }: Props) => {
         <svg width={width} className={styles.chart}>
             <LinearGradient id="healthGradient" vertical={false}>
                 <stop offset="0%" stopColor="#F33939" />
-                <stop offset="50%" stopColor="#E09D19" />
-                <stop offset="100%" stopColor="#53AA14" />
+                <stop offset="22%" stopColor="#E09D19" />
+                <stop offset="40%" stopColor="#53AA14" />
             </LinearGradient>
             <rect
                 x={margin.left}
@@ -77,4 +78,4 @@ const LiquidationChart = ({ value, width }: Props) => {
     )
 }
 
-export default LiquidationChart
+export default React.memo(LiquidationChart)
