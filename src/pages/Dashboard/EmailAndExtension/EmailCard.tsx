@@ -1,3 +1,4 @@
+import React from 'react'
 import { IExecDataProtectorCore } from '@iexec/dataprotector'
 import { useEffect, useState } from 'react'
 import { useAccount, useChainId, useConnectorClient, useSwitchChain } from 'wagmi'
@@ -12,7 +13,6 @@ import { hoverAnimationEasy } from '@/styles/animations'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
 import { isExtension } from '@/helpers/browserApi'
-import { useNavigate } from 'react-router'
 
 type WrapperProps = {
     complete?: boolean
@@ -31,20 +31,17 @@ const EmailCardWrapper = ({ complete = false, children }: WrapperProps) => {
 }
 
 export function clientToSigner(client: Client<Transport, Chain, Account>) {
-    const { account, chain, transport } = client
+    const { account, chain, transport } = client as any
 
     if (!chain) return
 
     const network = {
-        // @ts-ignore
         chainId: chain.id,
-        // @ts-ignore
         name: chain.name,
-        // @ts-ignore
         ensAddress: chain.contracts?.ensRegistry?.address
     }
     const provider = new BrowserProvider(transport, network)
-    // @ts-ignore
+
     const signer = new JsonRpcSigner(provider, account.address)
     return signer
 }
@@ -70,7 +67,6 @@ const EmailCard = () => {
     const [isAccessGivenToEmail, setIsAccessGivenToEmail] = useState(false)
     const [isInProgress, setIsInProgress] = useState(false)
     const [hasProtectedEmail, setHasProtectedEmail] = useState(false)
-    const navigate = useNavigate()
 
     const switchToIExecChain = () => {
         try {
@@ -333,4 +329,4 @@ const EmailCard = () => {
     )
 }
 
-export default EmailCard
+export default React.memo(EmailCard)
