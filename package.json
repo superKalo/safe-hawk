@@ -16,7 +16,7 @@
         "@testing-library/react": "^13.0.0",
         "@testing-library/user-event": "^13.2.1",
         "@types/jest": "^27.0.1",
-        "@types/node": "^16.7.13",
+        "@types/node": "^22.7.7",
         "@types/react": "^18.0.0",
         "@types/react-dom": "^18.0.0",
         "@visx/axis": "^3.10.1",
@@ -55,8 +55,8 @@
         "build": "craco build",
         "test": "craco test",
         "eject": "react-scripts eject",
-        "start-server:dev": "NODE_ENV=development nodemon server/index.js",
-        "start-server": "NODE_ENV=production node server/index.js",
+        "start-server:dev": "NODE_ENV=development tsx watch --tsconfig ./tsconfig.server.json server/index.ts",
+        "start-server": "NODE_ENV=production tsx --tsconfig ./tsconfig.server.json server/index.ts",
         "build-extension": "webpack --config webpack.config.js"
     },
     "browserslist": {
@@ -76,6 +76,7 @@
         "@eslint/js": "^9.12.0",
         "@svgr/webpack": "^8.1.0",
         "@types/chrome": "^0.0.278",
+        "@types/express": "^5.0.0",
         "@typescript-eslint/eslint-plugin": "^8.10.0",
         "@typescript-eslint/parser": "^8.10.0",
         "eslint": "^9.12.0",
@@ -86,6 +87,8 @@
         "nodemon": "^3.1.7",
         "prettier": "^3.3.3",
         "svg-inline-loader": "^0.8.2",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.19.1",
         "typescript-eslint": "^8.9.0",
         "url-loader": "^4.1.1"
     }
