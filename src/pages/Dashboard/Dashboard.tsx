@@ -1,12 +1,14 @@
 import { HealthFactor } from './HealthFactor'
 import { Page } from '@/components'
-import EmailAndExtension from './EmailAndExtension'
 import styles from './Dashboard.module.scss'
 import { CurrentLTV } from './CurrentLTV'
 import { useAAVEDataProvider } from '@/context'
 import { motion } from 'framer-motion'
 import { useChainId } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
+import { isExtension } from '@/helpers/browserApi'
+import EmailCard from './Cards/EmailCard'
+import ExtensionCard from './Cards/ExtensionCard'
 
 const Placeholder = ({ title, text }: { title: string; text: string }) => {
     return (
@@ -54,7 +56,10 @@ const Dashboard = () => {
                     />
                 )}
                 {/* TODO: Other network handling */}
-                <EmailAndExtension />
+                <motion.div className={styles.cardsWrapper} layout>
+                    <EmailCard />
+                    {!isExtension && <ExtensionCard />}
+                </motion.div>
             </motion.div>
         </Page>
     )

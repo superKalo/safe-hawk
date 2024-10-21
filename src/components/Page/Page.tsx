@@ -8,7 +8,11 @@ type Props = {
 }
 
 const Page = ({ children, className }: Props) => {
-    return <motion.div className={classNames(styles.Page, className)} layout>{children}</motion.div>
+    return (
+        <motion.div className={classNames(styles.Page, className)} layout>
+            {children}
+        </motion.div>
+    )
 }
 
 export default Page

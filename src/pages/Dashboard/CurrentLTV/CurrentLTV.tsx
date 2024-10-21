@@ -114,4 +114,4 @@ const CurrentLTV = () => {
     )
 }
 
-export default React.memo(CurrentLTV)
+export default CurrentLTV

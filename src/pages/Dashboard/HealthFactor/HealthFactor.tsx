@@ -1,12 +1,12 @@
-import React from 'react'
+import { memo } from 'react'
 import { LiquidationChart } from './LiquidationChart'
 import { useAAVEDataProvider } from '@/context'
 import { GoodHealthScore, MidHealthScore, VeryBadHealthScore } from '@/assets/icons'
 import { ParentSize } from '@visx/responsive'
-import styles from './HealthFactor.module.scss'
-import classNames from 'classnames'
 import { motion } from 'framer-motion'
 import { hoverAnimationEasy } from '@/styles/animations'
+import styles from './HealthFactor.module.scss'
+import classNames from 'classnames'
 
 const HealthIcon = () => {
     const { aaveData } = useAAVEDataProvider()
@@ -73,4 +73,4 @@ const HealthFactor = () => {
     )
 }
 
-export default React.memo(HealthFactor)
+export default memo(HealthFactor)

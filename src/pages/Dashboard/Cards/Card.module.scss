@@ -1,0 +1,14 @@
+@import '@/styles/global.scss';
+
+.card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 15rem;
+    width: 24rem;
+    border-radius: $border-radius;
+    padding: 1rem;
+    color: $alternativeText;
+}
