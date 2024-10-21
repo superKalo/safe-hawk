@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import Card from '../Card'
 import styles from './ExtensionCard.module.scss'
 
@@ -21,4 +22,4 @@ const ExtensionCard = () => {
     )
 }
 
-export default ExtensionCard
+export default memo(ExtensionCard)
