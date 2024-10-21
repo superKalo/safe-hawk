@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "moduleDetection": "force",
+        "module": "Preserve",
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "esModuleInterop": true,
+        "isolatedModules": true
+    }
+}
