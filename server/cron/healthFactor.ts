@@ -9,7 +9,7 @@ const scheduleHealthFactorCron = async () => {
     const web3mail = new IExecWeb3mail(provider)
 
     const TWENTY_SECONDS_CRON_JOB = '*/20 * * * * *'
-    const WEEKLY_CRON_JOB = '0 0 * * 0'
+    const WEEKLY_CRON_JOB = '0 10 * * 1'
 
     cron.schedule(
         process.env.NODE_ENV === 'development' ? TWENTY_SECONDS_CRON_JOB : WEEKLY_CRON_JOB,
@@ -52,7 +52,9 @@ const scheduleHealthFactorCron = async () => {
                 )
 
                 const healthFactorContent = healthFactors
+                    // @ts-expect-error Link: https://stackoverflow.com/questions/63783735/type-error-on-response-of-promise-allsettled
                     .filter(({ value: { healthFactor, error } }) => healthFactor && !error)
+                    // @ts-expect-error Link: https://stackoverflow.com/questions/63783735/type-error-on-response-of-promise-allsettled
                     .map(({ value: { healthFactor, block, name, error } }) => {
                         if (error) {
                             return `

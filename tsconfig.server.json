@@ -2,7 +2,7 @@
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "moduleDetection": "force",
-        "module": "Preserve",
+        "module": "es2020",
         "resolveJsonModule": true,
         "allowJs": true,
         "esModuleInterop": true,
