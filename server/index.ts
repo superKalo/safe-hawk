@@ -1,7 +1,6 @@
 import dotenv from 'dotenv'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import express from 'express'
 import sendEmailsToAllContacts from './cron/healthFactor'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -12,11 +11,11 @@ dotenv.config({
     path: path.resolve(__dirname, '../.env')
 })
 
-const app = express()
-const PORT = process.env.PORT || 5000
-
 sendEmailsToAllContacts()
-
-app.listen(PORT, () => {
-    console.log(`HealthHawk is running on port ${PORT}`)
-})
+    .then(() => {
+        process.exit(0)
+    })
+    .catch((error) => {
+        console.error(error)
+        process.exit(1)
+    })
