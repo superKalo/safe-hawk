@@ -11,6 +11,10 @@ dotenv.config({
     path: path.resolve(__dirname, '../.env')
 })
 
+console.log('Staaarted')
+
+return
+
 sendEmailsToAllContacts()
     .then(() => {
         process.exit(0)
