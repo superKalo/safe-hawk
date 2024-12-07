@@ -6,7 +6,9 @@
 # fi
 export NODE_OPTIONS=--max-old-space-size=512
 yarn install
+
+yarn start-server
 # Run the yarn start-server command
-yarn build-server
+# yarn build-server
 cp ".env" "./server/dist"
-node server/dist/server/index.js
+# node server/dist/server/index.js
