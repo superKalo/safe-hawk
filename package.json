@@ -41,6 +41,7 @@
         "react-scripts": "5.0.1",
         "sass": "^1.80.1",
         "ts-loader": "^9.5.1",
+        "tsc-alias": "^1.8.10",
         "typescript": "^5.6.3",
         "undici": "^6.20.1",
         "viem": "^2.21.29",
@@ -89,7 +90,6 @@
         "prettier": "^3.3.3",
         "svg-inline-loader": "^0.8.2",
         "ts-node": "^10.9.2",
-        "tsc-alias": "^1.8.10",
         "tsx": "^4.19.1",
         "typescript-eslint": "^8.9.0",
         "url-loader": "^4.1.1"
