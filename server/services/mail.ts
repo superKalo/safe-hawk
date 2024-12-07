@@ -10,6 +10,8 @@ const sendMail = async (protectedDataAddress, { subject, content }) => {
 
     console.log('sending email to', protectedDataAddress)
 
+    return Promise.resolve()
+
     return await web3mail.sendEmail({
         protectedData: protectedDataAddress,
         emailSubject: subject,

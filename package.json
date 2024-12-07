@@ -57,6 +57,7 @@
         "eject": "react-scripts eject",
         "start-server:dev": "NODE_ENV=development tsx watch --tsconfig ./tsconfig.server.json server/index.ts",
         "start-server": "NODE_ENV=production tsx --tsconfig ./tsconfig.server.json server/index.ts",
+        "build-server": "rm -rf server/dist && tsc --project ./tsconfig.server.json && tsc-alias --project ./tsconfig.server.json",
         "build-extension": "webpack --config webpack.config.js"
     },
     "browserslist": {
@@ -88,6 +89,7 @@
         "prettier": "^3.3.3",
         "svg-inline-loader": "^0.8.2",
         "ts-node": "^10.9.2",
+        "tsc-alias": "^1.8.10",
         "tsx": "^4.19.1",
         "typescript-eslint": "^8.9.0",
         "url-loader": "^4.1.1"

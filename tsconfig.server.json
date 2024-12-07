@@ -1,11 +1,26 @@
 {
     "extends": "./tsconfig.base.json",
+    "include": ["server/**/*", "src/common/**/*"],
+    "files": ["server/index.ts"],
     "compilerOptions": {
+        "target": "ES2020",
         "moduleDetection": "force",
         "module": "es2020",
         "resolveJsonModule": true,
         "allowJs": true,
+        "outDir": "server/dist/",
+        "rootDir": ".",
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
         "isolatedModules": true
+    },
+    "tsc-alias": {
+        "verbose": false,
+        "resolveFullPaths": true,
+        "fileExtensions": {
+            "inputGlob": "{js,jsx,mjs}",
+            "outputCheck": ["js", "json", "jsx", "mjs"]
+        }
     }
 }

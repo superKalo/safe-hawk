@@ -1,11 +1,22 @@
 {
     "extends": "./tsconfig.base.json",
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "extension/**/*.ts",
+        "extension/**/*.tsx",
+        "extension/**/*.js",
+        "extension/**/*.jsx"
+    ],
     "compilerOptions": {
         "jsx": "react-jsx",
         "target": "ESNext",
         "allowSyntheticDefaultImports": true,
+        "noEmit": true,
         "moduleResolution": "node",
         "baseUrl": "./",
-        "types": ["chrome"]
+        "types": ["chrome"],
     },
 }
