@@ -1,8 +1,7 @@
 import { createContext, useState, ReactNode, useContext, useEffect } from 'react'
 import { useAccount, useChainId } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
-import { getAAVEUserContractDataFormatted } from '@/libs/getAAVEContractDataFormatted'
-import { JsonRpcProvider } from 'ethers'
+import getAaveUserContractDataFormatted from '@/common/getAaveUserContractDataFormatted'
 import { isExtension } from '@/helpers/browserApi'
 
 type AaveData = {
@@ -64,9 +63,12 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         setIsLoading(true)
-        const provider = new JsonRpcProvider(network?.url)
 
-        getAAVEUserContractDataFormatted(accountAddress, provider, network?.aaveLendingPoolAddress)
+        getAaveUserContractDataFormatted(
+            accountAddress,
+            network?.url,
+            network?.aaveLendingPoolAddress
+        )
             .then((data) => {
                 setAaveData(data)
                 setError(null)

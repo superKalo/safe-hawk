@@ -1,12 +1,22 @@
 import formatDecimals from '@/helpers/formatDecimals'
-import { formatUnits, Contract } from 'ethers'
+import { Contract, formatUnits, JsonRpcProvider } from 'ethers'
 
-/// This function is not used anymore since wagmi integration
-const getAAVEUserContractDataFormatted = async (
+type AaveData = {
+    block: number
+    totalCollateralETH: string
+    totalDebtETH: string
+    availableBorrowsETH: string
+    currentLiquidationThreshold: string
+    ltv: string
+    healthFactor: string
+}
+
+const getAaveUserContractDataFormatted = async (
     address: string,
-    provider: any,
+    providerUrl: string,
     aaveLendingPoolAddress: string
-) => {
+): Promise<AaveData | null> => {
+    const provider = new JsonRpcProvider(providerUrl)
     const aaveLendingPoolABI = [
         'function getUserAccountData(address) view returns (uint256 totalCollateralETH, uint256 totalDebtETH, uint256 availableBorrowsETH, uint256 currentLiquidationThreshold, uint256 ltv, uint256 healthFactor)'
     ]
@@ -14,10 +24,20 @@ const getAAVEUserContractDataFormatted = async (
     const lendingPoolContract = new Contract(aaveLendingPoolAddress, aaveLendingPoolABI, provider)
 
     const accountData = await lendingPoolContract.getUserAccountData(address)
+    const block = await provider.getBlockNumber()
 
-    if (accountData.totalCollateralETH === 0n) return null
+    provider.destroy()
+
+    if (
+        accountData.healthFactor ===
+            115792089237316195423570985008687907853269984665640564039457584007913129639935n ||
+        accountData.totalCollateralETH === 0n
+    ) {
+        return null
+    }
 
     return {
+        block,
         totalCollateralETH: formatDecimals(
             parseFloat(formatUnits(accountData.totalCollateralETH, 8)),
             'price'
@@ -33,4 +53,4 @@ const getAAVEUserContractDataFormatted = async (
     }
 }
 
-export { getAAVEUserContractDataFormatted }
+export default getAaveUserContractDataFormatted

@@ -1,5 +1,4 @@
-import { JsonRpcProvider } from 'ethers'
-import { getAAVEUserContractDataFormatted } from '@/libs/getAAVEContractDataFormatted'
+import getAaveUserContractDataFormatted from '@/common/getAaveUserContractDataFormatted'
 import { NETWORKS } from '@/common/networks'
 import formatDecimals from '@/helpers/formatDecimals'
 
@@ -70,7 +69,7 @@ const runDataUpdate = async () => {
         })
     }
 
-    async function checkForImmediateDrop(healthFactors) {
+    async function checkForImmediateDrop(healthFactors, networkName: string) {
         if (healthFactors.length < 2) return // Need at least two data points to compare
         for (let i = 0; i < healthFactors.length - 1; i++) {
             const previousHealthFactor = healthFactors[i]
@@ -83,7 +82,7 @@ const runDataUpdate = async () => {
                     type: 'basic',
                     iconUrl: chrome.runtime.getURL('assets/icon@96.png'),
                     title: 'Health Factor Alert',
-                    message: `Your credit health factor just dropped by ${formatDecimals(Math.abs(percentageChange))}% to ${formatDecimals(currentHealthFactor)} on ${network.name}.`
+                    message: `Your credit health factor just dropped by ${formatDecimals(Math.abs(percentageChange))}% to ${formatDecimals(currentHealthFactor)} on ${networkName}.`
                 })
                 break
             }
@@ -96,17 +95,15 @@ const runDataUpdate = async () => {
             const network = NETWORKS.find((n) => n.chainId === storage.viewOnlyChainId)
             if (!storage.viewOnlyAddress || !network) return
 
-            const provider = new JsonRpcProvider(network.url)
-
             let data = null
             try {
-                data = await getAAVEUserContractDataFormatted(
+                data = await getAaveUserContractDataFormatted(
                     storage.viewOnlyAddress,
-                    provider,
+                    network.url,
                     network.aaveLendingPoolAddress
                 )
             } catch (e) {
-                //silent fail
+                console.error(e)
             }
 
             if (!data || !data.healthFactor) {
@@ -121,10 +118,8 @@ const runDataUpdate = async () => {
                 pricesByNetwork[network.chainId.toString()].shift()
             }
 
-            await checkForImmediateDrop(pricesByNetwork[network.chainId.toString()])
+            await checkForImmediateDrop(pricesByNetwork[network.chainId.toString()], network.name)
             updateHealthFactorBookmark(data.healthFactor, network)
-
-            provider.destroy()
         } catch (error) {
             updateHealthFactorBookmark(null, null)
             console.error(error)

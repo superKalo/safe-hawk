@@ -1,6 +1,6 @@
 import sendMail from '../services/mail'
 import { IExecWeb3mail, getWeb3Provider } from '@iexec/web3mail'
-import getAAVEUserContractDataFormatted from '../../src/common/getAaveHealthFactor'
+import getAaveUserContractDataFormatted from '../../src/common/getAaveUserContractDataFormatted'
 import { NETWORKS } from '../../src/common/networks'
 
 const sendEmailsToAllContacts = async () => {
@@ -17,10 +17,9 @@ const sendEmailsToAllContacts = async () => {
                 return {
                     chainId,
                     name,
-                    healthFactorPromise: getAAVEUserContractDataFormatted(
+                    healthFactorPromise: getAaveUserContractDataFormatted(
                         owner,
                         url,
-                        chainId,
                         aaveLendingPoolAddress
                     )
                 }
@@ -30,23 +29,26 @@ const sendEmailsToAllContacts = async () => {
         const healthFactors = await Promise.allSettled(
             healthFactorPromises.map(({ chainId, name, healthFactorPromise }) =>
                 healthFactorPromise
-                    .then(({ healthFactor, block }) => ({
-                        chainId,
-                        name,
-                        healthFactor,
-                        block
-                    }))
-                    .catch((error) => ({
-                        chainId,
-                        name,
-                        error: `Failed to fetch healthFactor: ${error.message}`
-                    }))
+                    .then((data) =>
+                        data
+                            ? {
+                                  chainId,
+                                  name,
+                                  healthFactor: data.healthFactor,
+                                  block: data.block
+                              }
+                            : null
+                    )
+                    .catch((error) => {
+                        console.error(`Failed to get Health Factor on ${name}: ${error}`)
+                        return null
+                    })
             )
         )
 
         const healthFactorContent = healthFactors
             // @ts-expect-error Link: https://stackoverflow.com/questions/63783735/type-error-on-response-of-promise-allsettled
-            .filter(({ value: { healthFactor, error } }) => healthFactor && !error)
+            .filter(({ value }) => !!value)
             // @ts-expect-error Link: https://stackoverflow.com/questions/63783735/type-error-on-response-of-promise-allsettled
             .map(({ value: { healthFactor, block, name, error } }) => {
                 if (error) {
