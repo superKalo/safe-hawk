@@ -14,20 +14,6 @@
         width: 16rem;
         height: 16rem;
         opacity: 0.15;
-
-        &.tada {
-            font-size: 12rem;
-        }
-    }
-
-    .title {
-        font-size: 1rem;
-        font-weight: 500;
-        margin-bottom: 0.75rem;
-    }
-    .text {
-        font-size: 0.875rem;
-        margin-bottom: 0.75rem;
     }
 
     .button2 {
@@ -43,5 +29,15 @@
         font-weight: 500;
         text-decoration: none;
         color: $alternativeText;
+    }
+
+    .title {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+    }
+    .text {
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
     }
 }

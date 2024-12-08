@@ -11,7 +11,7 @@ const ExtensionCard = () => {
             </div>
             <img src="/logo.png" alt="logo" className={styles.image} />
             <a
-                href="https://github.com/PetromirDev/safe-hawk/releases/tag/v1.0.0"
+                href="https://chromewebstore.google.com/detail/safehawk-defi-loans-from/jkfojcipehiabimkapfeolkjefonpffb"
                 target="_blank"
                 rel="noreferrer"
                 className={styles.button2}

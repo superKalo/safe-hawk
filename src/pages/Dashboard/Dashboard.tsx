@@ -21,7 +21,7 @@ const Placeholder = ({ title, text }: { title: string; text: string }) => {
 
 const Dashboard = () => {
     const chainId = useChainId()
-    const { aaveData, isLoading } = useAAVEDataProvider()
+    const { aaveData, isLoading, error } = useAAVEDataProvider()
     const isNetworkSupported = NETWORKS.some((network) => network.chainId === chainId)
 
     return (
@@ -34,27 +34,39 @@ const Dashboard = () => {
                         {aaveData?.totalDebtETH || '-$'}
                     </p>
                 </div>
-                {aaveData && isNetworkSupported && !isLoading && (
-                    <motion.div className={styles.content}>
-                        <HealthFactor />
-                        <CurrentLTV />
-                    </motion.div>
+                {isNetworkSupported ? (
+                    <>
+                        {isLoading && <Placeholder title="Loading AAVE data..." text="" />}
+                        {aaveData && !isLoading && (
+                            <motion.div className={styles.content}>
+                                <HealthFactor />
+                                <CurrentLTV />
+                            </motion.div>
+                        )}
+                        {!aaveData && !error && !isLoading && (
+                            <Placeholder
+                                title="No AAVE data found"
+                                text="You don't have any AAVE positions."
+                            />
+                        )}
+                        {!aaveData && error && !isLoading && (
+                            <Placeholder
+                                title="Failed to fetch AAVE data"
+                                text="Please try again later."
+                            />
+                        )}
+                    </>
+                ) : (
+                    <>
+                        {!aaveData && chainId === 134 && (
+                            <Placeholder
+                                title="Connected to iExec Sidechain"
+                                text="iExec is not supported by AAVE. Please switch to a supported network to view your AAVE data."
+                            />
+                        )}
+                    </>
                 )}
-                {isLoading && isNetworkSupported && (
-                    <Placeholder title="Loading AAVE data..." text="" />
-                )}
-                {!aaveData && !isLoading && isNetworkSupported && (
-                    <Placeholder
-                        title="No AAVE data found"
-                        text="You don't have any AAVE positions."
-                    />
-                )}
-                {!aaveData && chainId === 134 && (
-                    <Placeholder
-                        title="Connected to iExec Sidechain"
-                        text="iExec is not supported by AAVE. Please switch to a supported network to view your AAVE data."
-                    />
-                )}
+
                 {/* TODO: Other network handling */}
                 <motion.div className={styles.cardsWrapper} layout>
                     <EmailCard />
