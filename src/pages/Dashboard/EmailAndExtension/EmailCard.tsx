@@ -90,9 +90,9 @@ const EmailCard = () => {
         setIsInProgress(true)
         try {
             await dataProtectorCore.protectData({
-                name: 'email',
+                name: 'safeHawkNotificationEmail',
                 data: {
-                    email
+                    safeHawkNotificationEmail: email
                 }
             })
             setHasProtectedEmail(true)
@@ -111,7 +111,7 @@ const EmailCard = () => {
             const result = await dataProtectorCore.getProtectedData({
                 owner: address,
                 requiredSchema: {
-                    email: 'string'
+                    safeHawkNotificationEmail: 'string'
                 }
             })
 
