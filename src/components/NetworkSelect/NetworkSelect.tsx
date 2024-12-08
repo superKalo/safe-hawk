@@ -42,8 +42,6 @@ const NetworkSelect = ({ className }: { className?: string }) => {
 
     if (!chainId) return null
 
-    console.log(chainId)
-
     return (
         <div className={classNames(styles.wrapper, className)} ref={ref}>
             <button
