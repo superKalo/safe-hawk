@@ -1,0 +1,14 @@
+#!/bin/bash
+# Check if today is Monday (1 = Monday, 7 = Sunday)
+# if [ $(date +%u) -ne 1 ]; then
+#   echo "Today is not Monday. Exiting."
+#   exit 0
+# fi
+export NODE_OPTIONS=--max-old-space-size=512
+yarn install
+
+yarn start-server
+# Run the yarn start-server command
+# yarn build-server
+cp ".env" "./server/dist"
+# node server/dist/server/index.js
