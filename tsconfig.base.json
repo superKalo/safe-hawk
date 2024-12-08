@@ -1,12 +1,25 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["src/*"]
+    "compilerOptions": {
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "allowJs": true,
+        "checkJs": false,
+        "noEmitOnError": false,
+        "noEmit": true,
+        "baseUrl": "."
     },
-    "allowJs": true,
-    "checkJs": false,
-    "noEmitOnError": false,
-    "baseUrl": "."
-  },
-  "exclude": ["node_modules"]
+    "include": [
+        "server/*.ts",
+        "server/**/*.ts",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "extension/**/*.ts",
+        "extension/**/*.tsx",
+        "extension/**/*.js",
+        "extension/**/*.jsx"
+    ],
+    "exclude": ["node_modules"]
 }

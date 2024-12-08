@@ -1,0 +1,30 @@
+@import '@/styles/global.scss';
+
+.emailCard {
+    background-color: #9639f3;
+
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input {
+        height: 2.75rem;
+        border-radius: $border-radius;
+        padding: 0.75rem;
+        font-weight: 500;
+        font-size: 1rem;
+        border: none;
+        margin-bottom: 1rem;
+    }
+
+    .button {
+        height: 2.5rem;
+        border-radius: $border-radius;
+        font-weight: 600;
+        font-size: 1rem;
+        background-color: #e9e2f0;
+        color: #7017c9;
+        border: none;
+    }
+}

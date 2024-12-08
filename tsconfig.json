@@ -17,6 +17,6 @@
         "noEmit": true,
         "moduleResolution": "node",
         "baseUrl": "./",
-        "types": ["chrome"],
-    },
+        "types": ["chrome"]
+    }
 }

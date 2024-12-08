@@ -8,11 +8,10 @@ import { type Config } from '@wagmi/core'
 import type { Client, Chain, Transport, Account } from 'viem'
 import toast from 'react-hot-toast'
 import { config } from '@/wagmiConfig'
-import styles from './EmailAndExtension.module.scss'
-import { hoverAnimationEasy } from '@/styles/animations'
-import { motion } from 'framer-motion'
+import styles from './EmailCard.module.scss'
 import classNames from 'classnames'
 import { isExtension } from '@/helpers/browserApi'
+import Card from '../Card'
 
 type WrapperProps = {
     complete?: boolean
@@ -21,12 +20,11 @@ type WrapperProps = {
 
 const EmailCardWrapper = ({ complete = false, children }: WrapperProps) => {
     return (
-        <motion.div
+        <Card
             className={classNames(styles.card, styles.emailCard, { [styles.complete]: complete })}
-            whileHover={hoverAnimationEasy}
         >
             {children}
-        </motion.div>
+        </Card>
     )
 }
 

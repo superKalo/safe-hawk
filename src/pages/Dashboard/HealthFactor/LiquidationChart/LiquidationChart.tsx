@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { scaleLinear } from '@visx/scale'
 import { Line } from '@visx/shape'
 import { LinearGradient } from '@visx/gradient'
@@ -14,7 +14,7 @@ const LiquidationChart = ({ value, width }: Props) => {
     const margin = { top: 10, bottom: 10, left: 16, right: 10 }
 
     const xScale = scaleLinear({
-        domain: [0, 10],
+        domain: [0, 6],
         range: [margin.left, width - margin.right]
     })
 
@@ -22,11 +22,13 @@ const LiquidationChart = ({ value, width }: Props) => {
 
     return (
         <svg width={width} className={styles.chart}>
+            {/* Gradient */}
             <LinearGradient id="healthGradient" vertical={false}>
                 <stop offset="0%" stopColor="#F33939" />
-                <stop offset="22%" stopColor="#E09D19" />
-                <stop offset="40%" stopColor="#53AA14" />
+                <stop offset="40%" stopColor="#E09D19" />
+                <stop offset="60%" stopColor="#53AA14" />
             </LinearGradient>
+            {/* Background */}
             <rect
                 x={margin.left}
                 y={margin.top}
@@ -35,6 +37,7 @@ const LiquidationChart = ({ value, width }: Props) => {
                 fill="url(#healthGradient)"
                 rx={5}
             />
+            {/* Value */}
             <svg
                 width="14"
                 height="7"
@@ -46,6 +49,7 @@ const LiquidationChart = ({ value, width }: Props) => {
             >
                 <path d="M7 7L0 0H14L7 7Z" fill="#20102F" />
             </svg>
+            {/* Text */}
             <text
                 x={xScale(value)}
                 y={rectHeight - 15}
@@ -56,6 +60,7 @@ const LiquidationChart = ({ value, width }: Props) => {
             >
                 {value.toFixed(2)}
             </text>
+            {/* Liquidation marker */}
             <Line
                 from={{ x: xScale(LIQUIDATION_VALUE), y: margin.top - 5 }}
                 to={{ x: xScale(LIQUIDATION_VALUE), y: rectHeight + 15 }}
@@ -63,7 +68,7 @@ const LiquidationChart = ({ value, width }: Props) => {
                 strokeWidth={3}
                 className={styles.liquidationMarker}
             />
-
+            {/* Liquidation text */}
             <text
                 x={xScale(LIQUIDATION_VALUE)}
                 y={rectHeight + 40}
@@ -78,4 +83,4 @@ const LiquidationChart = ({ value, width }: Props) => {
     )
 }
 
-export default React.memo(LiquidationChart)
+export default memo(LiquidationChart)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { scaleLinear } from '@visx/scale'
 import { Line } from '@visx/shape'
 import styles from './LTVChart.module.scss'
@@ -152,4 +152,4 @@ const LTVChart = ({ stringValue, maxValue, threshold, width }: Props) => {
     )
 }
 
-export default React.memo(LTVChart)
+export default memo(LTVChart)
