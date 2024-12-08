@@ -4,7 +4,6 @@ import styles from './Dashboard.module.scss'
 import { CurrentLTV } from './CurrentLTV'
 import { useAAVEDataProvider } from '@/context'
 import { motion } from 'framer-motion'
-import { useChainId } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
 import { isExtension } from '@/helpers/browserApi'
 import EmailCard from './Cards/EmailCard'
@@ -20,9 +19,8 @@ const Placeholder = ({ title, text }: { title: string; text: string }) => {
 }
 
 const Dashboard = () => {
-    const chainId = useChainId()
-    const { aaveData, isLoading, error } = useAAVEDataProvider()
-    const isNetworkSupported = NETWORKS.some((network) => network.chainId === chainId)
+    const { aaveData, isLoading, error, chainIdWithFallback } = useAAVEDataProvider()
+    const isNetworkSupported = NETWORKS.some((network) => network.chainId === chainIdWithFallback)
 
     return (
         <Page className={styles.wrapper}>
@@ -58,7 +56,7 @@ const Dashboard = () => {
                     </>
                 ) : (
                     <>
-                        {!aaveData && chainId === 134 && (
+                        {!aaveData && chainIdWithFallback === 134 && (
                             <Placeholder
                                 title="Connected to iExec Sidechain"
                                 text="iExec is not supported by AAVE. Please switch to a supported network to view your AAVE data."
