@@ -13,6 +13,9 @@ import { useCallback, useEffect } from 'react'
 import { useAAVEDataProvider } from '@/context'
 import { useNavigate } from 'react-router'
 import { isExtension } from '@/helpers/browserApi'
+import { isAddress } from 'viem'
+import toast from 'react-hot-toast'
+
 const features = [
     {
         icon: MonitoringIcon,
@@ -46,6 +49,10 @@ const Home = () => {
 
     const handleSubmitAddress = useCallback(
         (address: string) => {
+            if (!isAddress(address)) {
+                toast.error('Please enter a valid address!')
+                return
+            }
             updateViewOnlyAddress(address)
             updateViewOnlyChainId(viewOnlyChainId || 1)
             navigate('/dashboard')
