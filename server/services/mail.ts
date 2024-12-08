@@ -8,9 +8,8 @@ const sendMail = async (protectedDataAddress, { subject, content }) => {
 
     if (!protectedDataAddress) throw new Error('no-email')
 
+    // eslint-disable-next-line no-console
     console.log('sending email to', protectedDataAddress)
-
-    return Promise.resolve()
 
     return await web3mail.sendEmail({
         protectedData: protectedDataAddress,
