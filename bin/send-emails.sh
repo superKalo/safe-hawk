@@ -1,5 +1,5 @@
 #!/bin/bash
-Check if today is Monday (1 = Monday, 7 = Sunday)
+# Check if today is Monday (1 = Monday, 7 = Sunday)
 if [ $(date +%u) -ne 1 ]; then
   echo "Today is not Monday. Exiting."
   exit 0
