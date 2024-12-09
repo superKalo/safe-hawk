@@ -1,17 +1,23 @@
 import sendMail from '../services/mail'
-import { IExecWeb3mail, getWeb3Provider } from '@iexec/web3mail'
+import { getWeb3Provider } from '@iexec/web3mail'
+import { IExecDataProtectorCore } from '@iexec/dataprotector'
 import getAaveUserContractDataFormatted from '../../src/common/getAaveUserContractDataFormatted'
 import { NETWORKS } from '../../src/common/networks'
 
 const sendEmailsToAllContacts = async () => {
     const provider = getWeb3Provider(process.env.PRIVATE_KEY)
-    const web3mail = new IExecWeb3mail(provider)
+    const dataProtectorCore = new IExecDataProtectorCore(provider)
 
-    const contactsList = await web3mail.fetchMyContacts({
-        isUserStrict: true
+    const contactsList = await dataProtectorCore.getProtectedData({
+        requiredSchema: {
+            safeHawkNotificationEmail: 'string'
+        }
     })
 
-    const sendMailPromises = contactsList.map(async ({ address, owner }) => {
+    // eslint-disable-next-line no-console
+    console.log(`Found ${contactsList.length} contacts`)
+
+    const sendMailPromises = contactsList.map(async ({ address: protectedDataAddress, owner }) => {
         const healthFactorPromises = NETWORKS.map(
             ({ chainId, url, name, aaveLendingPoolAddress }) => {
                 return {
@@ -78,8 +84,8 @@ const sendEmailsToAllContacts = async () => {
 
         const subject = 'Health Factor report by SafeHawk'
         // Send email for this contact
-        return sendMail(address, { subject, content }).catch(
-            (emailError) => `Failed to send email to ${address}: ${emailError.message}`
+        return sendMail(protectedDataAddress, owner, { subject, content }).catch(
+            (emailError) => `Failed to send email to ${owner}: ${emailError.message}`
         )
     })
 
