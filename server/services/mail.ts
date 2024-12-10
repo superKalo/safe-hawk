@@ -2,7 +2,6 @@ import { IExecWeb3mail, getWeb3Provider } from '@iexec/web3mail'
 
 const sendMail = async (
     protectedDataAddress: string,
-    owner: string,
     {
         subject,
         content
@@ -18,15 +17,13 @@ const sendMail = async (
 
     if (!protectedDataAddress) throw new Error('no-email')
 
-    // eslint-disable-next-line no-console
-    console.log('Sending an email to', owner)
-
     return await web3mail.sendEmail({
         protectedData: protectedDataAddress,
         emailSubject: subject,
         emailContent: content,
         contentType: 'text/html',
         senderName: 'SafeHawk',
+        // TODO: Top-up our account with RLC and use a production pool
         workerpoolAddressOrEns: 'prod-v8-learn.main.pools.iexec.eth'
     })
 }

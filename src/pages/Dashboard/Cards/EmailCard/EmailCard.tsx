@@ -90,7 +90,7 @@ const EmailCard = () => {
             await dataProtectorCore.protectData({
                 name: 'safeHawkNotificationEmail',
                 data: {
-                    safeHawkNotificationEmail: email
+                    email
                 }
             })
             setHasProtectedEmail(true)
@@ -109,11 +109,11 @@ const EmailCard = () => {
             const result = await dataProtectorCore.getProtectedData({
                 owner: address,
                 requiredSchema: {
-                    safeHawkNotificationEmail: 'string'
+                    email: 'string'
                 }
             })
 
-            return result
+            return result.filter(({ name }) => name === 'safeHawkNotificationEmail')
         } catch (e) {
             console.error(e)
             toast.error('Failed to get email address')

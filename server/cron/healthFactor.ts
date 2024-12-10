@@ -1,20 +1,16 @@
+/* eslint-disable no-console */
 import sendMail from '../services/mail'
-import { getWeb3Provider } from '@iexec/web3mail'
-import { IExecDataProtectorCore } from '@iexec/dataprotector'
+import { getWeb3Provider, IExecWeb3mail } from '@iexec/web3mail'
 import getAaveUserContractDataFormatted from '../../src/common/getAaveUserContractDataFormatted'
 import { NETWORKS } from '../../src/common/networks'
 
 const sendEmailsToAllContacts = async () => {
     const provider = getWeb3Provider(process.env.PRIVATE_KEY)
-    const dataProtectorCore = new IExecDataProtectorCore(provider)
-
-    const contactsList = await dataProtectorCore.getProtectedData({
-        requiredSchema: {
-            safeHawkNotificationEmail: 'string'
-        }
+    const web3mail = new IExecWeb3mail(provider)
+    const contactsList = await web3mail.fetchMyContacts({
+        isUserStrict: true
     })
 
-    // eslint-disable-next-line no-console
     console.log(`Found ${contactsList.length} contacts`)
 
     const sendMailPromises = contactsList.map(async ({ address: protectedDataAddress, owner }) => {
@@ -47,7 +43,9 @@ const sendEmailsToAllContacts = async () => {
                     )
                     .catch((error) => {
                         console.error(`Failed to get Health Factor on ${name}: ${error}`)
-                        return null
+                        return {
+                            error: 'RPC error'
+                        }
                     })
             )
         )
@@ -83,10 +81,13 @@ const sendEmailsToAllContacts = async () => {
         `
 
         const subject = 'Health Factor report by SafeHawk'
-        // Send email for this contact
-        return sendMail(protectedDataAddress, owner, { subject, content }).catch(
-            (emailError) => `Failed to send email to ${owner}: ${emailError.message}`
-        )
+        // Send email to this contact
+        try {
+            const { taskId } = await sendMail(protectedDataAddress, { subject, content })
+            console.log(`Email sent to ${owner} with taskId ${taskId}`)
+        } catch (error) {
+            console.error(`Failed to send email to ${owner}`, error)
+        }
     })
 
     // Run all send mail promises, ensuring independent failures don't affect others
