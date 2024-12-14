@@ -1,41 +1,41 @@
 const NETWORKS = [
     {
-        url: 'https://lb.drpc.org/ogrpc?network=ethereum&dkey=Aq_9hKViS0SckPrtTHpH_c8dayHbjV8R77oJTgFkVp5j',
+        url: 'https://eth-mainnet.g.alchemy.com/v2/s04vphEIUn0HNxBMNTjIDMbjA8J_P1ls',
         chainId: 1,
         name: 'Ethereum',
         aaveLendingPoolAddress: '0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2',
         shortName: 'Eth..'
     },
     {
-        url: 'https://lb.drpc.org/ogrpc?network=optimism&dkey=Aq_9hKViS0SckPrtTHpH_c8dayHbjV8R77oJTgFkVp5j',
+        url: 'https://opt-mainnet.g.alchemy.com/v2/s04vphEIUn0HNxBMNTjIDMbjA8J_P1ls',
         chainId: 10,
         name: 'Optimism',
         shortName: 'Opt..',
         aaveLendingPoolAddress: '0x794a61358D6845594F94dc1DB02A252b5b4814aD'
     },
     {
-        url: 'https://lb.drpc.org/ogrpc?network=polygon&dkey=Aq_9hKViS0SckPrtTHpH_c8dayHbjV8R77oJTgFkVp5j',
+        url: 'https://polygon-mainnet.g.alchemy.com/v2/s04vphEIUn0HNxBMNTjIDMbjA8J_P1ls',
         chainId: 137,
         name: 'Polygon',
         shortName: 'Pol..',
         aaveLendingPoolAddress: '0x794a61358D6845594F94dc1DB02A252b5b4814aD'
     },
     {
-        url: 'https://lb.drpc.org/ogrpc?network=avalanche&dkey=Aq_9hKViS0SckPrtTHpH_c8dayHbjV8R77oJTgFkVp5j',
+        url: 'https://avax-mainnet.g.alchemy.com/v2/s04vphEIUn0HNxBMNTjIDMbjA8J_P1ls',
         chainId: 43114,
         name: 'Avalanche',
         shortName: 'Aval..',
         aaveLendingPoolAddress: '0x794a61358D6845594F94dc1DB02A252b5b4814aD'
     },
     {
-        url: 'https://lb.drpc.org/ogrpc?network=arbitrum&dkey=Aq_9hKViS0SckPrtTHpH_c8dayHbjV8R77oJTgFkVp5j',
+        url: 'https://arb-mainnet.g.alchemy.com/v2/s04vphEIUn0HNxBMNTjIDMbjA8J_P1ls',
         chainId: 42161,
         name: 'Arbitrum',
         shortName: 'Arb..',
         aaveLendingPoolAddress: '0x794a61358D6845594F94dc1DB02A252b5b4814aD'
     },
     {
-        url: 'https://lb.drpc.org/ogrpc?network=base&dkey=Aq_9hKViS0SckPrtTHpH_c8dayHbjV8R77oJTgFkVp5j',
+        url: 'https://base-mainnet.g.alchemy.com/v2/s04vphEIUn0HNxBMNTjIDMbjA8J_P1ls',
         chainId: 8453,
         name: 'Base',
         shortName: 'Base',
