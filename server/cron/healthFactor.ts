@@ -44,7 +44,8 @@ const sendEmailsToAllContacts = async () => {
                     .catch((error) => {
                         console.error(`Failed to get Health Factor on ${name}: ${error}`)
                         return {
-                            error: 'RPC error'
+                            error: 'RPC error',
+                            name
                         }
                     })
             )
@@ -56,23 +57,39 @@ const sendEmailsToAllContacts = async () => {
             // @ts-expect-error Link: https://stackoverflow.com/questions/63783735/type-error-on-response-of-promise-allsettled
             .map(({ value: { healthFactor, block, name, error } }) => {
                 if (error) {
+                    // TODO: Figure out a better way to handle this
                     return `
                         <p>There was an error getting the Health Factor on <strong>${name}</strong>: ${error}. Please check it manually.</p>
                     `
                 } else {
                     return `
-                        <p>On AAVE v3 (${name}) at block <strong>${block}</strong>, the Health Factor of <strong>${owner}</strong> is <strong>${healthFactor}</strong>.</p>
+                        <p>On AAVE v3 (${name}) at block <strong>${block}</strong>, your Health Factor is <strong>${healthFactor}</strong>.</p>
                     `
                 }
             })
             .join('') // Remove \n for HTML and use inline spacing
 
-        if (!healthFactorContent) return
+        if (!healthFactorContent) {
+            console.log(`No Health Factor data for ${owner}. Skipping email.`)
+            return
+        }
+
+        const date = new Date()
+        const utcTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
 
         const content = `
             <div>
                 <p>Hey,</p>
-                <p>With the precision of a hawk scanning the horizon 🦅, here’s a quick update for your current open positions:</p>
+                <p>With the precision of a hawk scanning the horizon 🦅, here’s a quick update for <strong>${owner}</strong>'s open positions as of ${utcTime.toLocaleString(
+                    'en-GB',
+                    {
+                        day: 'numeric',
+                        month: 'short',
+                        hour12: false,
+                        hour: 'numeric',
+                        minute: 'numeric'
+                    }
+                )} UTC:</p>
                 ${healthFactorContent}
                 <p>PS: More stats available on your dashboard at <a href="https://safe-hawk.com">safe-hawk.com</a></p>
                 <p>Have a great week,</p>
