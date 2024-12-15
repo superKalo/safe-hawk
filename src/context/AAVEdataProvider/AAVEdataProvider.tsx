@@ -3,6 +3,7 @@ import { useAccount, useChainId } from 'wagmi'
 import { NETWORKS } from '@/common/networks'
 import getAaveUserContractDataFormatted from '@/common/getAaveUserContractDataFormatted'
 import { isExtension } from '@/helpers/browserApi'
+import { PROVIDERS } from '@/common/providers'
 
 type AaveData = {
     totalCollateralETH: string
@@ -66,7 +67,7 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
 
         getAaveUserContractDataFormatted(
             accountAddress,
-            network?.url,
+            PROVIDERS[chainId],
             network?.aaveLendingPoolAddress
         )
             .then((data) => {

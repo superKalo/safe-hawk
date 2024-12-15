@@ -13,10 +13,9 @@ type AaveData = {
 
 const getAaveUserContractDataFormatted = async (
     address: string,
-    providerUrl: string,
+    provider: JsonRpcProvider,
     aaveLendingPoolAddress: string
 ): Promise<AaveData | null> => {
-    const provider = new JsonRpcProvider(providerUrl)
     const aaveLendingPoolABI = [
         'function getUserAccountData(address) view returns (uint256 totalCollateralETH, uint256 totalDebtETH, uint256 availableBorrowsETH, uint256 currentLiquidationThreshold, uint256 ltv, uint256 healthFactor)'
     ]
@@ -24,6 +23,7 @@ const getAaveUserContractDataFormatted = async (
     const lendingPoolContract = new Contract(aaveLendingPoolAddress, aaveLendingPoolABI, provider)
 
     const accountData = await lendingPoolContract.getUserAccountData(address)
+    // Change: get the block only once, not for every account
     const block = await provider.getBlockNumber()
 
     provider.destroy()

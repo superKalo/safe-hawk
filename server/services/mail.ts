@@ -11,13 +11,14 @@ const sendMail = async (
     }
 ) => {
     const provider = getWeb3Provider(process.env.PRIVATE_KEY)
+    await provider.getNonce()
     const web3mail = new IExecWeb3mail(provider)
 
     if (!subject || !content) throw new Error('missing email subject or content')
 
     if (!protectedDataAddress) throw new Error('no-email')
 
-    return await web3mail.sendEmail({
+    return web3mail.sendEmail({
         protectedData: protectedDataAddress,
         emailSubject: subject,
         emailContent: content,

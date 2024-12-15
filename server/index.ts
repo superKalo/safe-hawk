@@ -11,11 +11,4 @@ dotenv.config({
     path: path.resolve(__dirname, '../.env')
 })
 
-sendEmailsToAllContacts()
-    .then(() => {
-        process.exit(0)
-    })
-    .catch((error) => {
-        console.error(error)
-        process.exit(1)
-    })
+await sendEmailsToAllContacts()

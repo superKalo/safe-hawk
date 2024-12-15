@@ -1,5 +1,6 @@
 import getAaveUserContractDataFormatted from '@/common/getAaveUserContractDataFormatted'
 import { NETWORKS } from '@/common/networks'
+import { PROVIDERS } from '@/common/providers'
 import formatDecimals from '@/helpers/formatDecimals'
 
 async function runHeartbeat() {
@@ -99,7 +100,7 @@ const runDataUpdate = async () => {
             try {
                 data = await getAaveUserContractDataFormatted(
                     storage.viewOnlyAddress,
-                    network.url,
+                    PROVIDERS[network.chainId],
                     network.aaveLendingPoolAddress
                 )
             } catch (e) {
