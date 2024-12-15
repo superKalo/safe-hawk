@@ -58,10 +58,6 @@ const sendEmailsToAllContacts = async () => {
         const provider = getWeb3Provider(process.env.PRIVATE_KEY)
         const web3mail = new IExecWeb3mail(provider)
         const contactsList = await web3mail.fetchMyContacts({ isUserStrict: true })
-        // Make a unique list of contacts
-
-        // Fix for the nonce issue: Web3ProviderSendError: Wrong transaction nonce
-        await provider.getNonce()
 
         console.log(`Found ${contactsList.length} contacts`)
 
