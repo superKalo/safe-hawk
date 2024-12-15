@@ -6,6 +6,12 @@ import getAaveUserContractDataFormatted from '../../src/common/getAaveUserContra
 import { NETWORKS } from '../../src/common/networks'
 import { PROVIDERS } from '../../src/common/providers'
 
+type EmailItem = {
+    protectedDataAddress: string
+    owner: string
+    content: string
+}
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const fetchHealthFactorContent = async (owner: string) => {
@@ -61,12 +67,6 @@ const sendEmailsToAllContacts = async () => {
 
         console.log(`Found ${contactsList.length} contacts`)
 
-        const emailContents: {
-            protectedDataAddress: string
-            owner: string
-            content: string
-        }[] = []
-
         const contentTasks = contactsList.map(async ({ address: protectedDataAddress, owner }) => {
             try {
                 const healthFactorContent = await fetchHealthFactorContent(owner)
@@ -99,18 +99,23 @@ const sendEmailsToAllContacts = async () => {
                         </div>
                     `
 
-                emailContents.push({ protectedDataAddress, owner, content })
+                return {
+                    protectedDataAddress,
+                    owner,
+                    content
+                }
             } catch (error) {
                 console.error(`Failed to process contact ${owner}:`, error)
+                return null
             }
         })
 
         // Content can be calculated in parallel
         // while the emails must be sent sequentially to avoid rate limits
         // and nonce issues
-        await Promise.all(contentTasks)
+        const emailItems = (await Promise.all(contentTasks)).filter(Boolean) as EmailItem[]
 
-        for (const { protectedDataAddress, owner, content } of emailContents) {
+        for (const { protectedDataAddress, owner, content } of emailItems) {
             await Promise.race([
                 sendMail(protectedDataAddress, {
                     subject: 'Health Factor report by SafeHawk',
