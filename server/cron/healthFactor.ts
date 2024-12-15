@@ -61,20 +61,25 @@ const sendEmailsToAllContacts = async () => {
 
         console.log(`Found ${contactsList.length} contacts`)
 
-        const emailTasks = contactsList.map(
-            async ({ address: protectedDataAddress, owner }, index) => {
-                try {
-                    const healthFactorContent = await fetchHealthFactorContent(owner)
+        const emailContents: {
+            protectedDataAddress: string
+            owner: string
+            content: string
+        }[] = []
 
-                    if (!healthFactorContent) {
-                        console.log(`No Health Factor data for ${owner}. Skipping email.`)
-                        return
-                    }
+        const contentTasks = contactsList.map(async ({ address: protectedDataAddress, owner }) => {
+            try {
+                const healthFactorContent = await fetchHealthFactorContent(owner)
 
-                    const date = new Date()
-                    const utcTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
+                if (!healthFactorContent) {
+                    console.log(`No Health Factor data for ${owner}. Skipping email.`)
+                    return
+                }
 
-                    const content = `
+                const date = new Date()
+                const utcTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
+
+                const content = `
                         <div>
                             <p>Hey,</p>
                             <p>With the precision of a hawk scanning the horizon 🦅, here’s a quick update for <strong>${owner}</strong>'s open positions as of ${utcTime.toLocaleString(
@@ -94,26 +99,30 @@ const sendEmailsToAllContacts = async () => {
                         </div>
                     `
 
-                    // Delay the email sending to avoid reaching rate limits
-                    await delay(index * 2000)
-                    // Race between the email task and a timeout promise
-                    // as we don't want to wait indefinitely for a single email to be sent
-                    await Promise.race([
-                        sendMail(protectedDataAddress, {
-                            subject: 'Health Factor report by SafeHawk',
-                            content
-                        }).then(() => console.log(`Email sent to ${owner}`)),
-                        new Promise((_, reject) =>
-                            setTimeout(() => reject(new Error('Email task timeout')), 30000)
-                        )
-                    ])
-                } catch (error) {
-                    console.error(`Failed to process contact ${owner}:`, error)
-                }
+                emailContents.push({ protectedDataAddress, owner, content })
+            } catch (error) {
+                console.error(`Failed to process contact ${owner}:`, error)
             }
-        )
+        })
 
-        await Promise.all(emailTasks)
+        // Content can be calculated in parallel
+        // while the emails must be sent sequentially to avoid rate limits
+        // and nonce issues
+        await Promise.all(contentTasks)
+
+        for (const { protectedDataAddress, owner, content } of emailContents) {
+            await Promise.race([
+                sendMail(protectedDataAddress, {
+                    subject: 'Health Factor report by SafeHawk',
+                    content
+                }).then(() => console.log(`Email sent to ${owner}`)),
+                new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Email task timeout')), 30000)
+                )
+            ])
+            // Delay the email sending to avoid reaching rate limits
+            await delay(2000)
+        }
 
         console.log('All emails have been processed.')
     } catch (error) {
