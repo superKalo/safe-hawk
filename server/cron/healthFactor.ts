@@ -84,7 +84,7 @@ const sendEmailsToAllContacts = async () => {
                 const utcTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
 
                 const content = `
-                        <div>
+                        <div style="font-family: trebuchet ms, sans-serif">
                             <p>Hey!</p>
                             ${healthFactorContent}
                             <p>That's the quick update for <strong>${owner}</strong>'s positions as of ${utcTime.toLocaleString(
