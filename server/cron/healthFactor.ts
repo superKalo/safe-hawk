@@ -14,7 +14,7 @@ type EmailItem = {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-function formatAddress(address: string): string {
+function shortenAddress(address: string) {
     return `${address.slice(0, 5)}...${address.slice(-4)}`
 }
 
@@ -121,7 +121,7 @@ const sendEmailsToAllContacts = async () => {
         for (const { protectedDataAddress, owner, content } of emailItems) {
             await Promise.race([
                 sendMail(protectedDataAddress, {
-                    subject: `Weekly health update on ${formatAddress(owner)}'s loans`,
+                    subject: `Weekly health update on ${shortenAddress(owner)}'s loans`,
                     content
                 }).then(() => console.log(`Email sent to ${owner}`)),
                 new Promise((_, reject) =>
