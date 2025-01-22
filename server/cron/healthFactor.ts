@@ -14,6 +14,10 @@ type EmailItem = {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+function formatAddress(address: string): string {
+    return `${address.slice(0, 5)}...${address.slice(-4)}`
+}
+
 const fetchHealthFactorContent = async (owner: string) => {
     const healthFactorPromises = NETWORKS.map(({ chainId, name, aaveLendingPoolAddress }) => ({
         chainId,
@@ -118,7 +122,7 @@ const sendEmailsToAllContacts = async () => {
         for (const { protectedDataAddress, owner, content } of emailItems) {
             await Promise.race([
                 sendMail(protectedDataAddress, {
-                    subject: 'Health Factor report by SafeHawk',
+                    subject: `Weekly health update on ${formatAddress(owner)}'s loans`,
                     content
                 }).then(() => console.log(`Email sent to ${owner}`)),
                 new Promise((_, reject) =>
