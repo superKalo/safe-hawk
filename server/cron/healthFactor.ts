@@ -85,8 +85,9 @@ const sendEmailsToAllContacts = async () => {
 
                 const content = `
                         <div>
-                            <p>Hey,</p>
-                            <p>With the precision of a hawk scanning the horizon 🦅, here’s a quick update for <strong>${owner}</strong>'s open positions as of ${utcTime.toLocaleString(
+                            <p>Hey!</p>
+                            ${healthFactorContent}
+                            <p>That's the quick update for <strong>${owner}</strong>'s positions as of ${utcTime.toLocaleString(
                                 'en-GB',
                                 {
                                     day: 'numeric',
@@ -95,11 +96,9 @@ const sendEmailsToAllContacts = async () => {
                                     hour: 'numeric',
                                     minute: 'numeric'
                                 }
-                            )} UTC:</p>
-                            ${healthFactorContent}
-                            <p>PS: More stats available on your dashboard at <a href="https://safe-hawk.com">safe-hawk.com</a></p>
-                            <p>Have a great week,</p>
-                            <p>SafeHawk team.</p>
+                            )} UTC.</p>
+                            <p>For more stats and insights, visit your dashboard: <a href="https://safe-hawk.com">safe-hawk.com</a></p>
+                            <p>Speak to you next Monday!<br />The SafeHawk Team 🦅</p>
                         </div>
                     `
 
