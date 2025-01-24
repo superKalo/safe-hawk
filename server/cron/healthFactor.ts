@@ -14,6 +14,10 @@ type EmailItem = {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+function shortenAddress(address: string) {
+    return `${address.slice(0, 5)}...${address.slice(-4)}`
+}
+
 const fetchHealthFactorContent = async (owner: string) => {
     const healthFactorPromises = NETWORKS.map(({ chainId, name, aaveLendingPoolAddress }) => ({
         chainId,
@@ -80,9 +84,10 @@ const sendEmailsToAllContacts = async () => {
                 const utcTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
 
                 const content = `
-                        <div>
-                            <p>Hey,</p>
-                            <p>With the precision of a hawk scanning the horizon 🦅, here’s a quick update for <strong>${owner}</strong>'s open positions as of ${utcTime.toLocaleString(
+                        <div style="font-family: trebuchet ms, sans-serif">
+                            <p>Hey!</p>
+                            ${healthFactorContent}
+                            <p>That's the quick update for <strong>${owner}</strong>'s positions as of ${utcTime.toLocaleString(
                                 'en-GB',
                                 {
                                     day: 'numeric',
@@ -91,11 +96,9 @@ const sendEmailsToAllContacts = async () => {
                                     hour: 'numeric',
                                     minute: 'numeric'
                                 }
-                            )} UTC:</p>
-                            ${healthFactorContent}
-                            <p>PS: More stats available on your dashboard at <a href="https://safe-hawk.com">safe-hawk.com</a></p>
-                            <p>Have a great week,</p>
-                            <p>SafeHawk team.</p>
+                            )} UTC.</p>
+                            <p>For more stats and insights, visit your dashboard: <a href="https://safe-hawk.com">safe-hawk.com</a></p>
+                            <p>Speak to you next Monday!<br />The SafeHawk Team 🦅</p>
                         </div>
                     `
 
@@ -118,7 +121,7 @@ const sendEmailsToAllContacts = async () => {
         for (const { protectedDataAddress, owner, content } of emailItems) {
             await Promise.race([
                 sendMail(protectedDataAddress, {
-                    subject: 'Health Factor report by SafeHawk',
+                    subject: `Weekly health update on ${shortenAddress(owner)}'s loans`,
                     content
                 }).then(() => console.log(`Email sent to ${owner}`)),
                 new Promise((_, reject) =>
