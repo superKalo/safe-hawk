@@ -10,7 +10,7 @@ const sendMail = async (
         content: string
     }
 ) => {
-    const provider = getWeb3Provider(process.env.PRIVATE_KEY)
+    const provider = getWeb3Provider(process.env.PRIVATE_KEY!)
     await provider.getNonce()
     const web3mail = new IExecWeb3mail(provider)
 
@@ -24,8 +24,7 @@ const sendMail = async (
         emailContent: content,
         contentType: 'text/html',
         senderName: 'SafeHawk',
-        // TODO: Top-up our account with RLC and use a production pool
-        workerpoolAddressOrEns: 'prod-v8-learn.main.pools.iexec.eth'
+        useVoucher: true
     })
 }
 
