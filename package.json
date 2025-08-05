@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "dependencies": {
-        "@iexec/dataprotector": "^2.0.0-beta.10",
-        "@iexec/web3mail": "1.1.1",
+        "@iexec/dataprotector": "2.0.0-beta.18",
+        "@iexec/web3mail": "1.4.0",
         "@radix-ui/react-toast": "^1.2.2",
         "@radix-ui/themes": "^3.1.4",
         "@rainbow-me/rainbowkit": "^2.2.0",

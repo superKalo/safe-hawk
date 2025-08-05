@@ -65,7 +65,7 @@ const fetchHealthFactorContent = async (owner: string) => {
 
 const sendEmailsToAllContacts = async () => {
     try {
-        const provider = getWeb3Provider(process.env.PRIVATE_KEY)
+        const provider = getWeb3Provider(process.env.PRIVATE_KEY!)
         const web3mail = new IExecWeb3mail(provider)
         const contactsList = await web3mail.fetchMyContacts({ isUserStrict: true })
 
@@ -113,17 +113,23 @@ const sendEmailsToAllContacts = async () => {
             }
         })
 
+        console.log('Preparing emails...')
+
         // Content can be calculated in parallel
         // while the emails must be sent sequentially to avoid rate limits
         // and nonce issues
         const emailItems = (await Promise.all(contentTasks)).filter(Boolean) as EmailItem[]
+
+        console.log(`Prepared ${emailItems.length} emails to send`)
 
         for (const { protectedDataAddress, owner, content } of emailItems) {
             await Promise.race([
                 sendMail(protectedDataAddress, {
                     subject: `Weekly health update on ${shortenAddress(owner)}'s loans`,
                     content
-                }).then(() => console.log(`Email sent to ${owner}`)),
+                }).then((response) =>
+                    console.log(`Email sent to ${owner}. TaskId: ${response.taskId}`)
+                ),
                 new Promise((_, reject) =>
                     setTimeout(() => reject(new Error('Email task timeout')), 30000)
                 )
