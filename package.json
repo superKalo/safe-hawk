@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "type": "module",
+    "homepage": "https://safe-hawk.com",
     "dependencies": {
         "@iexec/dataprotector": "2.0.0-beta.18",
         "@iexec/web3mail": "1.4.0",
