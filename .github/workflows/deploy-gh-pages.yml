@@ -38,6 +38,9 @@ jobs:
               env:
                   # Set the base URL for custom domain
                   PUBLIC_URL: https://safe-hawk.com
+                  # Environment variables for the React app
+                  REACT_APP_NEXT_PUBLIC_ALCHEMY_ID: ${{ secrets.REACT_APP_NEXT_PUBLIC_ALCHEMY_ID }}
+                  REACT_APP_EMAIL_ACCOUNT_ADDRESS: ${{ secrets.REACT_APP_EMAIL_ACCOUNT_ADDRESS }}
 
             - name: Setup Pages
               uses: actions/configure-pages@v4
