@@ -10,6 +10,10 @@
     @include sm {
         padding: 0 2rem 2rem;
     }
+
+    @include lg {
+        gap: 4rem;
+    }
 }
 
 .hero,
@@ -25,7 +29,7 @@
     align-items: stretch;
 
     @include lg {
-        min-height: min(47rem, calc(100vh - 7rem));
+        min-height: min(42rem, calc(100vh - 9rem));
         grid-template-columns: minmax(0, 1.55fr) minmax(20rem, 0.85fr);
     }
 }
@@ -53,7 +57,7 @@
     }
 
     @include xl {
-        padding: 5rem;
+        padding: 3.5rem;
     }
 }
 
@@ -74,6 +78,10 @@
     gap: 0.55rem;
     margin-bottom: 2.25rem;
     color: $secondaryText;
+
+    @include lg {
+        margin-bottom: 1.35rem;
+    }
 }
 
 .eyebrowDot {
@@ -89,6 +97,11 @@
     width: min(29rem, 92%);
     height: auto;
     margin-bottom: 2rem;
+
+    @include lg {
+        width: min(25rem, 88%);
+        margin-bottom: 1.35rem;
+    }
 }
 
 .title {
@@ -97,6 +110,11 @@
     line-height: 0.98;
     letter-spacing: -0.055em;
     margin-bottom: 1.5rem;
+
+    @include lg {
+        margin-bottom: 1.1rem;
+        font-size: clamp(2.75rem, 5vw, 4.5rem);
+    }
 }
 
 .heroDescription {
@@ -104,6 +122,11 @@
     color: $secondaryText;
     font-size: clamp(1rem, 2vw, 1.15rem);
     line-height: 1.7;
+
+    @include lg {
+        font-size: 1.05rem;
+        line-height: 1.55;
+    }
 }
 
 .heroActions {
@@ -111,6 +134,10 @@
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 2rem;
+
+    @include lg {
+        margin-top: 1.5rem;
+    }
 }
 
 .primaryLink,
@@ -218,6 +245,10 @@
     @include md {
         padding: 2rem;
     }
+
+    @include lg {
+        padding: 1.5rem;
+    }
 }
 
 .recognitionHeader,
@@ -231,6 +262,10 @@
     padding-bottom: 1.25rem;
     color: rgba(255, 255, 255, 0.58);
     border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+
+    @include lg {
+        padding-bottom: 0.9rem;
+    }
 }
 
 .awardIntro {
@@ -253,6 +288,10 @@
         font-size: clamp(1.35rem, 2vw, 1.8rem);
         line-height: 1.08;
         letter-spacing: -0.035em;
+    }
+
+    @include lg {
+        margin: 0.9rem 0 0.75rem;
     }
 }
 
@@ -295,6 +334,11 @@
         font-size: 1.05rem;
         letter-spacing: -0.025em;
     }
+
+    @include lg {
+        min-height: 9.5rem;
+        padding: 0.85rem;
+    }
 }
 
 .iexecAward {
@@ -333,6 +377,14 @@
         height: 2.55rem;
         padding-top: 0.3rem;
     }
+
+    @include lg {
+        height: 2.75rem;
+
+        .icpAward & {
+            height: 2.25rem;
+        }
+    }
 }
 
 .awardEvent {
@@ -341,6 +393,10 @@
     font-size: 0.57rem;
     font-weight: 800;
     letter-spacing: 0.12em;
+
+    @include lg {
+        margin-top: 0.55rem;
+    }
 }
 
 .winnerLabel {
@@ -354,12 +410,22 @@
     font-weight: 800;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+
+    @include lg {
+        margin-top: 0.5rem;
+        padding: 0.3rem 0.5rem;
+    }
 }
 
 .teamPanel {
     margin-top: 1.25rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.13);
+
+    @include lg {
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+    }
 }
 
 .teamPanelHeader {
@@ -400,6 +466,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.55rem;
     margin-top: 1rem;
+
+    @include lg {
+        margin-top: 0.75rem;
+    }
 }
 
 .teamMember {
@@ -484,6 +554,10 @@
     color: rgba(255, 255, 255, 0.48);
     font-size: 0.68rem;
     line-height: 1.5;
+
+    @include lg {
+        padding-top: 0.75rem;
+    }
 }
 
 .story {
