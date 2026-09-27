@@ -3,159 +3,670 @@
 
 .home {
     background-color: $primaryBackground;
-    padding: 1rem;
+    padding: 0 1rem 1rem;
     font-family: $font-family;
-    display: flex;
-    flex-direction: column;
     gap: 5rem;
 
     @include sm {
+        padding: 0 2rem 2rem;
+    }
+}
+
+.hero,
+.story,
+.product {
+    @include container;
+}
+
+.hero {
+    min-height: calc(100vh - 7rem);
+    display: grid;
+    gap: 1rem;
+    align-items: stretch;
+
+    @include lg {
+        min-height: min(47rem, calc(100vh - 7rem));
+        grid-template-columns: minmax(0, 1.55fr) minmax(20rem, 0.85fr);
+    }
+}
+
+.heroCopy,
+.recognition {
+    border-radius: 1.25rem;
+    overflow: hidden;
+}
+
+.heroCopy {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2.25rem 1.5rem;
+    background: radial-gradient(circle at 90% 10%, rgba(245, 91, 66, 0.11), transparent 31%),
+        radial-gradient(circle at 10% 100%, rgba(150, 57, 243, 0.12), transparent 36%),
+        $secondaryBackground;
+    box-shadow: $box-shadow;
+
+    @include md {
+        padding: 4rem;
+    }
+
+    @include xl {
+        padding: 5rem;
+    }
+}
+
+.eyebrow,
+.sectionLabel,
+.videoHeader,
+.recognitionHeader,
+.liveIndicator {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    letter-spacing: 0.12em;
+    font-weight: 800;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 2.25rem;
+    color: $secondaryText;
+}
+
+.eyebrowDot {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: $primaryAccent;
+    box-shadow: 0 0 0 0.25rem rgba(245, 91, 66, 0.14);
+}
+
+.heroLogo {
+    width: min(29rem, 92%);
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+.title {
+    max-width: 46rem;
+    font-size: clamp(2.5rem, 6vw, 5.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+    margin-bottom: 1.5rem;
+}
+
+.heroDescription {
+    max-width: 43rem;
+    color: $secondaryText;
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    line-height: 1.7;
+}
+
+.heroActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.primaryLink,
+.secondaryLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border-radius: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+
+    &:hover {
+        transform: translateY(-2px);
+
+        .linkIcon {
+            transform: translate(2px, -2px);
+        }
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(150, 57, 243, 0.28);
+        outline-offset: 3px;
+    }
+}
+
+.primaryLink,
+.secondaryLink {
+    min-height: 3.25rem;
+    padding: 0.65rem 0.7rem 0.65rem 1.15rem;
+}
+
+.primaryLink {
+    color: $alternativeText;
+    background: $tertiaryBackground;
+
+    &:hover {
+        box-shadow: 0 12px 28px rgba(31, 16, 47, 0.2);
+    }
+}
+
+.secondaryLink {
+    color: $primaryText;
+    border: 1px solid rgba(82, 62, 101, 0.18);
+    background: rgba(255, 255, 255, 0.48);
+
+    &:hover {
+        background: #fff;
+    }
+}
+
+.linkIcon {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+    border-radius: 0.65rem;
+    color: currentColor;
+    background: rgba(255, 255, 255, 0.12);
+    transition: transform 180ms ease;
+
+    svg {
+        width: 1.15rem;
+        height: 1.15rem;
+    }
+
+    .secondaryLink & {
+        color: $primary;
+        background: rgba(150, 57, 243, 0.09);
+    }
+}
+
+.inlineLinkIcon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    transition: transform 180ms ease;
+}
+
+.recognition {
+    display: flex;
+    flex-direction: column;
+    min-height: 31rem;
+    padding: 1.5rem;
+    color: $alternativeText;
+    background: radial-gradient(circle at 100% 0%, rgba(245, 91, 66, 0.48), transparent 35%),
+        radial-gradient(circle at 0% 100%, rgba(150, 57, 243, 0.52), transparent 42%),
+        $tertiaryBackground;
+
+    @include md {
         padding: 2rem;
-        padding-top: 0;
+    }
+}
+
+.recognitionHeader,
+.videoHeader {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.recognitionHeader {
+    padding-bottom: 1.25rem;
+    color: rgba(255, 255, 255, 0.58);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.awardIntro {
+    margin: 1.35rem 0 1rem;
+
+    span,
+    strong {
+        display: block;
     }
 
-    .wrapper {
-        @include container;
-        min-height: 70vh;
-        display: flex;
+    span {
+        margin-bottom: 0.3rem;
+        color: rgba(255, 255, 255, 0.48);
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+    }
+
+    strong {
+        font-size: clamp(1.35rem, 2vw, 1.8rem);
+        line-height: 1.08;
+        letter-spacing: -0.035em;
+    }
+}
+
+.awards {
+    display: grid;
+    gap: 0.75rem;
+
+    @include sm {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.award {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 11rem;
+    padding: 1rem;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    color: $primaryText;
+
+    &::after {
+        content: '✦';
+        position: absolute;
+        z-index: -1;
+        top: -1.5rem;
+        right: -0.6rem;
+        font-size: 7rem;
+        line-height: 1;
+        opacity: 0.07;
+    }
+
+    strong {
+        display: block;
+        margin-top: 0.25rem;
+        font-size: 1.05rem;
+        letter-spacing: -0.025em;
+    }
+}
+
+.iexecAward {
+    border-color: rgba(255, 224, 37, 0.75);
+    background: linear-gradient(145deg, #fffce9 0%, #fff1a8 100%);
+
+    .winnerLabel {
+        color: #4d4100;
+        background: rgba(255, 215, 0, 0.32);
+    }
+}
+
+.icpAward {
+    border-color: rgba(237, 30, 121, 0.4);
+    background: linear-gradient(145deg, #fff8fc 0%, #eee9ff 100%);
+
+    .winnerLabel {
+        color: #64245f;
+        background: rgba(237, 30, 121, 0.1);
+    }
+}
+
+.awardLogo {
+    display: flex;
+    align-items: center;
+    height: 3.25rem;
+    margin-bottom: auto;
+
+    svg {
+        display: block;
+        width: auto;
+        height: 100%;
+    }
+
+    .icpAward & {
+        height: 2.55rem;
+        padding-top: 0.3rem;
+    }
+}
+
+.awardEvent {
+    margin-top: 0.75rem;
+    color: rgba(32, 16, 47, 0.48);
+    font-size: 0.57rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.winnerLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.65rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.61rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.teamPanel {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.teamPanelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    > span {
+        color: rgba(255, 255, 255, 0.46);
+        font-size: 0.65rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+    }
+
+    a {
+        display: inline-flex;
         align-items: center;
-        background-color: $secondaryBackground;
-        border-radius: $border-radius;
-        box-shadow: $box-shadow;
-        flex-direction: column;
-        margin: 0 auto;
-        padding: calc($global-spacing * 5) $global-spacing;
-
-        .banner {
-            border-radius: $border-radius;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: flex-start;
-            gap: 3rem;
-
-            @include lg {
-                max-width: 50%;
-                padding: 3rem;
-            }
-
-            .content {
-                display: flex;
-                flex-direction: column;
-
-                .poweredBy {
-                    margin-bottom: $global-spacing;
-                    border-radius: $border-radius;
-                    background-color: $tertiaryBackground;
-                    padding: calc($global-spacing / 2) $global-spacing;
-                    width: fit-content;
-
-                    span {
-                        font-size: $font-size-small-subtitle;
-                        color: $secondaryText;
-                        font-weight: $font-weight-bold;
-                    }
-                }
-
-                .title {
-                    font-size: 2rem;
-                    font-weight: $font-weight-bold;
-                    margin-bottom: 1rem;
-
-                    @include lg {
-                        font-size: 2rem;
-                    }
-                }
-
-                .description {
-                    font-size: 1rem;
-                    color: $secondaryText;
-                    margin-bottom: $global-spacing;
-                    line-height: 1.5;
-                }
-            }
-
-            .inputContainer {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                width: 100%;
-
-                .inputLabel {
-                    color: $secondaryText;
-                    font-size: 1rem;
-                    font-weight: 600;
-                    line-height: 19.36px;
-                    margin-left: 0.25rem;
-                }
-            }
-        }
-
-        .imageContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .image {
-                width: 70%;
-                margin-top: 2rem;
-            }
-        }
-
-        @include lg {
-            padding: 2rem;
-            flex-direction: row;
-
-            .banner {
-                .content {
-                    .title {
-                        font-size: 2rem;
-                    }
-                }
-            }
-        }
-        @include xl {
-            .banner {
-                .content {
-                    .title {
-                        font-size: 3rem;
-                        margin-bottom: 1.5rem;
-                    }
-                }
-            }
-        }
-    }
-
-    .features {
-        @include container;
-        padding-bottom: 2rem;
-        display: flex;
-        flex-direction: column;
-
-        @include lg {
-            flex-direction: row;
-        }
-    }
-
-    .button {
-        background-color: $primary;
-        color: $alternativeText;
-        padding: calc($global-spacing * 1.5) calc($global-spacing * 2);
-        border-radius: $border-radius;
-        border: none;
-        cursor: pointer;
-        font-size: 1rem;
-        min-width: 8rem;
-        align-items: center;
-        justify-content: center;
-        transition: 0.3s all ease-in-out;
+        gap: 0.25rem;
+        color: rgba(255, 255, 255, 0.76);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: color 180ms ease;
 
         &:hover {
-            background-color: #6c5ce7;
-        }
+            color: $alternativeText;
 
-        &:active {
-            background-color: #7a42b2;
+            .inlineLinkIcon {
+                transform: translate(1px, -1px);
+            }
         }
+    }
+}
+
+.teamList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+}
+
+.teamMember {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: 0.45rem;
+    min-width: 0;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    color: $alternativeText;
+    background: rgba(255, 255, 255, 0.055);
+    text-decoration: none;
+    transition:
+        transform 180ms ease,
+        background-color 180ms ease,
+        border-color 180ms ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.09);
+    }
+
+    img {
+        grid-row: 1 / span 2;
+        width: 2.75rem;
+        height: 2.75rem;
+        object-fit: cover;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    strong {
+        overflow: hidden;
+        align-self: end;
+        font-size: 0.68rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    > span {
+        grid-column: 2;
+        align-self: start;
+        margin-top: 0.18rem;
+        color: rgba(255, 255, 255, 0.48);
+        font-size: 0.62rem;
+    }
+}
+
+.deploymentNote {
+    margin-top: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.story {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+
+    @include lg {
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 4rem;
+    }
+}
+
+.sectionLabel {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: $primary;
+}
+
+.storyCopy,
+.sectionHeading {
+    h2 {
+        color: $primaryText;
+        font-size: clamp(2rem, 4vw, 3.25rem);
+        line-height: 1.05;
+        letter-spacing: -0.045em;
+    }
+}
+
+.storyCopy {
+    p {
+        margin-top: 1.25rem;
+        color: $secondaryText;
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        width: fit-content;
+        margin-top: 1.5rem;
+        padding-bottom: 0.18rem;
+        border-bottom: 1px solid rgba(82, 62, 101, 0.32);
+        color: $primaryText;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+            color 180ms ease,
+            border-color 180ms ease;
+
+        &:hover {
+            color: $primary;
+            border-color: $primary;
+
+            .inlineLinkIcon {
+                transform: translate(1px, -1px);
+            }
+        }
+    }
+}
+
+.videoCard {
+    padding: 0.85rem;
+    border: 1px solid $secondaryBorder;
+    border-radius: 1.25rem;
+    background: $secondaryBackground;
+    box-shadow: $box-shadow;
+
+    @include sm {
+        padding: 1rem;
+    }
+}
+
+.videoHeader {
+    padding: 0.35rem 0.25rem 1rem;
+    color: $secondaryText;
+}
+
+.videoFrame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.8rem;
+    background: $tertiaryBackground;
+
+    iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sectionHeading {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    > p {
+        max-width: 36rem;
+        color: $secondaryText;
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    @include lg {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 3rem;
+    }
+}
+
+.features {
+    display: grid;
+    gap: 0.75rem;
+
+    > div {
+        margin: 0;
+        border: 1px solid $secondaryBorder;
+        background: #fff;
+    }
+
+    @include md {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.tryIt {
+    display: grid;
+    gap: 1.5rem;
+    align-items: end;
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    color: $alternativeText;
+    background: $tertiaryBackground;
+
+    h3 {
+        margin: 0.7rem 0 0.4rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        letter-spacing: -0.03em;
+    }
+
+    p {
+        color: rgba(255, 255, 255, 0.62);
+        line-height: 1.6;
+    }
+
+    @include md {
+        grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.85fr);
+        padding: 2rem;
+    }
+}
+
+.liveIndicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+
+    span {
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background: #66df91;
+        box-shadow: 0 0 0 0.2rem rgba(102, 223, 145, 0.13);
+    }
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.inputLabel {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-left: 0.25rem;
+}
+
+.inputBox {
+    width: 100%;
+}
+
+.button {
+    min-height: 3.25rem;
+    padding: 0.85rem 1.25rem;
+    border: 0;
+    border-radius: 999px;
+    color: $alternativeText;
+    background: $primary;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: background-color 180ms ease;
+
+    &:hover {
+        background: #7f2ccc;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primaryLink,
+    .secondaryLink,
+    .storyCopy a,
+    .teamPanelHeader a,
+    .teamMember,
+    .linkIcon,
+    .inlineLinkIcon {
+        transition: none;
     }
 }

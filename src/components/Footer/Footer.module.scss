@@ -46,6 +46,23 @@
                 }
             }
 
+            .sourceLink {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.3rem;
+                text-decoration: none;
+
+                .linkIcon {
+                    width: 1rem;
+                    height: 1rem;
+                    transition: transform 180ms ease;
+                }
+
+                &:hover .linkIcon {
+                    transform: translate(1px, -1px);
+                }
+            }
+
             &:hover {
                 opacity: 1;
             }
