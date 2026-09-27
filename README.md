@@ -1,6 +1,43 @@
-# Getting Started with Create React App
+# SafeHawk
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+SafeHawk is a privacy-first DeFi loan monitor built in 72 hours by
+[team goodmorning](https://goodmorning.dev) at ETHSofia 2024. The project won
+prizes from both iExec and Internet Computer (ICP).
+
+The product combines a live AAVE position dashboard, privacy-preserving weekly
+email updates powered by iExec DataProtector and Web3Mail, and a browser
+extension for real-time health-factor monitoring.
+
+![SafeHawk - award-winning ETHSofia 2024 project](public/link-preview.webp)
+
+## Project status
+
+SafeHawk is no longer under active product development. The repository and
+website are maintained as a working archive of the hackathon build, the product
+thinking, and the team behind it. The dashboard and view-only flow remain
+available, but the project's primary purpose is now to preserve and present the
+work rather than operate it as an actively developed product.
+
+The hackathon deployment originally ran on ICP. The website is now hosted on
+GitHub Pages.
+
+-   [Live project](https://safe-hawk.com)
+-   [Original ETHSofia 2024 submission on DoraHacks](https://dorahacks.io/buidl/17699/)
+-   [Original demo](https://www.youtube.com/watch?v=RH0YMLWF-KQ)
+
+## Team
+
+-   [@superKalo](https://github.com/superKalo) - Engineering
+-   [@PetromirDev](https://github.com/PetromirDev) - Engineering
+-   [@sonytooo](https://github.com/sonytooo) - Engineering
+-   [@kKaskak](https://github.com/kKaskak) - Engineering
+-   [@MiroslavKr](https://github.com/MiroslavKr) - Design
+-   [@alesinka](https://github.com/alesinka) - Design Advisor
+
+The frontend is a React and TypeScript application originally bootstrapped with
+[Create React App](https://github.com/facebook/create-react-app). The technical
+operations and development instructions below are kept for anyone running or
+studying the project.
 
 ## Web3Mail operations
 

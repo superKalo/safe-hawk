@@ -125,7 +125,7 @@ const Home = () => {
                 <aside className={styles.recognition} aria-label="Hackathon recognition">
                     <div className={styles.recognitionHeader}>
                         <span>ETHSOFIA 2024</span>
-                        <span>17–19 OCT 2024</span>
+                        <span>17-19 OCT 2024</span>
                     </div>
                     <div className={styles.awardIntro}>
                         <span>HACKATHON RECOGNITION</span>
@@ -199,7 +199,7 @@ const Home = () => {
                     <h2>It started with a problem we had ourselves.</h2>
                     <p>
                         Take a DeFi loan, overcollateralize it and move on with your week. Then the
-                        market shifts while you are not looking — and your health factor is suddenly
+                        market shifts while you are not looking - and your health factor is suddenly
                         much closer to liquidation than you thought.
                     </p>
                     <p>

@@ -62,7 +62,7 @@
   </text>
 
   <text x="820" y="82" fill="white" fill-opacity="0.6" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">ETHSOFIA 2024</text>
-  <text x="1134" y="82" fill="white" fill-opacity="0.6" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1" text-anchor="end">17–19 OCT 2024</text>
+  <text x="1134" y="82" fill="white" fill-opacity="0.6" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1" text-anchor="end">17-19 OCT 2024</text>
   <path d="M820 106H1134" stroke="white" stroke-opacity="0.14"/>
 
   <text x="820" y="139" fill="white" fill-opacity="0.48" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">HACKATHON RECOGNITION</text>
