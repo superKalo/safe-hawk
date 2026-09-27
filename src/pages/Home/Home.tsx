@@ -125,11 +125,11 @@ const Home = () => {
 
                 <aside className={styles.recognition} aria-label="Hackathon recognition">
                     <div className={styles.recognitionHeader}>
-                        <span>HACKATHON RECOGNITION</span>
+                        <span>ETHSOFIA 2024</span>
                         <span>17–19 OCT 2024</span>
                     </div>
                     <div className={styles.awardIntro}>
-                        <span>ETHSOFIA 2024</span>
+                        <span>HACKATHON RECOGNITION</span>
                         <strong>Awarded by two ecosystems.</strong>
                     </div>
                     <div className={styles.awards}>
@@ -189,7 +189,7 @@ const Home = () => {
                         </div>
                     </div>
                     <p className={styles.deploymentNote}>
-                        Originally deployed on ICP for the hackathon.
+                        * originally deployed on ICP for the hackathon.
                     </p>
                 </aside>
             </section>

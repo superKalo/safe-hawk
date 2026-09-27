@@ -10,10 +10,32 @@
         justify-content: space-between;
         align-items: center;
 
-        .logo {
+        .brand {
             height: 2.5rem;
-            width: auto;
+            padding: 0;
+            overflow: hidden;
+            display: inline-flex;
+            flex: 0 0 auto;
+            border: 0;
+            background: transparent;
             cursor: pointer;
+
+            &:focus-visible {
+                border-radius: 0.4rem;
+                outline: 3px solid rgba(150, 57, 243, 0.24);
+                outline-offset: 0.25rem;
+            }
+        }
+
+        .logo {
+            width: auto;
+            height: 100%;
+            max-width: none;
+            flex: 0 0 auto;
+        }
+
+        .markOnly {
+            width: 2.1rem;
         }
 
         .actions {
@@ -23,8 +45,13 @@
         }
 
         @include lg {
-            .logo {
+            .brand {
                 height: 4rem;
+            }
+
+            .markOnly {
+                width: 2.55rem;
+                height: 3.1rem;
             }
         }
     }
