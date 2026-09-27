@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { IExecDataProtectorCore } from '@iexec/dataprotector'
-import { useEffect, useState } from 'react'
 import { useAccount, useChainId, useConnectorClient, useSwitchChain } from 'wagmi'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
-import { useMemo } from 'react'
 import { type Config } from '@wagmi/core'
 import type { Client, Chain, Transport, Account } from 'viem'
 import toast from 'react-hot-toast'
 import { config } from '@/wagmiConfig'
+import { IEXEC_CHAIN_ID, WEB3MAIL_APP_WHITELIST_ADDRESS } from '@/common/web3mail'
 import styles from './EmailCard.module.scss'
 import classNames from 'classnames'
 import { isExtension } from '@/helpers/browserApi'
@@ -50,7 +49,7 @@ export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
     return useMemo(() => (client ? clientToSigner(client) : undefined), [client])
 }
 
-const isValidEmail = (email: string) => {
+const isInvalidEmail = (email: string) => {
     return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
@@ -59,31 +58,32 @@ const EmailCard = () => {
     const { address, isConnected } = useAccount()
     const { switchChain } = useSwitchChain({ config })
     const signer = useEthersSigner({ chainId })
-    const dataProtectorCore = new IExecDataProtectorCore(signer)
+    const dataProtectorCore = useMemo(
+        () => (signer ? new IExecDataProtectorCore(signer) : null),
+        [signer]
+    )
+    const senderAddress = process.env.REACT_APP_EMAIL_ACCOUNT_ADDRESS
     const [email, setEmail] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [isAccessGivenToEmail, setIsAccessGivenToEmail] = useState(false)
     const [isInProgress, setIsInProgress] = useState(false)
     const [hasProtectedEmail, setHasProtectedEmail] = useState(false)
 
-    const switchToIExecChain = () => {
+    const switchToArbitrum = async () => {
         try {
-            return switchChain({ chainId: 134 })
+            await switchChain({ chainId: IEXEC_CHAIN_ID })
         } catch (e) {
             console.error(e)
-            toast.error('Failed to switch chain')
+            toast.error('Failed to switch to Arbitrum')
         }
     }
 
     const saveEmailAsProtected = async () => {
-        if (isValidEmail(email)) {
+        if (isInvalidEmail(email)) {
             toast.error('Please enter a valid email address')
             return
         }
-
-        switchToIExecChain()
-
-        if (chainId !== 134) return
+        if (chainId !== IEXEC_CHAIN_ID || !dataProtectorCore) return
 
         setIsInProgress(true)
         try {
@@ -102,42 +102,41 @@ const EmailCard = () => {
         }
     }
 
-    const getProtectedData = async () => {
-        if (chainId !== 134) return
-        setIsInProgress(true)
-        try {
-            const result = await dataProtectorCore.getProtectedData({
-                owner: address,
-                requiredSchema: {
-                    email: 'string'
-                }
-            })
+    const getProtectedData = useCallback(async () => {
+        if (chainId !== IEXEC_CHAIN_ID || !dataProtectorCore || !address) return []
 
-            return result.filter(({ name }) => name === 'safeHawkNotificationEmail')
-        } catch (e) {
-            console.error(e)
-            toast.error('Failed to get email address')
-        } finally {
-            setIsInProgress(false)
-        }
-    }
+        const result = await dataProtectorCore.getProtectedData({
+            owner: address,
+            requiredSchema: {
+                email: 'string'
+            }
+        })
+
+        return result.filter(({ name }) => name === 'safeHawkNotificationEmail')
+    }, [address, chainId, dataProtectorCore])
 
     const grantAccess = async () => {
-        const protectedData = await getProtectedData()
-        if (chainId !== 134) {
-            toast.error('Please switch to iExec chain')
+        if (chainId !== IEXEC_CHAIN_ID || !dataProtectorCore) {
+            toast.error('Please switch to Arbitrum')
             return
         }
-        if (!protectedData?.length) {
-            toast.error('Internal error. Please contact support')
+        if (!senderAddress) {
+            toast.error('Email sender is not configured')
             return
         }
+
         setIsInProgress(true)
         try {
+            const protectedData = await getProtectedData()
+            if (!protectedData.length) {
+                throw new Error('Protected email was not found')
+            }
+
             const access = await dataProtectorCore.grantAccess({
                 protectedData: protectedData[0].address,
-                authorizedApp: '0x781482C39CcE25546583EaC4957Fb7Bf04C277D2',
-                authorizedUser: process.env.REACT_APP_EMAIL_ACCOUNT_ADDRESS,
+                authorizedApp: WEB3MAIL_APP_WHITELIST_ADDRESS,
+                authorizedUser: senderAddress,
+                pricePerAccess: 0,
                 numberOfAccess: 100000
             })
 
@@ -153,26 +152,29 @@ const EmailCard = () => {
     }
 
     const revokeAccess = async () => {
-        const protectedData = await getProtectedData()
-        if (chainId !== 134) {
-            toast.error('Please switch to iExec chain')
+        if (chainId !== IEXEC_CHAIN_ID || !dataProtectorCore) {
+            toast.error('Please switch to Arbitrum')
             return
         }
-        if (!protectedData?.length) {
-            toast.error('Internal error. Please contact support')
+        if (!senderAddress) {
+            toast.error('Email sender is not configured')
             return
         }
+
         setIsInProgress(true)
         try {
-            const access = await dataProtectorCore.revokeAllAccess({
+            const protectedData = await getProtectedData()
+            if (!protectedData.length) {
+                throw new Error('Protected email was not found')
+            }
+
+            await dataProtectorCore.revokeAllAccess({
                 protectedData: protectedData[0].address,
-                authorizedApp: '0x781482C39CcE25546583EaC4957Fb7Bf04C277D2',
-                authorizedUser: process.env.REACT_APP_EMAIL_ACCOUNT_ADDRESS
+                authorizedApp: WEB3MAIL_APP_WHITELIST_ADDRESS,
+                authorizedUser: senderAddress
             })
 
-            setIsAccessGivenToEmail(!access)
-
-            return access
+            setIsAccessGivenToEmail(false)
         } catch (e) {
             console.error(e)
             toast.error('Failed to revoke email address access')
@@ -182,36 +184,57 @@ const EmailCard = () => {
     }
 
     useEffect(() => {
-        setIsLoading(true)
-        if (chainId !== 134) {
+        if (chainId !== IEXEC_CHAIN_ID || !dataProtectorCore || !address || !senderAddress) {
+            setHasProtectedEmail(false)
+            setIsAccessGivenToEmail(false)
             setIsLoading(false)
             return
         }
 
-        getProtectedData().then((data) => {
-            setHasProtectedEmail(data?.length > 0)
+        let cancelled = false
+        setIsLoading(true)
 
-            if (!data?.length) {
-                setIsAccessGivenToEmail(false)
-                setIsLoading(false)
-                return
-            }
+        const loadEmailConfiguration = async () => {
+            try {
+                const data = await getProtectedData()
+                if (cancelled) return
 
-            dataProtectorCore
-                .getGrantedAccess({
+                setHasProtectedEmail(data.length > 0)
+                if (!data.length) {
+                    setIsAccessGivenToEmail(false)
+                    return
+                }
+
+                const access = await dataProtectorCore.getGrantedAccess({
                     protectedData: data[0].address,
-                    authorizedApp: '0x781482C39CcE25546583EaC4957Fb7Bf04C277D2',
-                    authorizedUser: process.env.REACT_APP_EMAIL_ACCOUNT_ADDRESS,
+                    authorizedApp: WEB3MAIL_APP_WHITELIST_ADDRESS,
+                    authorizedUser: senderAddress,
                     isUserStrict: true
                 })
-                .then((access) => {
+
+                if (!cancelled) {
                     setIsAccessGivenToEmail(access.count > 0)
-                })
-                .finally(() => {
+                }
+            } catch (e) {
+                console.error(e)
+                if (!cancelled) {
+                    setHasProtectedEmail(false)
+                    setIsAccessGivenToEmail(false)
+                    toast.error('Failed to load email configuration')
+                }
+            } finally {
+                if (!cancelled) {
                     setIsLoading(false)
-                })
-        })
-    }, [chainId])
+                }
+            }
+        }
+
+        loadEmailConfiguration()
+
+        return () => {
+            cancelled = true
+        }
+    }, [address, chainId, dataProtectorCore, getProtectedData, senderAddress])
 
     if (!isConnected) {
         return (
@@ -238,17 +261,17 @@ const EmailCard = () => {
         )
     }
 
-    if (chainId !== 134) {
+    if (chainId !== IEXEC_CHAIN_ID) {
         return (
             <EmailCardWrapper>
                 <div className={styles.content}>
-                    <h3 className={styles.title}>Switch to iExec chain</h3>
+                    <h3 className={styles.title}>Switch to Arbitrum</h3>
                     <p className={styles.text}>
-                        Please switch to iExec chain to manage email updates.
+                        Web3Mail permissions and protected email data are managed on Arbitrum.
                     </p>
                 </div>
-                <button onClick={switchToIExecChain} className={styles.button}>
-                    Switch to iExec chain
+                <button onClick={switchToArbitrum} className={styles.button}>
+                    Switch to Arbitrum
                 </button>
             </EmailCardWrapper>
         )

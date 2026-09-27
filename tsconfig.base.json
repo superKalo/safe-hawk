@@ -5,6 +5,7 @@
         },
         "allowJs": true,
         "checkJs": false,
+        "skipLibCheck": true,
         "noEmitOnError": false,
         "noEmit": true,
         "baseUrl": "."

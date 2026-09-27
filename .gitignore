@@ -27,5 +27,6 @@ yarn-error.log*
 
 # Other
 server/config/service-key.json
+.vscode/
 
 /dist

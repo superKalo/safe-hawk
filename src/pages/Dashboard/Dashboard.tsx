@@ -55,14 +55,10 @@ const Dashboard = () => {
                         )}
                     </>
                 ) : (
-                    <>
-                        {!aaveData && chainIdWithFallback === 134 && (
-                            <Placeholder
-                                title="Connected to iExec Sidechain"
-                                text="iExec is not supported by AAVE. Please switch to a supported network to view your AAVE data."
-                            />
-                        )}
-                    </>
+                    <Placeholder
+                        title="Unsupported network"
+                        text="Please switch to a supported AAVE network to view your positions."
+                    />
                 )}
 
                 {/* TODO: Other network handling */}
