@@ -25,15 +25,6 @@ GitHub Pages.
 -   [Original ETHSofia 2024 submission on DoraHacks](https://dorahacks.io/buidl/17699/)
 -   [Original demo](https://www.youtube.com/watch?v=RH0YMLWF-KQ)
 
-## Team
-
--   [@superKalo](https://github.com/superKalo) - Engineering
--   [@PetromirDev](https://github.com/PetromirDev) - Engineering
--   [@sonytooo](https://github.com/sonytooo) - Engineering
--   [@kKaskak](https://github.com/kKaskak) - Engineering
--   [@MiroslavKr](https://github.com/MiroslavKr) - Design
--   [@alesinka](https://github.com/alesinka) - Design Advisor
-
 The frontend is a React and TypeScript application originally bootstrapped with
 [Create React App](https://github.com/facebook/create-react-app). The technical
 operations and development instructions below are kept for anyone running or
