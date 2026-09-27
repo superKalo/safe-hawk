@@ -40,8 +40,18 @@ $secondaryLinearGradient: linear-gradient(90deg, #cc9efa 0%, #faaa9e 100%);
     scrollbar-width: thin;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: $primaryBackground;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 }
 
 @mixin container {

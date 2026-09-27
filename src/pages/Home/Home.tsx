@@ -1,7 +1,14 @@
 import { Feature, Input, Page } from '@/components'
 import styles from './Home.module.scss'
 import classNames from 'classnames'
-import { AlertsIcon, ExternalLinkIcon, MainLogo, MonitoringIcon, UpdatesIcon } from '@/assets/icons'
+import {
+    AlertsIcon,
+    ExternalLinkIcon,
+    MainLogo,
+    MonitoringIcon,
+    PlayIcon,
+    UpdatesIcon
+} from '@/assets/icons'
 import { ReactComponent as IExecLogo } from '@/assets/images/networks/iexec.svg'
 import { ReactComponent as IcpLogo } from '@/assets/images/networks/icp.svg'
 import { motion } from 'framer-motion'
@@ -14,8 +21,6 @@ import { isAddress } from 'viem'
 import toast from 'react-hot-toast'
 
 const DORAHACKS_URL = 'https://dorahacks.io/buidl/17699/'
-const DEMO_URL = 'https://youtu.be/RH0YMLWF-KQ'
-
 const features = [
     {
         icon: MonitoringIcon,
@@ -109,16 +114,9 @@ const Home = () => {
                                 <ExternalLinkIcon />
                             </span>
                         </a>
-                        <a
-                            className={styles.secondaryLink}
-                            href={DEMO_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                        <a className={styles.secondaryLink} href="#the-story">
+                            <PlayIcon className={styles.playIcon} aria-hidden="true" />
                             <span>Watch the original demo</span>
-                            <span className={styles.linkIcon} aria-hidden="true">
-                                <ExternalLinkIcon />
-                            </span>
                         </a>
                     </div>
                 </motion.div>
@@ -194,7 +192,7 @@ const Home = () => {
                 </aside>
             </section>
 
-            <section className={styles.story}>
+            <section className={styles.story} id="the-story">
                 <div className={styles.storyCopy}>
                     <span className={styles.sectionLabel}>THE STORY</span>
                     <h2>It started with a problem we had ourselves.</h2>

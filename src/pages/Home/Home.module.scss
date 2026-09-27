@@ -144,6 +144,9 @@
 .primaryLink,
 .secondaryLink {
     min-height: 3.25rem;
+}
+
+.primaryLink {
     padding: 0.65rem 0.7rem 0.65rem 1.15rem;
 }
 
@@ -158,11 +161,15 @@
 
 .secondaryLink {
     color: $primaryText;
-    border: 1px solid rgba(82, 62, 101, 0.18);
-    background: rgba(255, 255, 255, 0.48);
+    padding: 0.65rem 0.25rem;
+    border-radius: 0.35rem;
 
     &:hover {
-        background: #fff;
+        color: $primary;
+
+        .playIcon {
+            transform: scale(1.08);
+        }
     }
 }
 
@@ -181,11 +188,14 @@
         width: 1.15rem;
         height: 1.15rem;
     }
+}
 
-    .secondaryLink & {
-        color: $primary;
-        background: rgba(150, 57, 243, 0.09);
-    }
+.playIcon {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex: 0 0 auto;
+    color: $primary;
+    transition: transform 180ms ease;
 }
 
 .inlineLinkIcon {
@@ -477,6 +487,7 @@
 }
 
 .story {
+    scroll-margin-top: 2rem;
     display: grid;
     gap: 2rem;
     align-items: center;
@@ -693,6 +704,7 @@
     .teamPanelHeader a,
     .teamMember,
     .linkIcon,
+    .playIcon,
     .inlineLinkIcon {
         transition: none;
     }
