@@ -28,6 +28,7 @@ type AaveDataContextProps = {
     viewOnlyChainId: number | null
     updateViewOnlyAddress: (address: string) => void
     updateViewOnlyChainId: (chainId: number) => void
+    clearViewOnly: () => void
 }
 
 export const AaveDataContext = createContext<AaveDataContextProps | undefined>(undefined)
@@ -37,13 +38,13 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
     const { address, isConnected, connector, isConnecting, isReconnecting, isDisconnected } =
         useAccount()
 
-    const [viewOnlyAddress, setViewOnlyAddress] = useState<string | null>(() => {
+    const [viewOnlyAddress, setViewOnlyAddress] = useState<string>(() => {
         if (!isExtension) {
             const address = localStorage.getItem('viewOnlyAddress')
             return address || ''
         }
 
-        return null
+        return ''
     })
     const [viewOnlyChainId, setViewOnlyChainId] = useState<number | null>(() => {
         if (!isExtension) {
@@ -63,6 +64,18 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
     const [error, setError] = useState<Error | null>(null)
 
     useEffect(() => {
+        if (
+            !accountAddress ||
+            !chainId ||
+            !network?.aaveLendingPoolAddress ||
+            !PROVIDERS[chainId]
+        ) {
+            setAaveData(null)
+            setError(null)
+            setIsLoading(false)
+            return
+        }
+
         setIsLoading(true)
 
         getAaveUserContractDataFormatted(
@@ -115,6 +128,20 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
         }
     }
 
+    const clearViewOnly = () => {
+        setViewOnlyAddress('')
+        setViewOnlyChainId(null)
+        setAaveData(null)
+        setError(null)
+
+        if (!isExtension) {
+            localStorage.removeItem('viewOnlyAddress')
+            localStorage.removeItem('viewOnlyChainId')
+        } else if (chrome) {
+            chrome.storage.local.remove(['viewOnlyAddress', 'viewOnlyChainId'])
+        }
+    }
+
     return (
         <AaveDataContext.Provider
             value={{
@@ -126,6 +153,7 @@ export const AaveDataProvider = ({ children }: { children: ReactNode }) => {
                 updateViewOnlyAddress,
                 viewOnlyAddress,
                 updateViewOnlyChainId,
+                clearViewOnly,
                 aaveData,
                 error,
                 chainIdWithFallback: chainId || 1,

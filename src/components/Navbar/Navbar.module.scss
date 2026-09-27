@@ -44,6 +44,38 @@
             gap: 1rem;
         }
 
+        .exitViewOnly {
+            min-height: 2.75rem;
+            padding: 0.65rem 0.9rem;
+            border: 1px solid rgba(82, 62, 101, 0.18);
+            border-radius: 0.8rem;
+            color: $primaryText;
+            background: rgba(255, 255, 255, 0.58);
+            font-size: 0.875rem;
+            font-weight: 700;
+            transition:
+                transform 180ms ease,
+                color 180ms ease,
+                border-color 180ms ease,
+                background-color 180ms ease;
+
+            &:hover {
+                transform: translateY(-1px);
+                color: $primary;
+                border-color: rgba(150, 57, 243, 0.32);
+                background: #fff;
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+
+            &:focus-visible {
+                outline: 3px solid rgba(150, 57, 243, 0.22);
+                outline-offset: 3px;
+            }
+        }
+
         @include lg {
             .brand {
                 height: 4rem;
@@ -58,6 +90,23 @@
 
     .hideOnMobile {
         display: none;
+    }
+
+    @media (max-width: 575px) {
+        .container {
+            .viewOnlyBrand {
+                width: 2.1rem;
+            }
+
+            .actions {
+                gap: 0.5rem;
+            }
+
+            .exitViewOnly {
+                padding: 0.6rem 0.7rem;
+                white-space: nowrap;
+            }
+        }
     }
 
     @include sm {
