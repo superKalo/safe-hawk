@@ -388,20 +388,20 @@
 .teamList {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.45rem;
-    margin-top: 0.9rem;
+    gap: 0.55rem;
+    margin-top: 1rem;
 }
 
 .teamMember {
     display: grid;
-    grid-template-columns: 2.75rem minmax(0, 1fr);
+    grid-template-columns: 3.5rem minmax(0, 1fr);
     grid-template-rows: auto auto;
     align-items: center;
-    column-gap: 0.45rem;
+    column-gap: 0.6rem;
     min-width: 0;
-    padding: 0.5rem;
+    padding: 0.6rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.75rem;
+    border-radius: 0.9rem;
     color: $alternativeText;
     background: rgba(255, 255, 255, 0.055);
     text-decoration: none;
@@ -418,8 +418,8 @@
 
     img {
         grid-row: 1 / span 2;
-        width: 2.75rem;
-        height: 2.75rem;
+        width: 3.5rem;
+        height: 3.5rem;
         object-fit: cover;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.08);
@@ -428,7 +428,7 @@
     strong {
         overflow: hidden;
         align-self: end;
-        font-size: 0.68rem;
+        font-size: 0.73rem;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -438,7 +438,33 @@
         align-self: start;
         margin-top: 0.18rem;
         color: rgba(255, 255, 255, 0.48);
-        font-size: 0.62rem;
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .teamMember {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto auto;
+        justify-items: center;
+        row-gap: 0.3rem;
+        padding: 0.75rem 0.5rem;
+        text-align: center;
+
+        img {
+            grid-row: auto;
+        }
+
+        strong {
+            max-width: 100%;
+            align-self: auto;
+        }
+
+        > span {
+            grid-column: 1;
+            align-self: auto;
+            margin-top: 0;
+        }
     }
 }
 
