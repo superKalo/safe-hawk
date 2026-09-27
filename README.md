@@ -2,6 +2,67 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Web3Mail operations
+
+SafeHawk uses `@iexec/web3mail` on Arbitrum One (chain ID `42161`) to create
+privacy-preserving email tasks. Users protect their email and grant access to
+the SafeHawk sender from the dashboard.
+
+Copy `env.sample` to `.env` and configure:
+
+-   `PRIVATE_KEY` and `REACT_APP_EMAIL_ACCOUNT_ADDRESS` for the same sender wallet.
+-   `IEXEC_RPC_URL` with an Arbitrum One RPC URL or `arbitrum-mainnet`.
+-   The maximum accepted prices in nRLC. The default workerpool ceiling is
+    `100000000` nRLC (`0.1 RLC`) per email task.
+
+The sender needs:
+
+1. ETH on Arbitrum One for transaction gas.
+2. RLC on Arbitrum One.
+3. RLC deposited into its iExec protocol account before sending paid tasks.
+
+After buying RLC into the sender wallet, deposit the desired amount into the
+iExec protocol account (this sends an Arbitrum transaction):
+
+```bash
+yarn web3mail:deposit 1
+```
+
+Run the read-only status check before sending:
+
+```bash
+yarn web3mail:status
+```
+
+It reports the sender address, ETH/RLC wallet balances, deposited and locked
+RLC, contact count, live app/workerpool prices, and whether the configured price
+ceiling can cover them.
+
+Protected email data from the retired Bellecour network is not available on
+Arbitrum. After deploying the updated frontend, existing users must open the
+dashboard once and save/grant access to their email again.
+
+The AAVE dashboard uses unauthenticated public RPC endpoints defined in
+`src/common/networks.ts`.
+
+Run the email job manually, including outside Monday:
+
+```bash
+FORCE_SEND_EMAILS=1 ./bin/send-emails.sh
+```
+
+Logs are structured JSON. A successful `web3mail.task.created` event means the
+task was accepted on-chain; it does not yet guarantee email delivery. Inspect a
+task with:
+
+```bash
+npx iexec task debug <TASK_ID> --chain arbitrum-mainnet
+npx iexec task debug <TASK_ID> --chain arbitrum-mainnet --logs --wallet-file <wallet.json>
+```
+
+When running from cron, persist stdout and stderr in the platform logging system
+or redirect them to a rotated log file.
+
 ## Available Scripts
 
 In the project directory, you can run:

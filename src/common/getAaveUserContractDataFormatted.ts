@@ -26,8 +26,6 @@ const getAaveUserContractDataFormatted = async (
     // Change: get the block only once, not for every account
     const block = await provider.getBlockNumber()
 
-    provider.destroy()
-
     if (
         accountData.healthFactor ===
             115792089237316195423570985008687907853269984665640564039457584007913129639935n ||

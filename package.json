@@ -5,8 +5,9 @@
     "type": "module",
     "homepage": "https://safe-hawk.com",
     "dependencies": {
-        "@iexec/dataprotector": "2.0.0-beta.18",
-        "@iexec/web3mail": "1.4.0",
+        "@iexec/dataprotector": "2.0.0-beta.27",
+        "@iexec/web3mail": "2.0.1",
+        "@multiformats/multiaddr": "12.5.1",
         "@radix-ui/react-toast": "^1.2.2",
         "@radix-ui/themes": "^3.1.4",
         "@rainbow-me/rainbowkit": "^2.2.0",
@@ -28,11 +29,12 @@
         "classnames": "^2.5.1",
         "connectkit": "^1.8.2",
         "copy-webpack-plugin": "^12.0.2",
-        "ethers": "^6.13.4",
+        "ethers": "^6.15.0",
         "express": "^4.21.1",
         "framer-motion": "^11.11.9",
         "graphql": "^16.9.0",
         "html-webpack-plugin": "^5.6.2",
+        "iexec": "^9.0.1",
         "node-cron": "^3.0.3",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
@@ -59,7 +61,10 @@
         "eject": "react-scripts eject",
         "start-server:dev": "NODE_ENV=development tsx watch --tsconfig ./tsconfig.server.json server/index.ts",
         "start-server": "NODE_ENV=production tsx --tsconfig ./tsconfig.server.json server/index.ts",
-        "build-extension": "webpack --config webpack.config.js"
+        "build-extension": "webpack --config webpack.config.js",
+        "typecheck": "tsc --project tsconfig.json --noEmit && tsc --project tsconfig.server.json --noEmit",
+        "web3mail:status": "tsx --tsconfig ./tsconfig.server.json server/scripts/web3mailStatus.ts",
+        "web3mail:deposit": "tsx --tsconfig ./tsconfig.server.json server/scripts/web3mailDeposit.ts"
     },
     "browserslist": {
         "production": [
@@ -92,5 +97,9 @@
         "ts-node": "^10.9.2",
         "typescript-eslint": "^8.9.0",
         "url-loader": "^4.1.1"
-    }
+    },
+    "resolutions": {
+        "ethers": "6.17.0"
+    },
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

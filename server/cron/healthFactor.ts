@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
-import sendMail from '../services/mail'
-import { getWeb3Provider, IExecWeb3mail } from '@iexec/web3mail'
+import sendMail, { getWeb3mailConnection } from '../services/mail'
 import getAaveUserContractDataFormatted from '../../src/common/getAaveUserContractDataFormatted'
 import { NETWORKS } from '../../src/common/networks'
 import { PROVIDERS } from '../../src/common/providers'
+import getWeb3mailConfig from '../config/web3mail'
+import { logError, logInfo } from '../services/logger'
+import { IEXEC_CHAIN_ID } from '../../src/common/web3mail'
 
 type EmailItem = {
     protectedDataAddress: string
@@ -64,26 +65,47 @@ const fetchHealthFactorContent = async (owner: string) => {
 }
 
 const sendEmailsToAllContacts = async () => {
-    try {
-        const provider = getWeb3Provider(process.env.PRIVATE_KEY!)
-        const web3mail = new IExecWeb3mail(provider)
-        const contactsList = await web3mail.fetchMyContacts({ isUserStrict: true })
+    const { provider, web3mail } = getWeb3mailConnection()
+    const { expectedSenderAddress, sendDelayMs, workerpoolMaxPrice } = getWeb3mailConfig()
+    const senderAddress = await provider.getAddress()
 
-        console.log(`Found ${contactsList.length} contacts`)
+    if (
+        expectedSenderAddress &&
+        expectedSenderAddress.toLowerCase() !== senderAddress.toLowerCase()
+    ) {
+        throw new Error(
+            `Configured sender address ${expectedSenderAddress} does not match PRIVATE_KEY address ${senderAddress}`
+        )
+    }
 
-        const contentTasks = contactsList.map(async ({ address: protectedDataAddress, owner }) => {
-            try {
-                const healthFactorContent = await fetchHealthFactorContent(owner)
+    logInfo('web3mail.run.started', {
+        chainId: IEXEC_CHAIN_ID,
+        senderAddress,
+        workerpoolMaxPriceNRLC: workerpoolMaxPrice
+    })
 
-                if (!healthFactorContent) {
-                    console.log(`No Health Factor data for ${owner}. Skipping email.`)
-                    return
-                }
+    const contactsList = await web3mail.fetchMyContacts({ isUserStrict: true })
 
-                const date = new Date()
-                const utcTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
+    logInfo('web3mail.contacts.fetched', {
+        count: contactsList.length
+    })
 
-                const content = `
+    const contentTasks = contactsList.map(async ({ address: protectedDataAddress, owner }) => {
+        try {
+            const healthFactorContent = await fetchHealthFactorContent(owner)
+
+            if (!healthFactorContent) {
+                logInfo('web3mail.contact.skipped', {
+                    owner,
+                    reason: 'no-health-factor-data'
+                })
+                return
+            }
+
+            const date = new Date()
+            const utcTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
+
+            const content = `
                         <div style="font-family: trebuchet ms, sans-serif">
                             <p>Hey!</p>
                             ${healthFactorContent}
@@ -102,46 +124,64 @@ const sendEmailsToAllContacts = async () => {
                         </div>
                     `
 
-                return {
-                    protectedDataAddress,
-                    owner,
-                    content
-                }
-            } catch (error) {
-                console.error(`Failed to process contact ${owner}:`, error)
-                return null
+            return {
+                protectedDataAddress,
+                owner,
+                content
             }
-        })
+        } catch (error) {
+            logError('web3mail.contact.prepare_failed', error, { owner })
+            return null
+        }
+    })
 
-        console.log('Preparing emails...')
+    // Content can be calculated in parallel while task creation remains sequential
+    // to prevent nonce collisions on the sender wallet.
+    const emailItems = (await Promise.all(contentTasks)).filter(Boolean) as EmailItem[]
 
-        // Content can be calculated in parallel
-        // while the emails must be sent sequentially to avoid rate limits
-        // and nonce issues
-        const emailItems = (await Promise.all(contentTasks)).filter(Boolean) as EmailItem[]
+    logInfo('web3mail.emails.prepared', {
+        count: emailItems.length
+    })
 
-        console.log(`Prepared ${emailItems.length} emails to send`)
+    let tasksCreated = 0
+    let tasksFailed = 0
 
-        for (const { protectedDataAddress, owner, content } of emailItems) {
-            await Promise.race([
-                sendMail(protectedDataAddress, {
-                    subject: `Weekly health update on ${shortenAddress(owner)}'s loans`,
-                    content
-                }).then((response) =>
-                    console.log(`Email sent to ${owner}. TaskId: ${response.taskId}`)
-                ),
-                new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error('Email task timeout')), 30000)
-                )
-            ])
-            // Delay the email sending to avoid reaching rate limits
-            await delay(2000)
+    for (const { protectedDataAddress, owner, content } of emailItems) {
+        try {
+            const response = await sendMail(protectedDataAddress, {
+                subject: `Weekly health update on ${shortenAddress(owner)}'s loans`,
+                content
+            })
+
+            tasksCreated += 1
+            logInfo('web3mail.task.created', {
+                owner,
+                taskId: response.taskId,
+                dealId: response.dealId
+            })
+        } catch (error) {
+            tasksFailed += 1
+            logError('web3mail.task.create_failed', error, {
+                owner,
+                protectedDataAddress
+            })
         }
 
-        console.log('All emails have been processed.')
-    } catch (error) {
-        console.error('Error in sendEmailsToAllContacts:', error)
+        if (sendDelayMs > 0) {
+            await delay(sendDelayMs)
+        }
     }
+
+    const summary = {
+        contacts: contactsList.length,
+        prepared: emailItems.length,
+        tasksCreated,
+        tasksFailed
+    }
+
+    logInfo('web3mail.run.completed', summary)
+
+    return summary
 }
 
 export default sendEmailsToAllContacts
