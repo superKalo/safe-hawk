@@ -6,12 +6,15 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0 $global-spacing;
+    gap: 0.25rem;
+    padding: 0.3rem;
     width: 100%;
-    box-shadow: $box-shadow;
-    border-radius: $border-radius;
-    border: 1px solid transparent;
+    border: 1px solid $secondaryBorder;
+    border-radius: 0.85rem;
+    background: $secondaryBackground;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
 
     label {
         font-size: 1rem;
@@ -20,15 +23,16 @@
     }
 
     input {
-        height: 3.5rem;
+        height: 3rem;
+        min-width: 0;
         width: 100%;
-        padding: 0 1rem;
-        font-size: 1rem;
+        padding: 0 0.75rem;
+        font-size: 0.925rem;
         outline: none;
         border: none;
-        border-radius: $border-radius;
+        border-radius: 0.65rem;
         color: $primaryText;
-        background: $secondaryBackground;
+        background: transparent;
 
         &:disabled {
             opacity: 0.5;
@@ -41,22 +45,50 @@
         }
     }
 
-    .icon {
-        cursor: pointer;
-        opacity: 0.7;
-        transition: 0.3s all ease-in-out;
+    .submitButton {
+        min-height: 2.75rem;
+        padding: 0.65rem 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        flex: 0 0 auto;
+        border: 0;
+        border-radius: 0.65rem;
+        color: $alternativeText;
+        background: $tertiaryBackground;
+        font-size: 0.8rem;
+        font-weight: 700;
+        white-space: nowrap;
+        transition:
+            transform 180ms ease,
+            background-color 180ms ease,
+            box-shadow 180ms ease;
 
         &:hover {
-            transform: scale(1.1);
-            opacity: 1;
+            transform: translateY(-1px);
+            background: #2b173e;
+            box-shadow: 0 8px 18px rgba(31, 16, 47, 0.16);
+        }
+
+        &:focus-visible {
+            outline: 3px solid rgba(150, 57, 243, 0.24);
+            outline-offset: 2px;
         }
     }
 
+    .icon {
+        width: 0.9rem;
+        height: 1rem;
+        color: currentColor;
+    }
+
     &:hover {
-        border: 1px solid rgba(218, 202, 235, 1);
+        border-color: rgba(150, 57, 243, 0.24);
     }
 
     &:focus-within {
-        border: 1px solid rgba(218, 202, 235, 1);
+        border-color: rgba(150, 57, 243, 0.4);
+        box-shadow: 0 0 0 3px rgba(150, 57, 243, 0.08);
     }
 }

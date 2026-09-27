@@ -10,10 +10,32 @@
         justify-content: space-between;
         align-items: center;
 
-        .logo {
+        .brand {
             height: 2.5rem;
-            width: auto;
+            padding: 0;
+            overflow: hidden;
+            display: inline-flex;
+            flex: 0 0 auto;
+            border: 0;
+            background: transparent;
             cursor: pointer;
+
+            &:focus-visible {
+                border-radius: 0.4rem;
+                outline: 3px solid rgba(150, 57, 243, 0.24);
+                outline-offset: 0.25rem;
+            }
+        }
+
+        .logo {
+            width: auto;
+            height: 100%;
+            max-width: none;
+            flex: 0 0 auto;
+        }
+
+        .markOnly {
+            width: 2.1rem;
         }
 
         .actions {
@@ -22,15 +44,69 @@
             gap: 1rem;
         }
 
+        .exitViewOnly {
+            min-height: 2.75rem;
+            padding: 0.65rem 0.9rem;
+            border: 1px solid rgba(82, 62, 101, 0.18);
+            border-radius: 0.8rem;
+            color: $primaryText;
+            background: rgba(255, 255, 255, 0.58);
+            font-size: 0.875rem;
+            font-weight: 700;
+            transition:
+                transform 180ms ease,
+                color 180ms ease,
+                border-color 180ms ease,
+                background-color 180ms ease;
+
+            &:hover {
+                transform: translateY(-1px);
+                color: $primary;
+                border-color: rgba(150, 57, 243, 0.32);
+                background: #fff;
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+
+            &:focus-visible {
+                outline: 3px solid rgba(150, 57, 243, 0.22);
+                outline-offset: 3px;
+            }
+        }
+
         @include lg {
-            .logo {
+            .brand {
                 height: 4rem;
+            }
+
+            .markOnly {
+                width: 2.55rem;
+                height: 3.1rem;
             }
         }
     }
 
     .hideOnMobile {
         display: none;
+    }
+
+    @media (max-width: 575px) {
+        .container {
+            .viewOnlyBrand {
+                width: 2.1rem;
+            }
+
+            .actions {
+                gap: 0.5rem;
+            }
+
+            .exitViewOnly {
+                padding: 0.6rem 0.7rem;
+                white-space: nowrap;
+            }
+        }
     }
 
     @include sm {

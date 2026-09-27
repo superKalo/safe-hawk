@@ -1,69 +1,164 @@
 @import '@/styles/sizes.scss';
 @import '@/styles/global.scss';
 .footer {
-    background-color: $tertiaryBackground;
-    padding: $global-spacing;
+    position: relative;
+    overflow: hidden;
+    padding: 2.5rem 1.25rem;
+    color: $alternativeText;
+    background: radial-gradient(circle at 12% 120%, rgba(150, 57, 243, 0.18), transparent 34%),
+        radial-gradient(circle at 88% -30%, rgba(245, 91, 66, 0.13), transparent 34%),
+        $tertiaryBackground;
 
     .content {
         @include container;
         display: flex;
-        justify-content: space-between;
         flex-direction: column;
-        align-items: center;
-
-        .hr {
-            height: 1px;
-            width: 2rem;
-            background-color: $secondaryText;
-            margin: 1rem 0;
-        }
-
-        .label {
-            font-size: 0.875rem;
-            font-weight: 400;
-            color: $alternativeText;
-            line-height: 1.5rem;
-            padding: $global-spacing;
-            text-align: left;
-            transition: 0.3s all ease-in-out;
-            opacity: 0.7;
-
-            span {
-                font-size: 0.875rem;
-                font-weight: 600;
-                line-height: 1.5rem;
-                text-align: left;
-            }
-
-            a {
-                text-decoration: underline;
-                color: inherit;
-
-                &:hover,
-                &:active,
-                &:visited {
-                    color: inherit;
-                }
-            }
-
-            &:hover {
-                opacity: 1;
-            }
-        }
+        gap: 2rem;
 
         @include lg {
             flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}
 
-            .label {
-                padding: 0;
-            }
+.madeWithLove {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
 
-            .hr {
-                height: 2rem;
-                width: 1px;
-                background-color: $secondaryText;
-                margin: 1rem 0;
+    > span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    a {
+        position: relative;
+        color: rgba(255, 255, 255, 0.76);
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
+        text-decoration: none;
+        transition:
+            color 180ms ease,
+            opacity 180ms ease;
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -0.2rem;
+            left: 0;
+            height: 1px;
+            background: currentColor;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition:
+                opacity 180ms ease,
+                transform 180ms ease;
+        }
+
+        &:hover {
+            color: $alternativeText;
+
+            &::after {
+                opacity: 0.7;
+                transform: scaleX(1);
             }
         }
+    }
+}
+
+.heart {
+    display: inline-block;
+    font-size: 0.95em;
+    filter: drop-shadow(0 3px 8px rgba(245, 91, 66, 0.32));
+    transform-origin: center;
+}
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+
+    a {
+        min-height: 2.7rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.65rem 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        border-radius: 0.75rem;
+        color: rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.055);
+        font-size: 0.78rem;
+        font-weight: 650;
+        text-decoration: none;
+        transition:
+            color 180ms ease,
+            border-color 180ms ease,
+            background-color 180ms ease,
+            transform 180ms ease;
+
+        &:hover {
+            color: $alternativeText;
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.09);
+            transform: translateY(-1px);
+        }
+    }
+}
+
+.prizeNote {
+    padding-left: 0.55rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 0.68rem;
+    font-weight: 600;
+}
+
+.sourceLink {
+    .githubIcon {
+        width: 1.1rem;
+        height: 1.1rem;
+        flex: 0 0 auto;
+    }
+
+    .linkIcon {
+        width: 0.78rem;
+        height: 0.78rem;
+        opacity: 0.65;
+        transition: transform 180ms ease;
+    }
+
+    &:hover .linkIcon {
+        transform: translate(1px, -1px);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .madeWithLove:hover .heart {
+        animation: heartbeat 700ms ease-in-out;
+    }
+}
+
+@keyframes heartbeat {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    35% {
+        transform: scale(1.18) rotate(-4deg);
+    }
+    65% {
+        transform: scale(1.08) rotate(3deg);
     }
 }

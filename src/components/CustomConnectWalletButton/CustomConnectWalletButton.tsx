@@ -9,18 +9,19 @@ const CustomConnectWalletButton = ({ className }: { className?: string }) => {
             {({ isConnected, isConnecting, show, address }) => {
                 return (
                     <button
+                        type="button"
                         className={classNames(styles.connectWalletButton, className)}
                         onClick={show}
                     >
                         {isConnected ? (
                             <div className={styles.walletAddress}>
-                                <img src={WalletPreview} className={styles.walletPreview} />
+                                <img src={WalletPreview} className={styles.walletPreview} alt="" />
                                 {address.slice(0, 6)}...{address.slice(-4)}
                             </div>
                         ) : isConnecting ? (
                             'Connecting...'
                         ) : (
-                            'Connect Wallet'
+                            'Connect wallet'
                         )}
                     </button>
                 )
