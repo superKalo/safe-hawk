@@ -21,6 +21,7 @@ const Placeholder = ({ title, text }: { title: string; text: string }) => {
 const Dashboard = () => {
     const { aaveData, isLoading, error, chainIdWithFallback } = useAAVEDataProvider()
     const isNetworkSupported = NETWORKS.some((network) => network.chainId === chainIdWithFallback)
+    const selectedNetwork = NETWORKS.find((network) => network.chainId === chainIdWithFallback)
 
     return (
         <Page className={styles.wrapper}>
@@ -43,8 +44,8 @@ const Dashboard = () => {
                         )}
                         {!aaveData && !error && !isLoading && (
                             <Placeholder
-                                title="No AAVE data found"
-                                text="You don't have any AAVE positions."
+                                title={`No AAVE positions on ${selectedNetwork?.name || 'this network'}`}
+                                text="You may have positions on another network. Use the network selector above to check."
                             />
                         )}
                         {!aaveData && error && !isLoading && (

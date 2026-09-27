@@ -2,10 +2,9 @@
 @import '@/styles/global.scss';
 
 .wrapper {
+    flex: 1 0 auto;
     padding: $global-spacing;
     padding-bottom: 4rem;
-    overflow-y: auto;
-    min-height: 82vh;
 
     .container {
         @include container;
@@ -45,6 +44,13 @@
 
         .placeholderTitle {
             margin-bottom: 0.5rem;
+        }
+
+        .placeholderText {
+            max-width: 34rem;
+            padding: 0 1rem;
+            line-height: 1.5;
+            text-align: center;
         }
     }
     .content {
