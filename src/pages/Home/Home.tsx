@@ -262,6 +262,7 @@ const Home = () => {
                                 name="walletAddressInput"
                                 className={styles.inputBox}
                                 placeholder="0x"
+                                submitLabel="Open dashboard"
                                 onSubmit={handleSubmitAddress}
                                 defaultValue={viewOnlyAddress}
                             />

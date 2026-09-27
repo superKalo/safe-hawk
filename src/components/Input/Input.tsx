@@ -8,10 +8,11 @@ type Props = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'> & {
     name: string
     label?: string
     small?: boolean
+    submitLabel?: string
     onSubmit?: (value: string) => void
 }
 
-const Input = ({ name, className, label, small, onSubmit, ...props }: Props) => {
+const Input = ({ name, className, label, small, submitLabel, onSubmit, ...props }: Props) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const handleSubmit = useCallback(() => {
@@ -33,7 +34,17 @@ const Input = ({ name, className, label, small, onSubmit, ...props }: Props) => 
         >
             {label ? <label htmlFor={name}>{label}</label> : null}
             <input ref={inputRef} id={name} name={name} onKeyDown={handleKeyDown} {...props} />
-            <ArrowIcon className={styles.icon} onClick={handleSubmit} />
+            {onSubmit ? (
+                <button
+                    type="button"
+                    className={styles.submitButton}
+                    onClick={handleSubmit}
+                    aria-label={submitLabel || 'Submit'}
+                >
+                    {submitLabel ? <span>{submitLabel}</span> : null}
+                    <ArrowIcon className={styles.icon} aria-hidden="true" />
+                </button>
+            ) : null}
         </motion.div>
     )
 }

@@ -11,3 +11,4 @@ export { ReactComponent as VeryBadHealthScore } from './very-bad-health-score.sv
 export { ReactComponent as ChevronDownIcon } from './chevron-down-icon.svg'
 export { ReactComponent as ExternalLinkIcon } from './external-link-icon.svg'
 export { ReactComponent as PlayIcon } from './play-icon.svg'
+export { ReactComponent as GithubIcon } from './github-icon.svg'
