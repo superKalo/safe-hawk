@@ -95,7 +95,8 @@ const Home = () => {
                     </div>
                     <MainLogo className={styles.heroLogo} aria-label="SafeHawk" />
                     <h1 className={classNames(styles.title, styles.gradientText)}>
-                        Built in 72 hours. Awarded by iExec &amp; ICP.
+                        Built in 72 hours. Awarded by
+                        <br /> iExec &amp; ICP.
                     </h1>
                     <p className={styles.heroDescription}>
                         SafeHawk is the privacy-first DeFi loan monitor created by team goodmorning

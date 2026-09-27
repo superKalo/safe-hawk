@@ -1,0 +1,91 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="headline" x1="74" y1="272" x2="680" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9639F3"/>
+      <stop offset="1" stop-color="#F55B42"/>
+    </linearGradient>
+    <linearGradient id="dark-panel" x1="798" y1="56" x2="1150" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A153E"/>
+      <stop offset="0.7" stop-color="#1F102F"/>
+      <stop offset="1" stop-color="#35164A"/>
+    </linearGradient>
+    <linearGradient id="iexec-card" x1="818" y1="190" x2="971" y2="370" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDEB"/>
+      <stop offset="1" stop-color="#FFF0A0"/>
+    </linearGradient>
+    <linearGradient id="icp-card" x1="984" y1="190" x2="1137" y2="370" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9FD"/>
+      <stop offset="1" stop-color="#EEE8FF"/>
+    </linearGradient>
+    <radialGradient id="left-warm" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(720 72) rotate(132) scale(340 320)">
+      <stop stop-color="#F55B42" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#F55B42" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="left-purple" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(72 600) rotate(-42) scale(410 360)">
+      <stop stop-color="#9639F3" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#9639F3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="right-warm" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1155 40) rotate(132) scale(245 230)">
+      <stop stop-color="#F55B42" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#F55B42" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="panel-shadow" x="10" y="16" width="1176" height="606" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#D2CCD9" flood-opacity="0.38"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#FAF8FC"/>
+
+  <g filter="url(#panel-shadow)">
+    <rect x="36" y="36" width="730" height="558" rx="30" fill="#F5F0FA"/>
+    <rect x="36" y="36" width="730" height="558" rx="30" fill="url(#left-warm)"/>
+    <rect x="36" y="36" width="730" height="558" rx="30" fill="url(#left-purple)"/>
+    <rect x="790" y="36" width="374" height="558" rx="30" fill="url(#dark-panel)"/>
+    <rect x="790" y="36" width="374" height="558" rx="30" fill="url(#right-warm)"/>
+  </g>
+
+  <circle cx="82" cy="91" r="5" fill="#F55B42"/>
+  <circle cx="82" cy="91" r="10" fill="#F55B42" fill-opacity="0.12"/>
+  <text x="102" y="97" fill="#523E65" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="1.8">ETHSOFIA 2024 · AWARD-WINNING HACKATHON PROJECT</text>
+
+  <image href="logo.png" x="72" y="122" width="100" height="100" preserveAspectRatio="xMidYMid meet"/>
+  <text x="190" y="193" fill="#20102F" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="62" font-weight="700" letter-spacing="-2">SafeHawk</text>
+
+  <text x="74" y="305" fill="url(#headline)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="-3.6">Built in 72 hours.</text>
+  <text x="74" y="377" fill="url(#headline)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="-3.6">Awarded by</text>
+  <text x="74" y="449" fill="url(#headline)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="-3.6">iExec &amp; ICP.</text>
+
+  <text x="78" y="516" fill="#523E65" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="21" font-weight="400">The privacy-first DeFi loan monitor built by</text>
+  <text x="78" y="547" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="21">
+    <tspan fill="#20102F" font-weight="700">team goodmorning</tspan>
+    <tspan fill="#523E65" font-weight="400"> at ETHSofia 2024.</tspan>
+  </text>
+
+  <text x="820" y="82" fill="white" fill-opacity="0.6" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">ETHSOFIA 2024</text>
+  <text x="1134" y="82" fill="white" fill-opacity="0.6" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1" text-anchor="end">17–19 OCT 2024</text>
+  <path d="M820 106H1134" stroke="white" stroke-opacity="0.14"/>
+
+  <text x="820" y="139" fill="white" fill-opacity="0.48" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">HACKATHON RECOGNITION</text>
+  <text x="820" y="174" fill="white" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="29" font-weight="700" letter-spacing="-1.2">Two prize-winning builds.</text>
+
+  <rect x="820" y="196" width="150" height="190" rx="18" fill="url(#iexec-card)" stroke="#FFE025"/>
+  <circle cx="850" cy="229" r="21" fill="#1E2033"/>
+  <image href="../src/assets/images/networks/iexec.svg" x="829" y="208" width="42" height="42"/>
+  <text x="840" y="301" fill="#20102F" fill-opacity="0.48" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.3">ETHSOFIA 2024</text>
+  <text x="840" y="330" fill="#20102F" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="20" font-weight="700">iExec Prize</text>
+  <rect x="840" y="346" width="103" height="24" rx="12" fill="#FFD700" fill-opacity="0.28"/>
+  <text x="851" y="362" fill="#4D4100" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="0.6">✦ PRIZE WINNER</text>
+
+  <rect x="984" y="196" width="150" height="190" rx="18" fill="url(#icp-card)" stroke="#ED1E79" stroke-opacity="0.42"/>
+  <image href="../src/assets/images/networks/icp.svg" x="1002" y="216" width="106" height="54" preserveAspectRatio="xMidYMid meet"/>
+  <text x="1004" y="301" fill="#20102F" fill-opacity="0.48" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.3">ETHSOFIA 2024</text>
+  <text x="1004" y="330" fill="#20102F" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="20" font-weight="700">ICP Prize</text>
+  <rect x="1004" y="346" width="106" height="24" rx="12" fill="#ED1E79" fill-opacity="0.1"/>
+  <text x="1014" y="362" fill="#64245F" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="0.6">✦ PRIZE WINNER</text>
+
+  <path d="M820 418H1134" stroke="white" stroke-opacity="0.14"/>
+  <text x="820" y="452" fill="white" fill-opacity="0.46" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">BUILT BY</text>
+  <text x="820" y="487" fill="white" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="24" font-weight="700">team goodmorning</text>
+  <text x="820" y="523" fill="white" fill-opacity="0.57" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14">6 people · 72 hours · 2 prizes</text>
+  <text x="820" y="558" fill="white" fill-opacity="0.42" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12">safe-hawk.com</text>
+</svg>
