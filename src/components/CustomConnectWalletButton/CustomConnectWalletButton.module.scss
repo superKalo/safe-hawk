@@ -1,24 +1,37 @@
 @import '@/styles/global.scss';
 
 .connectWalletButton {
-    background-color: $primary;
+    min-width: 7.75rem;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.8rem;
     color: $alternativeText;
-    padding: calc($global-spacing * 1.5) calc($global-spacing * 2);
-    border-radius: $border-radius;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    min-width: 8rem;
+    background: $tertiaryBackground;
+    box-shadow: 0 8px 20px rgba(31, 16, 47, 0.12);
+    font-size: 0.875rem;
+    font-weight: 700;
     align-items: center;
     justify-content: center;
-    transition: 0.3s all ease-in-out;
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
 
     &:hover {
-        background-color: #6c5ce7;
+        transform: translateY(-1px);
+        background: #2b173e;
+        box-shadow: 0 10px 24px rgba(31, 16, 47, 0.18);
     }
 
     &:active {
-        background-color: #7a42b2;
+        transform: translateY(0);
+        background: #352047;
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(150, 57, 243, 0.25);
+        outline-offset: 3px;
     }
 
     .walletAddress {
@@ -33,9 +46,5 @@
             width: 1.25rem;
             height: 1.25rem;
         }
-    }
-
-    @include lg {
-        min-width: 12rem;
     }
 }
