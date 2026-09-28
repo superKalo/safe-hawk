@@ -91,7 +91,7 @@ const Home = () => {
                 >
                     <div className={styles.eyebrow}>
                         <span className={styles.eyebrowDot} />
-                        ETHSOFIA 2024 · AWARD-WINNING HACKATHON PROJECT
+                        ETHSOFIA 2024 · AWARD-WINNING HACK
                     </div>
                     <MainLogo className={styles.heroLogo} aria-label="SafeHawk" />
                     <h1 className={classNames(styles.title, styles.gradientText)}>
@@ -99,9 +99,9 @@ const Home = () => {
                         <br /> iExec &amp; ICP.
                     </h1>
                     <p className={styles.heroDescription}>
-                        SafeHawk is the privacy-first DeFi loan monitor created by team goodmorning
-                        at ETHSofia 2024. The product is still live; this site now preserves the
-                        build, the thinking and the people behind it.
+                        SafeHawk is the privacy-first DeFi loan monitor, built at ETHSofia 2024.
+                        This site preserves the build, the thinking behind it, and the people who
+                        brought it to life.
                     </p>
                     <div className={styles.heroActions}>
                         <a
